@@ -2,6 +2,9 @@ package edu.utez.recetario.model;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "receta")
@@ -12,14 +15,23 @@ public class Receta {
     @Column(name = "idReceta")
     private Long idReceta;
 
-    @Column(name = "recetario")
+    @ManyToOne
+    @JoinColumn(name = "idRecetario")
     private Recetario recetario;
 
-    @Column(name = "categoria")
+    @ManyToOne
+    @JoinColumn(name = "idCategoria")
     private Categoria categoria;
 
-    @Column(name = "subCategoria")
+    @ManyToOne
+    @JoinColumn(name = "idSubCategoria")
     private SubCategoria subCategoria;
+
+    @OneToMany(mappedBy = "receta")
+    private Set<Comentario> comentario = new HashSet<>();
+
+    @OneToMany(mappedBy = "receta")
+    private Set<Calificacion> calificacion = new HashSet<>();
 
     @Column(name = "titulo")
     private String titulo;

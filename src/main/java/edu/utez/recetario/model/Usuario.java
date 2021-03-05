@@ -1,6 +1,10 @@
 package edu.utez.recetario.model;
 
 import javax.persistence.*;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "usuario")
@@ -11,8 +15,21 @@ public class Usuario {
     @Column(name = "idUsuario")
     private Long idUsuario;
 
-    @Column(name = "rol")
+    @ManyToOne
+    @JoinColumn(name = "idRol")
     private Rol rol;
+
+    @OneToMany(mappedBy = "usuario")
+    private Set<Recetario> recetario = new HashSet<>();
+
+    @ManyToMany(mappedBy = "usuarios")
+    private Set<Recetario> recetarios = new HashSet<>();
+
+    @OneToMany(mappedBy = "usuario")
+    private Set<Calificacion> calificacion = new HashSet<>();
+
+    @OneToMany(mappedBy = "usuario")
+    private Set<Comentario> comentario = new HashSet<>();
 
     @Column(name = "nombre")
     private String nombre;
@@ -26,19 +43,30 @@ public class Usuario {
     @Column(name = "correo")
     private String correo;
 
+    @Column(name = "password")
+    private String password;
+
     @Column(name = "usuario")
     private String usuario;
+
+    @Column(name = "fechaRegistro")
+    private Date fechaRegistro;
 
     public Usuario() {
     }
 
-    public Usuario(Rol rol, String nombre, String primerApellido, String segundoApellido, String correo, String usuario) {
+    public Usuario(Rol rol, Set<Recetario> recetario, Set<Calificacion> calificacion, Set<Comentario> comentario, String nombre, String primerApellido, String segundoApellido, String correo, String password, String usuario, Date fechaRegistro) {
         this.rol = rol;
+        this.recetario = recetario;
+        this.calificacion = calificacion;
+        this.comentario = comentario;
         this.nombre = nombre;
         this.primerApellido = primerApellido;
         this.segundoApellido = segundoApellido;
         this.correo = correo;
+        this.password = password;
         this.usuario = usuario;
+        this.fechaRegistro = fechaRegistro;
     }
 
     public Long getIdUsuario() {
@@ -55,6 +83,30 @@ public class Usuario {
 
     public void setRol(Rol rol) {
         this.rol = rol;
+    }
+
+    public Set<Recetario> getRecetario() {
+        return recetario;
+    }
+
+    public void setRecetario(Set<Recetario> recetario) {
+        this.recetario = recetario;
+    }
+
+    public Set<Calificacion> getCalificacion() {
+        return calificacion;
+    }
+
+    public void setCalificacion(Set<Calificacion> calificacion) {
+        this.calificacion = calificacion;
+    }
+
+    public Set<Comentario> getComentario() {
+        return comentario;
+    }
+
+    public void setComentario(Set<Comentario> comentario) {
+        this.comentario = comentario;
     }
 
     public String getNombre() {
@@ -89,11 +141,27 @@ public class Usuario {
         this.correo = correo;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public String getUsuario() {
         return usuario;
     }
 
     public void setUsuario(String usuario) {
         this.usuario = usuario;
+    }
+
+    public Date getFechaRegistro() {
+        return fechaRegistro;
+    }
+
+    public void setFechaRegistro(Date fechaRegistro) {
+        this.fechaRegistro = fechaRegistro;
     }
 }

@@ -1,6 +1,9 @@
 package edu.utez.recetario.model;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "subcategoria")
@@ -11,8 +14,12 @@ public class SubCategoria {
     @Column(name = "idSubCategoria")
     private Long idSubCategoria;
 
-    @Column(name = "categoria")
+    @ManyToOne
+    @JoinColumn(name = "idCategoria")
     private Categoria categoria;
+
+    @OneToMany(mappedBy = "subCategoria")
+    private Set<Receta> receta = new HashSet<>();
 
     @Column(name = "nombre")
     private String nombre;
@@ -20,8 +27,9 @@ public class SubCategoria {
     public SubCategoria() {
     }
 
-    public SubCategoria(Categoria categoria, String nombre) {
+    public SubCategoria(Categoria categoria, Set<Receta> receta, String nombre) {
         this.categoria = categoria;
+        this.receta = receta;
         this.nombre = nombre;
     }
 
@@ -39,6 +47,14 @@ public class SubCategoria {
 
     public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
+    }
+
+    public Set<Receta> getReceta() {
+        return receta;
+    }
+
+    public void setReceta(Set<Receta> receta) {
+        this.receta = receta;
     }
 
     public String getNombre() {

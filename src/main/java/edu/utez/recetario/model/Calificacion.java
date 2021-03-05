@@ -1,6 +1,7 @@
 package edu.utez.recetario.model;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "calificacion")
@@ -11,8 +12,13 @@ public class Calificacion {
     @Column(name = "idCalificacion")
     private Long idCalificacion;
 
-    @Column(name = "receta")
+    @ManyToOne
+    @JoinColumn(name = "idReceta")
     private Receta receta;
+
+    @ManyToOne
+    @JoinColumn(name = "idUsuario")
+    private Usuario usuario;
 
     @Column(name = "calificacion")
     private int calificacion;
@@ -20,8 +26,9 @@ public class Calificacion {
     public Calificacion() {
     }
 
-    public Calificacion(Receta receta, int calificacion) {
+    public Calificacion(Receta receta, Usuario usuario, int calificacion) {
         this.receta = receta;
+        this.usuario = usuario;
         this.calificacion = calificacion;
     }
 
@@ -39,6 +46,14 @@ public class Calificacion {
 
     public void setReceta(Receta receta) {
         this.receta = receta;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
     public int getCalificacion() {

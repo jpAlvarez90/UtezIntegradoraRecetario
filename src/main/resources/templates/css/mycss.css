@@ -1,0 +1,24 @@
+@font-face{
+font-family: IndieFlower;
+src: url(IndieFlower.ttf);
+}
+
+*{
+    font-family: IndieFlower;
+}
+
+.btn-circle.btn-lg {
+    width: 42px;
+    height: 39px;
+    text-align: center;
+    padding: 6px 0;
+    font-size: 15px;
+    line-height: 1.428571429;
+    border-radius: 18px;
+    margin-left: 10px;
+}
+
+.misRecetas {
+    width: 150px;
+    background-color: #FCE4EC;
+}
