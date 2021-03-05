@@ -12,19 +12,19 @@ public class Receta {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idReceta")
+    @Column(name = "idReceta", nullable = false)
     private Long idReceta;
 
     @ManyToOne
-    @JoinColumn(name = "idRecetario")
+    @JoinColumn(name = "recetario", nullable = false)
     private Recetario recetario;
 
     @ManyToOne
-    @JoinColumn(name = "idCategoria")
+    @JoinColumn(name = "categoria", nullable = false)
     private Categoria categoria;
 
     @ManyToOne
-    @JoinColumn(name = "idSubCategoria")
+    @JoinColumn(name = "subcategoria", nullable = false)
     private SubCategoria subCategoria;
 
     @OneToMany(mappedBy = "receta")
@@ -33,22 +33,22 @@ public class Receta {
     @OneToMany(mappedBy = "receta")
     private Set<Calificacion> calificacion = new HashSet<>();
 
-    @Column(name = "titulo")
+    @Column(name = "titulo", nullable = false)
     private String titulo;
 
-    @Column(name = "descripcion")
+    @Column(name = "descripcion", nullable = false)
     private String descripcion;
 
-    @Column(name = "ingredientes")
+    @Column(name = "ingredientes", nullable = false)
     private String ingredientes;
 
-    @Column(name = "pasos")
+    @Column(name = "pasos", nullable = false)
     private String pasos;
 
-    @Column(name = "imagenes")
+    @Column(name = "imagenes", nullable = false)
     private String imagenes;
 
-    @Column(name = "fechaPublicacion")
+    @Column(name = "fechaPublicacion", nullable = false)
     private Date fechaPublicacion;
 
     public Receta() {

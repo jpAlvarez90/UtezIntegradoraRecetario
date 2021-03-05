@@ -10,10 +10,10 @@ public class Categoria {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idCategoria")
+    @Column(name = "idCategoria", nullable = false)
     private Long idCategoria;
 
-    @Column(name = "nombre")
+    @Column(name = "nombre", nullable = false)
     private String nombre;
 
     @OneToMany(mappedBy = "categoria")

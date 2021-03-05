@@ -12,11 +12,11 @@ public class Usuario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idUsuario")
+    @Column(name = "idUsuario", nullable = false)
     private Long idUsuario;
 
     @ManyToOne
-    @JoinColumn(name = "idRol")
+    @JoinColumn(name = "rol", nullable = false)
     private Rol rol;
 
     @OneToMany(mappedBy = "usuario")
@@ -31,25 +31,25 @@ public class Usuario {
     @OneToMany(mappedBy = "usuario")
     private Set<Comentario> comentario = new HashSet<>();
 
-    @Column(name = "nombre")
+    @Column(name = "nombre", nullable = false)
     private String nombre;
 
-    @Column(name = "primerApellido")
+    @Column(name = "primerApellido", nullable = false)
     private String primerApellido;
 
-    @Column(name = "segundoApellido")
+    @Column(name = "segundoApellido", nullable = false)
     private String segundoApellido;
 
-    @Column(name = "correo")
+    @Column(name = "correo", nullable = false)
     private String correo;
 
-    @Column(name = "password")
+    @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name = "usuario")
+    @Column(name = "usuario", nullable = false)
     private String usuario;
 
-    @Column(name = "fechaRegistro")
+    @Column(name = "fechaRegistro", nullable = false)
     private Date fechaRegistro;
 
     public Usuario() {

@@ -11,17 +11,17 @@ public class SubCategoria {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idSubCategoria")
+    @Column(name = "idSubCategoria", nullable = false)
     private Long idSubCategoria;
 
     @ManyToOne
-    @JoinColumn(name = "idCategoria")
+    @JoinColumn(name = "categoria", nullable = false)
     private Categoria categoria;
 
     @OneToMany(mappedBy = "subCategoria")
     private Set<Receta> receta = new HashSet<>();
 
-    @Column(name = "nombre")
+    @Column(name = "nombre", nullable = false)
     private String nombre;
 
     public SubCategoria() {

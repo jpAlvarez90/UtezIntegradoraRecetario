@@ -11,25 +11,25 @@ public class Recetario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idRecetario")
+    @Column(name = "idRecetario", nullable = false)
     private Long idRecetario;
 
-    @ManyToOne
-    @JoinColumn(name = "idUsuario")
+    @ManyToOne  //idUsuario
+    @JoinColumn(name = "usuario", nullable = false)
     private Usuario usuario;
 
     @ManyToMany
     @JoinTable(
             name = "usuario_follow_recetario",
-            joinColumns = { @JoinColumn(name = "idRecetario") },
-            inverseJoinColumns = { @JoinColumn(name = "idUsuario") }
+            joinColumns = { @JoinColumn(name = "recetario", nullable = false) },
+            inverseJoinColumns = { @JoinColumn(name = "usuario", nullable = false) }
     )
     private Set<Usuario> usuarios = new HashSet<>();
 
     @OneToMany(mappedBy = "recetario")
     private Set<Receta> receta = new HashSet<>();
 
-    @Column(name = "nombre")
+    @Column(name = "nombre", nullable = false)
     private String nombre;
 
     public Recetario() {

@@ -9,19 +9,19 @@ public class Bitacora {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idBitacora")
+    @Column(name = "idBitacora", nullable = false)
     private Long idBitacora;
 
-    @Column(name = "fecha")
+    @Column(name = "fecha", nullable = false)
     private Date fecha;
 
-    @Column(name = "usuario")
+    @Column(name = "usuario", nullable = false)
     private String usuario;
 
-    @Column(name = "tabla")
+    @Column(name = "tabla", nullable = false)
     private String tabla;
 
-    @Column(name = "operacion")
+    @Column(name = "operacion", nullable = false)
     private String operacion;
 
     public Bitacora() {

@@ -10,10 +10,10 @@ public class Rol {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idRol")
+    @Column(name = "idRol", nullable = false)
     private Long idRol;
 
-    @Column(name = "rol")
+    @Column(name = "rol", nullable = false)
     private String rol;
 
     @OneToMany(mappedBy = "rol")

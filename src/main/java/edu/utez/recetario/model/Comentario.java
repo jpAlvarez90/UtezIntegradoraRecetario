@@ -9,18 +9,18 @@ public class Comentario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idComentario")
+    @Column(name = "idComentario", nullable = false)
     private Long idComentario;
 
     @ManyToOne
-    @JoinColumn(name = "idReceta")
+    @JoinColumn(name = "receta", nullable = false)
     private Receta receta;
 
     @ManyToOne
-    @JoinColumn(name = "idUsuario")
+    @JoinColumn(name = "usuario", nullable = false)
     private Usuario usuario;
 
-    @Column(name = "comentario")
+    @Column(name = "comentario", nullable = false)
     private String comentario;
 
     public Comentario() {

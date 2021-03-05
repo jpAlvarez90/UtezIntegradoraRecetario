@@ -9,18 +9,18 @@ public class Calificacion {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idCalificacion")
+    @Column(name = "idCalificacion", nullable = false)
     private Long idCalificacion;
 
     @ManyToOne
-    @JoinColumn(name = "idReceta")
+    @JoinColumn(name = "receta", nullable = false)
     private Receta receta;
 
     @ManyToOne
-    @JoinColumn(name = "idUsuario")
+    @JoinColumn(name = "usuario", nullable = false)
     private Usuario usuario;
 
-    @Column(name = "calificacion")
+    @Column(name = "calificacion", nullable = false)
     private int calificacion;
 
     public Calificacion() {
