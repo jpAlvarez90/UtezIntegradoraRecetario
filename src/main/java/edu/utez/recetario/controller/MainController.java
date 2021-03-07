@@ -12,4 +12,8 @@ public class MainController {
         return "index";
     }
 
+    @GetMapping("/test")
+    public String test(Model model) {
+        return "views/test";
+    }
 }
