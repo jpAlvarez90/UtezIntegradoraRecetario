@@ -33,4 +33,8 @@ public class MainController {
         return "views/misRecetarios";
     }
 
+    @GetMapping("/configuracion")
+    public String configuracion(Model model){
+        return "views/configuracion";
+    }
 }
