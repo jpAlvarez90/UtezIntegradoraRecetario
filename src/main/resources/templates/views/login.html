@@ -1,24 +1,53 @@
 <!DOCTYPE html>
-<html lang="en" xmls:th="http://thymeleaf.org">
+<html xmls:th="http://www.thymeleaf.com" lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Login</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title layout:title-pattern="$LAYOUT_TITLE - $CONTENT_TITLE">Recetario</title>
+    <!-- Login Css -->
+    <link href="/css/logincss.css" rel="stylesheet" type="text/css"/>
+    <!-- Import FA Icons  -->
+    <link href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" rel="stylesheet" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
 </head>
 <body>
 
-    <fieldset>
-        <legend>LOGIN</legend>
-        <form action="#" th:action="@{/login}" method="post">
-            <label> USERNAME </label>
-            <br>
-            <input type="text" name="username">
-            <br>
-            <label> PASSWORD </label>
-            <input type="password" name="password">
-            <br>
-            <button type="submit">LOGIN</button>
+<div class="container" id="container">
+    <div class="form-container sign-up-container">
+        <form action="#" >
+            <h1>Registrate</h1>
+            <input type="text" placeholder="Nombre" />
+            <input type="text" placeholder="Apellidos" />
+            <input type="text" placeholder="Nickname" />
+            <input type="email" placeholder="Correo" />
+            <input type="password" placeholder="Contrseña" />
+            <button>Registrar</button>
         </form>
-    </fieldset>
-
+    </div>
+    <div class="form-container sign-in-container">
+        <form action="#" th:action="@{/login}" method="post">
+            <h1>Iniciar Sesión</h1>
+            <input type="text" placeholder="Usuario" name="username"/>
+            <input type="password" placeholder="Contraseña" name="password"/>
+            <a href="recuperarContrasena.html">Recuperar Contraseña</a>
+            <button type="submit">Entrar</button>
+        </form>
+    </div>
+    <div class="overlay-container">
+        <div class="overlay">
+            <div class="overlay-panel overlay-left">
+                <h1>Bienvenido de Nuevo!</h1>
+                <p>Manten tu información actualizada y </p>
+                <button class="ghost" id="signIn">Iniciar Sesión</button>
+            </div>
+            <div class="overlay-panel overlay-right">
+                <h1>Hola, amigo!</h1>
+                <p>Registrate para empezar a disfrutar de la app</p>
+                <button class="ghost" id="signUp">Registrarse</button>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
+<script src="/js/loginjs.js"></script>
 </html>

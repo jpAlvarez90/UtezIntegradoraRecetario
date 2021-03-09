@@ -15,7 +15,7 @@ import java.util.Optional;
 @SpringBootTest
 class RecetarioApplicationUsuariosTests {
 
-    @Autowired
+    /*@Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
     @Autowired
@@ -94,5 +94,5 @@ class RecetarioApplicationUsuariosTests {
         assert (!usuarioRepository.existsById((long) 5));
 
     }
-
+*/
 }
