@@ -12,29 +12,5 @@ public class MainController {
         return "index";
     }
 
-    @GetMapping("/form-receta")
-    public String formReceta(Model model){
-        return "views/form-receta";
-    }
 
-    @GetMapping("/verRecertas")
-    public String verRecetas(Model model){
-        return "views/verReceta";
-    }
-
-    @GetMapping("/recetas")
-    public String recetas(Model model){
-        return "views/recetas";
-    }
-
-
-    @GetMapping("/misRecetarios")
-    public String misRecetarios(Model model){
-        return "views/misRecetarios";
-    }
-
-    @GetMapping("/configuracion")
-    public String configuracion(Model model){
-        return "views/configuracion";
-    }
 }

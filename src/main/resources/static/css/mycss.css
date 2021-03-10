@@ -7,6 +7,24 @@
     font-family: IndieFlower;
 }
 
+html {
+    min-height: 100%;
+    position: relative;
+}
+body {
+    margin: 0;
+    margin-bottom: 40px;
+}
+
+footer {
+    background-color: #DD969C;
+    height: 45px;
+    position:absolute;
+    left:0px;
+    bottom:0px;
+    width:100%;
+}
+
 .btn.btn-sm.btn-editar {
     background-color: #71bd74;
     color: #FFF;
@@ -45,6 +63,10 @@
     background-color: #ff6b3d;
     color: #FFF;
 }
+
+
+
+
 
 textarea {
     resize: none;
@@ -411,3 +433,4 @@ input[type="radio"]:checked~.star {
     unicode-bidi: bidi-override;
     /* bidi de bidireccional */
 }
+

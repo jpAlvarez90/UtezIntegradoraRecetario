@@ -14,14 +14,14 @@ public class LoginController {
     public String login() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
-            return "views/login";
+            return "login";
         }
         return "redirect:/";
     }
 
     @PostMapping("/login")
     public String auth() {
-        return "views/login";
+        return "login";
     }
 
 }
