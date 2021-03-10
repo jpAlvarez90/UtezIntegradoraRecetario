@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout/layout_base}">
+<head>
+    <title>Configuracion</title>
+</head>
+<body>
+    <div layout:fragment="content">
+        <ul class="nav nav-tabs" id="myTab" role="tablist" style="margin: 10px;">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Categoria</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Subcategoria</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Contact</button>
+            </li>
+        </ul>
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                <table style="margin-left: 50px;">
+                    <tr>
+                        <td>
+                            <h1>Categoria</h1>
+                        </td>
+                        <td >
+                            <div style="margin-left: 60px;">
+                                <!-- Button trigger modal -->
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#category">
+                                    Nueva Categoria
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Nombre de la Categoria</th>
+                        <th scope="col">Acciones</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>Reposteria</td>
+                        <td>
+                            <a href="#" class="btn btn-sm btn-eliminar"><i class="far fa-trash-alt"></i></a>
+                            <a href="#" class="btn btn-sm btn-editar"><i class="far fa-edit"></i></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">2</th>
+                        <td>Carnes</td>
+                        <td>
+                            <a href="#" class="btn btn-sm btn-eliminar"><i class="far fa-trash-alt"></i></a>
+                            <a href="#" class="btn btn-sm btn-editar"><i class="far fa-edit"></i></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">3</th>
+                        <td>Cremas</td>
+                        <td>
+                            <a href="#" class="btn btn-sm btn-eliminar"><i class="far fa-trash-alt"></i></a>
+                            <a href="#" class="btn btn-sm btn-editar"><i class="far fa-edit"></i></a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <!-- Modal -->
+                <div class="modal fade" id="category" tabindex="-1" aria-labelledby="categoryLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="categoryLabel">Categoria</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="">
+                                    <div class="mb-3">
+                                        <label class="form-label">Nombre Categoria</label>
+                                        <input type="text" class="form-control" placeholder="Reposteria">
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                        <button type="button" class="btn btn-primary">Guardar</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                <table style="margin-left: 50px;">
+                    <tr>
+                        <td>
+                            <h1>Subcategoria</h1>
+                        </td>
+                        <td >
+                            <div style="margin-left: 60px;">
+                                <!-- Button trigger modal -->
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#subcategory">
+                                    Nueva Subcategoria
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Nombre de la Subcategoria</th>
+                        <th scope="col">Nombre de la Categoria</th>
+                        <th scope="col">Acciones</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>Pastel de chocolate</td>
+                        <td>Reposteria</td>
+                        <td>
+                            <a href="#" class="btn btn-sm btn-eliminar"><i class="far fa-trash-alt"></i></a>
+                            <a href="#" class="btn btn-sm btn-editar"><i class="far fa-edit"></i></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">2</th>
+                        <td>Carne al chipotle</td>
+                        <td>Carnes</td>
+                        <td>
+                            <a href="#" class="btn btn-sm btn-eliminar"><i class="far fa-trash-alt"></i></a>
+                            <a href="#" class="btn btn-sm btn-editar"><i class="far fa-edit"></i></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">3</th>
+                        <td>Crema de Elote</td>
+                        <td>Cremas</td>
+                        <td>
+                            <a href="#" class="btn btn-sm btn-eliminar"><i class="far fa-trash-alt"></i></a>
+                            <a href="#" class="btn btn-sm btn-editar"><i class="far fa-edit"></i></a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <!-- Modal -->
+                <div class="modal fade" id="subcategory" tabindex="-1" aria-labelledby="subcategoryLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="subcategoryLabel">Subcategory</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="">
+                                    <div class="mb-3">
+                                        <label class="form-label">Nombre Subcategoria</label>
+                                        <input type="text" class="form-control" placeholder="Reposteria">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Categoria</label>
+                                        <select class="form-select">
+                                            <option selected>Elige una...</option>
+                                            <option value="1">Reposteria</option>
+                                            <option value="2">Carnes</option>
+                                            <option value="3">Cremas</option>
+                                        </select>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                        <button type="button" class="btn btn-primary">Guardar</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

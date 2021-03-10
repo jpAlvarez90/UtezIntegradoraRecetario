@@ -1,17 +1,17 @@
 <!-- Barra de navegación -->
 <nav th:fragment="main_menu" class="navbar navbar-expand-lg navbar-light" style="background-color: #DD969C;">
     <div class="container-fluid">
-        <a class="navbar-brand" href="index.html">Recetario</a>
+        <a class="navbar-brand" th:href="@{/}">Recetario</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="index.html">Mejor calificadas</a>
+                    <a class="nav-link active" aria-current="page"  th:href="@{/}">Mejor calificadas</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="index.html">Más buscadas</a>
+                    <a class="nav-link" th:href="@{/}">Más buscadas</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -26,21 +26,87 @@
                 </li>
             </ul>
             <div class="d-flex">
-                <a class="btn btn-light misRecetas" href="misRecetarios.html" tabindex="-1" aria-disabled="false">Mis recetas</a>
+                <div sec:authorize="isAuthenticated()">
+                    <a class="btn btn-light misRecetas" th:href="@{/test/misRecetarios}" tabindex="-1" aria-disabled="false">Mis recetas</a>
+                </div>
 
+
+                <ui class="d-flex">
+
+                    <a href="" sec:authorize="!isAuthenticated()" class="btn btn-light misRecetas" th:href="@{'/login'}" style="margin-left:5px; ">Iniciar sesión</a>
+
+                    <div class="btn-group dropstart" role="group" sec:authorize="isAuthenticated()">
+                        <button id="btnGroupDrop1" type="button" class="btn btn-light btn-circle btn-lg dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">JJ</button>
+                        <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                            <li><button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal">Perfil</button></li>
+                            <li><a class="dropdown-item" th:href="@{/test/configuracion}">Configuración</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" th:href="@{/logout}">Cerrar sesión</a></li>
+                        </ul>
+                    </div>
+
+                </ui>
+
+                <!--
                 <div class="btn-group dropstart" role="group">
                     <button id="btnGroupDrop1" type="button" class="btn btn-light btn-circle btn-lg dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">JJ</button>
                     <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                        <li><a class="dropdown-item" href="#">Perfil</a></li>
+                        <li><button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal">Perfil</button></li>
+                        <li><a class="dropdown-item" th:href="@{/configuracion}">Configuración</a></li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>
                         <li><a class="dropdown-item" href="#">Cerrar sesión</a></li>
                     </ul>
                 </div>
+                -->
             </div>
         </div>
     </div>
+
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Editar Perfil</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon1"><i class="fas fa-file-signature"></i></span>
+                            <input type="text" class="form-control" placeholder="Nombre ( s )" aria-label="Nombre" aria-describedby="basic-addon1">
+                        </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon1"><i class="fas fa-file-signature"></i></span>
+                            <input type="text" class="form-control" placeholder="Apeliido" aria-label="Apellido" aria-describedby="basic-addon1">
+                        </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon1"><i class="fas fa-user"></i></span>
+                            <input type="text" class="form-control" placeholder="Usuario" aria-label="Usuario" aria-describedby="basic-addon1">
+                        </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon1"><i class="fas fa-at"></i></span>
+                            <input type="text" class="form-control" placeholder="Correo" aria-label="Correo" aria-describedby="basic-addon1">
+                        </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon1"><i class="fas fa-key"></i></span>
+                            <input type="text" class="form-control" placeholder="Contraseña" aria-label="Contraseña" aria-describedby="basic-addon1">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            <button type="button" class="btn btn-primary">Guardar Cambios</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
 </nav>
 <br/>
 <!-- Barra de navegación -->
