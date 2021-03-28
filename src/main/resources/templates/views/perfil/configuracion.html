@@ -7,10 +7,10 @@
     <div layout:fragment="content">
         <ul class="nav nav-tabs" id="myTab" role="tablist" style="margin: 10px;">
             <li class="nav-item" role="presentation">
-                <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Categoria</button>
+                <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Categoría</button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Subcategoria</button>
+                <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Subcategoría</button>
             </li>
             <li class="nav-item" role="presentation">
                 <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Perfil</button>
@@ -18,34 +18,33 @@
         </ul>
         <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                <table style="margin-left: 50px;">
-                    <tr>
-                        <td>
-                            <h1>Categoria</h1>
-                        </td>
-                        <td >
-                            <div style="margin-left: 60px;">
-                                <!-- Button trigger modal -->
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#category">
-                                    Nueva Categoria
-                                </button>
-                            </div>
-                        </td>
-                    </tr>
-                </table>
+                <br>
+                <div class="row">
+                    <div class="col-lg-10">
+                        <h1>Categoría</h1>
+                    </div>
+                    <div class="col-lg-2">
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <button type="button" class="btn" style="background: #EADDE7" data-bs-toggle="modal" data-bs-target="#category">
+                                Nueva categoría
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
 
                 <table class="table">
                     <thead>
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">Nombre de la Categoria</th>
+                        <th scope="col">Nombre de la categoría</th>
                         <th scope="col">Acciones</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr>
                         <th scope="row">1</th>
-                        <td>Reposteria</td>
+                        <td>Repostería</td>
                         <td>
                             <a href="#" class="btn btn-sm btn-eliminar"><i class="far fa-trash-alt"></i></a>
                             <a href="#" class="btn btn-sm btn-editar"><i class="far fa-edit"></i></a>
@@ -80,7 +79,7 @@
                             <div class="modal-body">
                                 <form action="">
                                     <div class="mb-3">
-                                        <label class="form-label">Nombre Categoria</label>
+                                        <label class="form-label">Nombre categoría</label>
                                         <input type="text" class="form-control" placeholder="Reposteria">
                                     </div>
                                     <div class="modal-footer">
@@ -94,27 +93,25 @@
                 </div>
             </div>
             <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                <table style="margin-left: 50px;">
-                    <tr>
-                        <td>
-                            <h1>Subcategoria</h1>
-                        </td>
-                        <td >
-                            <div style="margin-left: 60px;">
-                                <!-- Button trigger modal -->
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#subcategory">
-                                    Nueva Subcategoria
-                                </button>
-                            </div>
-                        </td>
-                    </tr>
-                </table>
+                <br>
+                <div class="row">
+                    <div class="col-lg-8">
+                        <h1>Subcategoría</h1>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end ">
+                            <button type="button" class="btn" style="background: #EADDE7" data-bs-toggle="modal" data-bs-target="#subcategory">
+                                Nueva subcategoría
+                            </button>
+                        </div>
+                    </div>
+                </div>
                 <table class="table">
                     <thead>
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">Nombre de la Subcategoria</th>
-                        <th scope="col">Nombre de la Categoria</th>
+                        <th scope="col">Nombre de la subcategoría</th>
+                        <th scope="col">Nombre de la categoría</th>
                         <th scope="col">Acciones</th>
                     </tr>
                     </thead>
@@ -182,30 +179,37 @@
                 </div>
             </div>
             <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="profile-tab">
+                <br>
+                <div>
+                    <h1>Perfil</h1>
+                </div>
                 <form action="">
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="basic-addon1"><i class="fas fa-file-signature"></i></span>
-                        <input type="text" class="form-control" placeholder="Nombre ( s )" aria-label="Nombre" aria-describedby="basic-addon1">
+                        <input type="text" class="form-control" placeholder="Nombre(s)" aria-label="Nombre" aria-describedby="basic-addon1">
                     </div>
                     <div class="input-group mb-3">
-                        <span class="input-group-text" id="basic-addon1"><i class="fas fa-file-signature"></i></span>
-                        <input type="text" class="form-control" placeholder="Apeliido" aria-label="Apellido" aria-describedby="basic-addon1">
+                        <span class="input-group-text" id="basic-addon2"><i class="fas fa-file-signature"></i></span>
+                        <input type="text" class="form-control" placeholder="Primer apellido" aria-label="Primer apellido" aria-describedby="basic-addon1">
                     </div>
                     <div class="input-group mb-3">
-                        <span class="input-group-text" id="basic-addon1"><i class="fas fa-user"></i></span>
+                        <span class="input-group-text" id="basic-addon8"><i class="fas fa-file-signature"></i></span>
+                        <input type="text" class="form-control" placeholder="Segundo apeliido" aria-label="Segundo apeliido" aria-describedby="basic-addon1">
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon3"><i class="fas fa-user"></i></span>
                         <input type="text" class="form-control" placeholder="Usuario" aria-label="Usuario" aria-describedby="basic-addon1">
                     </div>
                     <div class="input-group mb-3">
-                        <span class="input-group-text" id="basic-addon1"><i class="fas fa-at"></i></span>
+                        <span class="input-group-text" id="basic-addon4"><i class="fas fa-at"></i></span>
                         <input type="text" class="form-control" placeholder="Correo" aria-label="Correo" aria-describedby="basic-addon1">
                     </div>
                     <div class="input-group mb-3">
-                        <span class="input-group-text" id="basic-addon1"><i class="fas fa-key"></i></span>
+                        <span class="input-group-text" id="basic-addon5"><i class="fas fa-key"></i></span>
                         <input type="text" class="form-control" placeholder="Contraseña" aria-label="Contraseña" aria-describedby="basic-addon1">
                     </div>
-                    <div>
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                        <button type="button" class="btn btn-primary">Guardar Cambios</button>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end ">
+                        <button type="button" class="btn btn-light misRecetas">Guardar cambios</button>
                     </div>
                 </form>
             </div>

@@ -4,26 +4,35 @@
 </head>
 <body>
 <div layout:fragment="content">
-    <table>
-        <td>
-            <div style="margin-top: 125px; margin-left:125px">       
-                <div style="width: 500px; align-items: center;">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <br/><br/>
+                <br/><br/>
+                <br/><br/>
+                <br/><br/>
+                <div>
                     <h1>Oops!</h1>
                     <h2>No podemos encontrar la p&aacutegina que esta buscando</h2>
-                    <h3>Error 404</h3>    
+                    <h3>Error 404</h3>
                     <br/>
-                    <a class="btn btn-primary" th:href="@{'/'}">
-							Regresar a p&aacutegina principal
-					</a>        
-                </div>        
+                    <a class="btn btn-lg" style="background: #EADDE7" th:href="@{'/'}">
+                        Regresar a p&aacutegina principal
+                    </a>
+                </div>
             </div>
-        </td>
-        <td>
-            <div style="margin-top:110px">
-                <img src="https://i.pinimg.com/originals/f9/f9/c9/f9f9c9462c06d6c13cf6681fe0df1707.jpg" width="500px" height="500px" >       
+            <div class="col">
+                <br/>
+                <br/>
+                <div>
+                    <img src="http://assets.stickpng.com/images/5a4613eed099a2ad03f9c996.png" width="500px" height="500px" >
+                </div>
             </div>
-        </td>
-    </table>
+        </div>
+    </div>
+
+
+
 </div>
 </body>
 </html>
