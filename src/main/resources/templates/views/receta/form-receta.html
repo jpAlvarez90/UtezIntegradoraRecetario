@@ -1,6 +1,6 @@
 <html layout:decorate="~{layout/layout_base}">
     <head>
-        <title>Principal</title>
+        <title>Nueva receta</title>
     </head>
     <body>
 
@@ -10,282 +10,91 @@
         <!-- FORMULARIO-->
         <div class="container">
             <br>
-            <h2>Nueva receta</h2>
+            <h2 style="font-weight: bolder;">Nueva receta</h2>
             <br>
-            <form>
-                <div class="row mb-3">
-                    <label for="inputEmail3" class="col-sm-2 col-form-label">Título: </label>
-                    <div class="col-sm-10">
-                        <input type="email" class="form-control" id="inputEmail3">
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <label for="inputEmail3" class="col-sm-2 col-form-label">Descripción: </label>
-                    <div class="col-sm-10">
-                        <textarea class="form-control" style="height: 150px; resize: none" id="exampleFormControlTextarea1" rows="3"></textarea>
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <label for="inputEmail3" class="col-sm-2 col-form-label">Ingrediantes: </label>
-                    <div class="col-sm-9">
-                        <input type="email" class="form-control" id="inputEmail3">
-                    </div>
-                    <div class="col-sm-1">
-                        <h1><a href="#" style=" text-decoration: none; color:#DD969C;"><i
-                                class="fas fa-plus-circle"></i></a></h1>
-                    </div>
-                    <div class="col-sm-2 col-form-label"></div>
-                    <div class="col-sm-10">
-                        <textarea class="form-control" style="height: 150px; resize: none" id="exampleFormControlTextarea1" rows="3"></textarea>
-                    </div>
-                </div>
-
-                <div class="row mb-3">
-                    <label for="inputEmail3" class="col-sm-2 col-form-label">Pasos: </label>
-                    <div class="col-sm-10">
-                        <input type="email" class="form-control" id="inputEmail3">
-                    </div>
-                    <br><br>
-                    <div class="col-sm-2 col-form-label"></div>
-                    <div class="col-sm-10">
-                        <textarea class="form-control" style="height: 150px; resize: none" id="exampleFormControlTextarea1" rows="3"></textarea>
-                    </div>
-                </div>
-
-                <div class="row mb-3">
-                    <label for="inputEmail3" class="col-sm-2 col-form-label">Agregar imagenes: </label>
-                    <div class="col-sm-10">
-                        <input class="form-control" type="file" id="formFile">
-                    </div>
-                </div>
-
-                <!-- Carrusel -->
-                <div class="Carousel">
-                    <div class="slick-list" id="slick-list">
-                        <button type="button" class="slick-arrow slick-prev" id="button-prev" data-button="button-prev" onclick="app.processingButton(event)">
-                            <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="chevron-left"
-                                 class="svg-inline--fa fa-chevron-left fa-w-10" role="img" xmlns="http://www.w3.org/2000/svg"
-                                 viewBox="0 0 320 512">
-                                <path fill="currentColor"
-                                      d="M34.52 239.03L228.87 44.69c9.37-9.37 24.57-9.37 33.94 0l22.67 22.67c9.36 9.36 9.37 24.52.04 33.9L131.49 256l154.02 154.75c9.34 9.38 9.32 24.54-.04 33.9l-22.67 22.67c-9.37 9.37-24.57 9.37-33.94 0L34.52 272.97c-9.37-9.37-9.37-24.57 0-33.94z">
-                                </path>
-                            </svg>
-                        </button>
-                        <div class="slick-track" id="track">
-                            <div class="slick">
-                                <div>
-                                    <a href="/">
-                                        <h4>Tacos de canasta</h4>
-                                        <picture>
-                                            <img src="../img/1.jpg" alt="Image">
-                                        </picture>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="slick">
-                                <div>
-                                    <a href="/">
-                                        <h4>Tacos</h4>
-                                        <picture>
-                                            <img src="../img/2.jpg" alt="Image">
-                                        </picture>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="slick">
-                                <div>
-                                    <a href="/">
-                                        <h4>Sopes</h4>
-                                        <picture>
-                                            <img src="../img/3.jpg" alt="Image">
-                                        </picture>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="slick">
-                                <div>
-                                    <a href="/">
-                                        <h4>Enchiladas suizas</h4>
-                                        <picture>
-                                            <img src="../img/4.jpg" alt="Image">
-                                        </picture>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="slick">
-                                <div>
-                                    <a href="/">
-                                        <h4>Tacos al pastor</h4>
-                                        <picture>
-                                            <img src="../img/5.jpg" alt="Image">
-                                        </picture>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="slick">
-                                <div>
-                                    <a href="/">
-                                        <h4>Chilaquiles</h4>
-                                        <picture>
-                                            <img src="../img/6.jpg" alt="Image">
-                                        </picture>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="slick">
-                                <div>
-                                    <a href="/">
-                                        <h4>Chiles rellenos</h4>
-                                        <picture>
-                                            <img src="../img/7.jpg" alt="Image">
-                                        </picture>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="slick">
-                                <div>
-                                    <a href="/">
-                                        <h4>Pozole</h4>
-                                        <picture>
-                                            <img src="../img/8.jpg" alt="Image">
-                                        </picture>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="slick">
-                                <div>
-                                    <a href="/">
-                                        <h4>Mole rojo</h4>
-                                        <picture>
-                                            <img src="../img/9.jpg" alt="Image">
-                                        </picture>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="slick">
-                                <div>
-                                    <a href="/">
-                                        <h4><small>Share Your Message</small>Watch</h4>
-                                        <picture>
-                                            <img src="../img/10.jpg" alt="Image">
-                                        </picture>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="slick">
-                                <div>
-                                    <a href="/">
-                                        <h4>Guacamole</h4>
-                                        <picture>
-                                            <img src="../img/11.jpg" alt="Image">
-                                        </picture>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="slick">
-                                <div>
-                                    <a href="/">
-                                        <h4>Tamales</h4>
-                                        <picture>
-                                            <img src="../img/12.jpg" alt="Image">
-                                        </picture>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="slick">
-                                <div>
-                                    <a href="/">
-                                        <h4>Platillo</h4>
-                                        <picture>
-                                            <img src="../img/13.jpg" alt="Image">
-                                        </picture>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="slick">
-                                <div>
-                                    <a href="/">
-                                        <h4>Tacos dorados</h4>
-                                        <picture>
-                                            <img src="../img/14.jpg" alt="Image">
-                                        </picture>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="slick">
-                                <div>
-                                    <a href="/">
-                                        <h4>Tortas</h4>
-                                        <picture>
-                                            <img src="../img/15.jpg" alt="Image">
-                                        </picture>
-                                    </a>
-                                </div>
-                            </div>
-
-                            <div class="slick">
-                                <div>
-                                    <a href="/">
-                                        <h4>Chalupitas</h4>
-                                        <picture>
-                                            <img src="../img/fondo1.jpg" alt="Image">
-                                        </picture>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="slick">
-                                <div>
-                                    <a href="/">
-                                        <h4><small>Share Your Message</small>Watch</h4>
-                                        <picture>
-                                            <img src="../img/fondo2.png" alt="Image">
-                                        </picture>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="slick">
-                                <div>
-                                    <a href="/">
-                                        <h4><small>Share Your Message</small>Watch</h4>
-                                        <picture>
-                                            <img src="../img/fondo3.png" alt="Image">
-                                        </picture>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="slick">
-                                <div>
-                                    <a href="/">
-                                        <h4><small>Share Your Message</small>Watch</h4>
-                                        <picture>
-                                            <img src="../img/fondo4.png" alt="Image">
-                                        </picture>
-                                    </a>
-                                </div>
-                            </div>
+                <form>
+                    <div class="row mb-3">
+                        <label for="titulo" style="font-weight: bolder;" class="col-sm-2 col-form-label">Título</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="titulo">
                         </div>
-                        <button type="button" class="slick-arrow slick-next" id="button-next" data-button="button-next" onclick="app.processingButton(event)">
-                            <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="chevron-right"
-                                 class="svg-inline--fa fa-chevron-right fa-w-10" role="img"
-                                 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">
-                                <path fill="currentColor"
-                                      d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z">
-                                </path>
-                            </svg>
-                        </button>
                     </div>
-                </div>
-                <br>
-                <!-- Carrusel -->
+                    <div class="row mb-3">
+                        <label style="font-weight: bolder;" class="col-sm-2 col-form-label" for="descripcion">Descripción</label>
+                        <div class="col-sm-10">
+                            <textarea class="form-control" style="height: 150px; resize: none" id="descripcion" rows="3"></textarea>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label" style="font-weight: bolder;" for="categoria">Categoria</label>
+                        <div class="col-sm-10">
+                            <select class="form-select" aria-label="Default select example" id="categoria">
+                                <option selected>Open this select menu</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label" for="subcategoria" style="font-weight: bolder;">Subcategoría</label>
+                        <div class="col-sm-10">
+                            <select class="form-select" aria-label="Default select example" id="subcategoria">
+                                <option selected>Open this select menu</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="ingredientes" class="col-sm-2 col-form-label" style="font-weight: bolder;">Ingredientes</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="ingredientes">
+                        </div>
+                        <div class="col-sm-1">
+                            <h1><a href="#" style=" text-decoration: none; color:#DD969C;"><i class="fas fa-plus-circle"></i></a></h1>
+                        </div>
+                        <div class="col-sm-2 col-form-label"></div>
+                        <div class="col-sm-10">
+                            <textarea class="form-control" style="height: 150px; resize: none" id="exampleFormControlTextarea1" rows="3"></textarea>
+                        </div>
+                    </div>
 
-                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                    <a href="recetasDelRecetario.html" class="btn btn-lg btn-eliminar" type="button">Cancelar</a>
-                    <a href="recetasDelRecetario.html" class="btn btn-lg btn-agregar" type="submit">Guardar</a>
-                </div>
-                <br>
-            </form>
+                    <div class="row mb-3">
+                        <label for="pasos" class="col-sm-2 col-form-label" style="font-weight: bolder;">Pasos: </label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="pasos">
+                        </div>
+                        <br><br>
+                        <div class="col-sm-2 col-form-label"></div>
+                        <div class="col-sm-10">
+                            <textarea class="form-control" style="height: 150px; resize: none" id="" rows="3"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <label for="img" class="col-sm-2 col-form-label" style="font-weight: bolder;">Agregar imagenes</label>
+                        <div class="col-sm-10">
+                            <input class="form-control" type="file" id="img">
+                        </div>
+                        <br><br>
+                        <div class="col-sm-2 col-form-label"></div>
+                        <div class="col-sm-10 col-form-label">
+                            <ul class="list-group list-group-horizontal">
+                                <li class="list-group-item">img2.jpg</li>
+                                <li class="list-group-item">img3.jpg</li>
+                                <li class="list-group-item">img4.jpg</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <a th:href="@{/test/recetas}" class="btn btn-eliminar" type="button">Cancelar</a>
+                        <a th:href="@{/test/recetas}" class="btn btn-agregar" type="submit">Guardar</a>
+                    </div>
+                    <br>
+                </form>
+            </div>
         </div>
-        <!-- FORMULARIO-->
-    </div>
     </body>
 </html>
