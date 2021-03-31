@@ -4,6 +4,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import javax.xml.transform.sax.SAXResult;
+
 @Controller
 public class TestController {
 
@@ -30,5 +32,10 @@ public class TestController {
     @GetMapping("/test/configuracion")
     public String configuracion(Model model){
         return "views/perfil/configuracion";
+    }
+
+    @GetMapping("/test/recuperarContra")
+    public String recuperarContra(){
+        return "/recuperarContra";
     }
 }

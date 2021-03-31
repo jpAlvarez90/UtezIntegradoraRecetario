@@ -2,65 +2,69 @@
 <nav th:fragment="main_menu" class="navbar navbar-expand-lg navbar-light" style="background-color: #DD969C;">
     <div class="container-fluid">
         <h3 style="font-weight: bolder;"><a class="navbar-brand" style="font-size: 15pt;" th:href="@{/}">RECETARIO</a></h3>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"  data-bs-target="#main_nav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link" aria-current="page"  th:href="@{/}">Mejor calificadas</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/}">Más buscadas</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="dropdown1" data-bs-toggle="dropdown" aria-expanded="true">
-                        Categorías
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="dropdown1">
-                        <li><a class="dropdown-item" href="#">Pasteles</a></li>
-                        <li><a class="dropdown-item" href="#">Chatarra</a></li>
-                        <li><a class="dropdown-item" href="#">Comida fuerte</a></li>
+
+
+        <div class="collapse navbar-collapse" id="main_nav">
+            <ul class="navbar-nav">
+                <li class="nav-item active"> <a class="nav-link" aria-current="page"  th:href="@{/}">Mejor calificadas</a> </li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/}">Más buscadas</a></li>
+                <li class="nav-item dropdown" id="myDropdown">
+                    <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown"> Categorías </a>
+                    <ul class="dropdown-menu">
+                        <li> <a class="dropdown-item" href="#"> Ensaladas</a></li>
+                        <li> <a class="dropdown-item" href="#"> Postres &raquo; </a>
+                            <ul class="submenu dropdown-menu">
+                                <li><a class="dropdown-item" href="#">Pasteles</a></li>
+                                <li><a class="dropdown-item" href="#">Cupckaes</a></li>
+                                <li><a class="dropdown-item" href="#">Gelatinas</a></li>
+                                <li><a class="dropdown-item" href="#">Trufas</a></li>
+                            </ul>
+                        </li>
+                        <li><a class="dropdown-item" href="#"> Platos Fuertes </a></li>
                     </ul>
                 </li>
             </ul>
-            <div class="d-flex">
-                <div sec:authorize="isAuthenticated()">
-                    <a class="btn btn-light misRecetas" th:href="@{/test/misRecetarios}" tabindex="-1" aria-disabled="false">Mis recetas</a>
-                </div>
+
+        </div>
+        <div class="d-flex">
+            <div sec:authorize="isAuthenticated()">
+                <a class="btn btn-light misRecetas" th:href="@{/test/misRecetarios}" tabindex="-1" aria-disabled="false">Mis recetas</a>
+            </div>
 
 
-                <ui class="d-flex">
+            <ui class="d-flex">
 
-                    <a href="" sec:authorize="!isAuthenticated()" class="btn btn-light misRecetas" th:href="@{'/login'}" style="margin-left:5px; ">Iniciar sesión</a>
+                <a href="" sec:authorize="!isAuthenticated()" class="btn btn-light misRecetas" th:href="@{'/login'}" style="margin-left:5px; ">Iniciar sesión</a>
 
-                    <div class="btn-group dropstart" role="group" sec:authorize="isAuthenticated()">
-                        <button id="btnGroupDrop1" type="button" class="btn btn-light btn-circle btn-lg dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">JJ</button>
-                        <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                            <li><a class="dropdown-item" th:href="@{/test/configuracion}">Configuración</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" th:href="@{/logout}">Cerrar sesión</a></li>
-                        </ul>
-                    </div>
-
-                </ui>
-
-                <!--
-                <div class="btn-group dropstart" role="group">
+                <div class="btn-group dropstart" role="group" sec:authorize="isAuthenticated()">
                     <button id="btnGroupDrop1" type="button" class="btn btn-light btn-circle btn-lg dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">JJ</button>
                     <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                        <li><button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal">Perfil</button></li>
-                        <li><a class="dropdown-item" th:href="@{/configuracion}">Configuración</a></li>
+                        <li><a class="dropdown-item" th:href="@{/test/configuracion}">Configuración</a></li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>
-                        <li><a class="dropdown-item" href="#">Cerrar sesión</a></li>
+                        <li><a class="dropdown-item" th:href="@{/logout}">Cerrar sesión</a></li>
                     </ul>
                 </div>
-                -->
+
+            </ui>
+
+            <!--
+            <div class="btn-group dropstart" role="group">
+                <button id="btnGroupDrop1" type="button" class="btn btn-light btn-circle btn-lg dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">JJ</button>
+                <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                    <li><button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal">Perfil</button></li>
+                    <li><a class="dropdown-item" th:href="@{/configuracion}">Configuración</a></li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                    <li><a class="dropdown-item" href="#">Cerrar sesión</a></li>
+                </ul>
             </div>
+            -->
         </div>
     </div>
 
