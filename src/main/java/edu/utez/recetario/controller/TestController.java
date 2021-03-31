@@ -4,19 +4,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import javax.xml.transform.sax.SAXResult;
-
 @Controller
 public class TestController {
 
-    @GetMapping("/test/form-receta")
+    @GetMapping("/test/formulario")
     public String formReceta(Model model){
-        return "views/receta/form-receta";
+        return "views/receta/formulario";
     }
 
-    @GetMapping("/test/verRecertas")
+    @GetMapping("/test/receta")
     public String verRecetas(Model model){
-        return "views/receta/verReceta";
+        return "views/receta/ver_receta";
     }
 
     @GetMapping("/test/recetas")
@@ -24,18 +22,18 @@ public class TestController {
         return "views/receta/recetas";
     }
 
-    @GetMapping("/test/misRecetarios")
+    @GetMapping("/test/recetarios")
     public String misRecetarios(Model model){
-        return "views/recetario/misRecetarios";
+        return "views/recetario/recetarios";
     }
 
-    @GetMapping("/test/configuracion")
+    @GetMapping("/test/perfil")
     public String configuracion(Model model){
-        return "views/perfil/configuracion";
+        return "views/perfil/perfil";
     }
 
-    @GetMapping("/test/recuperarContra")
+    @GetMapping("/test/recuperar")
     public String recuperarContra(){
-        return "/recuperarContra";
+        return "recuperar_contrasena";
     }
 }

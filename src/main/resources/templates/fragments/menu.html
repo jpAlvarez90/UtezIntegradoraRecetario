@@ -31,7 +31,7 @@
         </div>
         <div class="d-flex">
             <div sec:authorize="isAuthenticated()">
-                <a class="btn btn-light misRecetas" th:href="@{/test/misRecetarios}" tabindex="-1" aria-disabled="false">Mis recetas</a>
+                <a class="btn btn-light misRecetas" th:href="@{/test/recetarios}" tabindex="-1" aria-disabled="false">Mis recetas</a>
             </div>
 
 
@@ -42,7 +42,7 @@
                 <div class="btn-group dropstart" role="group" sec:authorize="isAuthenticated()">
                     <button id="btnGroupDrop1" type="button" class="btn btn-light btn-circle btn-lg dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">JJ</button>
                     <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                        <li><a class="dropdown-item" th:href="@{/test/configuracion}">Configuración</a></li>
+                        <li><a class="dropdown-item" th:href="@{/test/perfil}">Perfil</a></li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>
