@@ -20,9 +20,9 @@ public class Usuario {
     private Rol rol;
 
     @OneToMany(mappedBy = "usuario")
-    private Set<Recetario> recetario = new HashSet<>();
+    private Set<UsuarioFollowRecetario> usuarioFollowRecetarios = new HashSet<>();
 
-    @ManyToMany(mappedBy = "usuarios")
+    @OneToMany(mappedBy = "usuario")
     private Set<Recetario> recetarios = new HashSet<>();
 
     @OneToMany(mappedBy = "usuario")
@@ -46,8 +46,8 @@ public class Usuario {
     @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name = "usuario", nullable = false)
-    private String usuario;
+    @Column(name = "username", nullable = false)
+    private String username;
 
     @Column(name = "fechaRegistro", nullable = false)
     private Date fechaRegistro;
@@ -55,9 +55,10 @@ public class Usuario {
     public Usuario() {
     }
 
-    public Usuario(Rol rol, Set<Recetario> recetario, Set<Calificacion> calificacion, Set<Comentario> comentario, String nombre, String primerApellido, String segundoApellido, String correo, String password, String usuario, Date fechaRegistro) {
+    public Usuario(Rol rol, Set<UsuarioFollowRecetario> usuarioFollowRecetarios, Set<Recetario> recetarios, Set<Calificacion> calificacion, Set<Comentario> comentario, String nombre, String primerApellido, String segundoApellido, String correo, String password, String username, Date fechaRegistro) {
         this.rol = rol;
-        this.recetario = recetario;
+        this.usuarioFollowRecetarios = usuarioFollowRecetarios;
+        this.recetarios = recetarios;
         this.calificacion = calificacion;
         this.comentario = comentario;
         this.nombre = nombre;
@@ -65,7 +66,7 @@ public class Usuario {
         this.segundoApellido = segundoApellido;
         this.correo = correo;
         this.password = password;
-        this.usuario = usuario;
+        this.username = username;
         this.fechaRegistro = fechaRegistro;
     }
 
@@ -85,12 +86,20 @@ public class Usuario {
         this.rol = rol;
     }
 
-    public Set<Recetario> getRecetario() {
-        return recetario;
+    public Set<UsuarioFollowRecetario> getUsuarioFollowRecetarios() {
+        return usuarioFollowRecetarios;
     }
 
-    public void setRecetario(Set<Recetario> recetario) {
-        this.recetario = recetario;
+    public void setUsuarioFollowRecetarios(Set<UsuarioFollowRecetario> usuarioFollowRecetarios) {
+        this.usuarioFollowRecetarios = usuarioFollowRecetarios;
+    }
+
+    public Set<Recetario> getRecetarios() {
+        return recetarios;
+    }
+
+    public void setRecetarios(Set<Recetario> recetarios) {
+        this.recetarios = recetarios;
     }
 
     public Set<Calificacion> getCalificacion() {
@@ -149,12 +158,12 @@ public class Usuario {
         this.password = password;
     }
 
-    public String getUsuario() {
-        return usuario;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUsuario(String usuario) {
-        this.usuario = usuario;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public Date getFechaRegistro() {

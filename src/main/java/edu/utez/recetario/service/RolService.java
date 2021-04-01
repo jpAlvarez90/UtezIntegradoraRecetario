@@ -21,8 +21,8 @@ public class RolService implements RolInterface {
     }
 
     @Override
-    public void saveRole(Rol rol) {
-        rolRepository.save(rol);
+    public Rol saveRole(Rol rol) {
+        return rolRepository.save(rol);
     }
 
     @Override

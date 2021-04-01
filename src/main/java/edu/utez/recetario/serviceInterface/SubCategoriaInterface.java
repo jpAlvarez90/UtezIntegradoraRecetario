@@ -8,7 +8,7 @@ public interface SubCategoriaInterface {
 
     List<SubCategoria> getAllSubCategorias();
 
-    void saveSubCategoria(SubCategoria subCategoria);
+    SubCategoria saveSubCategoria(SubCategoria subCategoria);
 
     SubCategoria getSubCategoriaById(long id);
 

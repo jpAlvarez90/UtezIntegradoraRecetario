@@ -21,8 +21,8 @@ public class CalificacionService implements CalificacionInterface {
     }
 
     @Override
-    public void saveCalificacion(Calificacion calificacion) {
-        calificacionRepository.save(calificacion);
+    public Calificacion saveCalificacion(Calificacion calificacion) {
+        return calificacionRepository.save(calificacion);
     }
 
     @Override
@@ -41,4 +41,10 @@ public class CalificacionService implements CalificacionInterface {
     public void deleteCalificacionById(long id) {
         calificacionRepository.deleteById(id);
     }
+
+    @Override
+    public List<Calificacion> getRecetasByCalificaciones() {
+        return calificacionRepository.getRecetasByCalificacion();
+    }
+
 }

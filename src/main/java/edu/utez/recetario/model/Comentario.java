@@ -20,7 +20,7 @@ public class Comentario {
     @JoinColumn(name = "usuario", nullable = false)
     private Usuario usuario;
 
-    @Column(name = "comentario", nullable = false)
+    @Column(name = "comentario", nullable = false, columnDefinition = "TEXT")
     private String comentario;
 
     public Comentario() {

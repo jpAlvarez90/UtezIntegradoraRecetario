@@ -14,13 +14,14 @@
 
 <div class="container" id="container">
     <div class="form-container sign-up-container">
-        <form action="#" >
+        <form th:action="@{/registrar-usuario}" th:object="${usuario}" method="post">
             <h1>Registrate</h1>
-            <input type="text" placeholder="Nombre" />
-            <input type="text" placeholder="Apellidos" />
-            <input type="text" placeholder="Nickname" />
-            <input type="email" placeholder="Correo" />
-            <input type="password" placeholder="Contrseña" />
+            <input type="text" placeholder="Nombre" th:field="*{nombre}" />
+            <input type="text" placeholder="Primer Apellido" th:field="*{primerApellido}" />
+            <input type="text" placeholder="Segundo Apellido" th:field="*{segundoApellido}" />
+            <input type="text" placeholder="Nombre de usuario" th:field="*{username}" />
+            <input type="email" placeholder="Correo" th:field="*{correo}" />
+            <input type="password" placeholder="Contraseña" th:field="*{password}" />
             <button>Registrar</button>
         </form>
     </div>
