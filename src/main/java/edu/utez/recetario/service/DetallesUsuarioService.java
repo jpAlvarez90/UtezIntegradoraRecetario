@@ -22,7 +22,7 @@ public class DetallesUsuarioService implements UserDetailsService {
 
         //TODO Agregar opcion de iniciar sesion con el correo usando un REGEX para validar la cadena
 
-        Optional<Usuario> usuario = usuarioRepository.findByUsuario(username);
+        Optional<Usuario> usuario = usuarioRepository.findByUsername(username);
 
         usuario.orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado: "+ username));
 

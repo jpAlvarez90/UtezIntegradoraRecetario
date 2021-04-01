@@ -1,14 +1,85 @@
 <html layout:decorate="~{layout/layout_base}">
     <head>
-        <title>Mis recetarios</title>
+        <title>Principal</title>
     </head>
     <body>
         <div layout:fragment="content">
-            <br>
-            <!-- MIS RECETARIOS -->
             <div class="container">
-                <h2>Últimas recetas</h2>
+                <img src="/img/fondo2.png" style="width: 100%;height: 500px;">
 
+                <br><br>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <h1 th:text="${receta.titulo}"></h1>
+                    </div>
+                    <div th:utext="${html}"></div>
+                    <div class="col-lg-6">
+                        <form>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <p class="clasificacion">
+                                        <input id="radio1" type="radio" name="estrellas" value="5">
+                                        <label for="radio1" class="star">★</label>
+                                        <input id="radio2" type="radio" name="estrellas" value="4">
+                                        <label for="radio2" class="star">★</label>
+                                        <input id="radio3" type="radio" name="estrellas" value="3">
+                                        <label for="radio3" class="star">★</label>
+                                        <input id="radio4" type="radio" name="estrellas" value="2">
+                                        <label for="radio4" class="star">★</label>
+                                        <input id="radio5" type="radio" name="estrellas" value="1">
+                                        <label for="radio5" class="star">★</label>
+                                    </p>
+                                </div>
+                                <div class="col-lg-6">
+                                    <button type="submit" class="btn btn-light">Calificar</button>
+                                    <a type="button" class="btn btn-light">Seguir recetario</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+
+
+                <br>
+
+                <h2>Descripción</h2>
+                <h4>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc molestie luctus ante et sodales. Quisque eu tincidunt ex. Suspendisse feugiat nisl est, quis pretium augue sodales eget. In aliquam blandit lacinia.
+                </h4>
+                <br>
+
+                <h2>Ingredientes</h2>
+                <ul class="">
+                    <li class="">
+                        <h4>An item</h4>
+                    </li>
+                    <li class="">
+                        <h4>A second item</h4>
+                    </li>
+                    <li class="">
+                        <h4>A third item</h4>
+                    </li>
+                    <li class="">
+                        <h4>A fourth item</h4>
+                    </li>
+                    <li class="">
+                        <h4>And a fifth one</h4>
+                    </li>
+                </ul>
+                <br>
+
+                <h2>Pasos</h2>
+                <h4>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean pellentesque purus sit amet nisl facilisis, vel vehicula velit cursus. Curabitur convallis placerat ante sed pellentesque. Morbi et velit porta, ultrices quam ut, placerat diam. Vivamus
+                    auctor diam vel tellus posuere, nec auctor risus congue. Sed blandit sodales justo, a iaculis tortor. Pellentesque id dolor sit amet mauris cursus suscipit in id quam. Proin fringilla libero in orci mollis, eget tristique neque volutpat. Phasellus
+                    convallis tortor eget blandit fringilla. Morbi porttitor, nulla porta sagittis ultricies, tortor nisl auctor risus, at consectetur erat neque quis massa. Donec eget fermentum enim. Aliquam eu viverra metus. Aenean rhoncus diam sit amet urna
+                    placerat, at auctor libero porttitor. Maecenas et erat nec neque blandit congue sagittis vel nibh. Sed semper molestie massa non commodo. Sed sit amet posuere ante. Ut nunc est, euismod vel ullamcorper ut, ultrices vestibulum turpis. Quisque
+                    semper diam dui, quis sollicitudin justo faucibus a. Etiam in facilisis sapien, quis hendrerit felis. Aliquam eu nibh nibh. Phasellus semper accumsan turpis ac tincidunt. Pellentesque rutrum velit a posuere accumsan. Sed suscipit imperdiet
+                    cursus. Curabitur volutpat neque ac nisi mollis finibus. Sed pretium metus eget nulla tristique pulvinar. Curabitur rutrum lectus ac quam malesuada dapibus. Morbi fringilla convallis purus, nec ornare ex efficitur vitae. Lorem ipsum dolor
+                    sit amet, consectetur adipiscing elit. Duis nec egestas purus, non venenatis dolor.</h4>
+
+                <br>
+
+                <h2>Imagenes</h2>
                 <!-- Carrusel -->
                 <div class="Carousel">
                     <div class="slick-list" id="slick-list">
@@ -225,98 +296,48 @@
                         </button>
                     </div>
                 </div>
+                <br>
 
-                <!-- RECETARIOS -->
-                <br>
-                <h2>Mis recetarios
-                    <button type="button" style="border:none; background: none; color:#DD969C;" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">
-                        <i class="fas fa-plus-circle"></i>
-                    </button>
-                </h2>
-                <br>
-                <div class="list-group">
-                    <div th:each="item : ${recetarioList}">
-                        <a class="list-group-item list-group-item-action">
-                            <br>
-                            <div class="d-flex w-100 justify-content-between">
-                                <h5 class="mb-1" th:text="${item.nombre}"></h5>
-                            </div>
-                            <br>
-                        </a>
-                        <br>
+                <h2>Comentarios</h2>
+                <div class="row">
+                    <div class="col-1">
+                        <button type="button" class="btn btn-light btn-circle btn-lg">JJ</button>
                     </div>
-                    <!--
-                    <a th:href="@{/test/recetas}" class="list-group-item list-group-item-action">
-                        <br>
-                        <div class="d-flex w-100 justify-content-between">
-                            <h5 class="mb-1">Platos fuertes</h5>
-                        </div>
-                        <br>
-                    </a>
-                    <br>
-                    <a th:href="@{/test/recetas}" class="list-group-item list-group-item-action">
-                        <br>
-                        <div class="d-flex w-100 justify-content-between">
-                            <h5 class="mb-1">Platos debiles</h5>
-                        </div>
-                        <br>
-                    </a>
-                    <br>
-                    -->
-                </div>
-                <!-- RECETARIOS -->
-
-
-                <!-- RECETARIOS GUARDADOS -->
-                <br>
-                <h2>Recetarios guardados</h2>
-                <br>
-                <div class="list-group">
-                    <a th:href="@{/test/recetas}" class="list-group-item list-group-item-action">
-                        <br>
-                        <div class="d-flex w-100 justify-content-between">
-                            <h5 class="mb-1">Postres</h5>
-                        </div>
-                        <br>
-                    </a>
-                    <br>
-                    <a th:href="@{/test/recetas}" class="list-group-item list-group-item-action">
-                        <br>
-                        <div class="d-flex w-100 justify-content-between">
-                            <h5 class="mb-1">Vegetarianos</h5>
-                        </div>
-                        <br>
-                    </a>
-                    <br>
-                </div>
-                <!-- RECETARIOS GUARDADOS -->
-            </div>
-
-            <!-- Model -->
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Nuevo recetario</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <form th:action="@{/registrar-recetario}" method="post" th:object="${recetario}">
-                            <div class="modal-body">
-                                <div class="mb-3">
-                                    <label for="recipient-name" class="col-form-label">Nombre del recetario:</label>
-                                    <input type="text" class="form-control" id="recipient-name" th:field="*{nombre}">
-                                </div>
+                    <div class="col-11">
+                        <form>
+                            <div class="form-floating">
+                                <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 150px; resize: none"></textarea>
+                                <label for="floatingTextarea2">Comentario</label>
                             </div>
-                            <div class="modal-footer">
-                                <button class="btn btn-eliminar" data-bs-dismiss="modal">Cancelar</button>
-                                <button class="btn btn-agregar" type="submit">Guardar</button>
+                            <br>
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                <button type="submit" class="btn btn-light">Comentar</button>
                             </div>
                         </form>
                     </div>
                 </div>
+                <br><br>
+                <div class="row">
+                    <div class="col-1">
+                        <button type="button" class="btn btn-light btn-circle btn-lg">AC</button>
+                    </div>
+                    <div class="col-11">
+                        <h3>Alan Jesus Carranza Vazquez</h3>
+                        <h4>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut sed urna vitae neque volutpat blandit sit amet sit amet lacus. Aenean consectetur auctor eros, ut sollicitudin eros efficitur non.</h4>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-1">
+                        <button type="button" class="btn btn-light btn-circle btn-lg">DÑ</button>
+                    </div>
+                    <div class="col-11">
+                        <h3>Daniela Paola Nuño Camacho</h3>
+                        <h4>Phasellus scelerisque vehicula risus sit amet tempus. Aenean posuere imperdiet sem, et accumsan est scelerisque et. Integer ac sapien a ex hendrerit fermentum. Maecenas sit amet lobortis lectus. Class aptent taciti sociosqu ad litora torquent
+                            per conubia nostra, per inceptos himenaeos. Phasellus quis vehicula est.</h4>
+                    </div>
+                </div>
             </div>
-            <!-- Model-->
-
         </div>
     </body>
 </html>

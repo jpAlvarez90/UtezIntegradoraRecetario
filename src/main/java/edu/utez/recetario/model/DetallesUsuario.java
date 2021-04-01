@@ -18,7 +18,7 @@ public class DetallesUsuario implements UserDetails {
     }
 
     public DetallesUsuario (Usuario usuario) {
-        this.username = usuario.getUsuario();
+        this.username = usuario.getUsername();
         this.password = usuario.getPassword();
         this.rol = usuario.getRol().getRol();
     }

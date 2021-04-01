@@ -8,10 +8,12 @@ public interface CalificacionInterface {
 
     List<Calificacion> getAllCalificaciones();
 
-    void saveCalificacion(Calificacion calificacion);
+    Calificacion saveCalificacion(Calificacion calificacion);
 
     Calificacion getCalificacionById(long id);
 
     void deleteCalificacionById(long id);
+
+    List<Calificacion> getRecetasByCalificaciones();
 
 }

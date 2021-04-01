@@ -15,7 +15,7 @@ import java.util.Optional;
 @SpringBootTest
 class RecetarioApplicationUsuariosTests {
 
-    /*@Autowired
+    @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
     @Autowired
@@ -33,7 +33,7 @@ class RecetarioApplicationUsuariosTests {
         if (usr.isPresent()) user = usr.get();
 
         System.out.println("Id: "+user.getIdUsuario());
-        System.out.println("Usuario: "+ user.getUsuario());
+        System.out.println("Usuario: "+ user.getUsername());
         System.out.println("Password: "+user.getPassword());
         System.out.println("Rol: "+user.getRol().getRol());
 
@@ -52,7 +52,7 @@ class RecetarioApplicationUsuariosTests {
         user.setPrimerApellido("Test1");
         user.setSegundoApellido("Test2");
         user.setCorreo("test@gmail.com");
-        user.setUsuario("testy");
+        user.setUsername("testy");
         user.setFechaRegistro(new Date());
 
         String pass = passwordEncoder.encode("12345");
@@ -78,11 +78,11 @@ class RecetarioApplicationUsuariosTests {
             assert (false);
         }
 
-        usuario.setUsuario("TestUser");
+        usuario.setUsername("TestUser");
 
         Usuario retorno = usuarioRepository.save(usuario);
 
-        assert (usuario.getUsuario() == retorno.getUsuario());
+        assert (usuario.getUsername() == retorno.getUsername());
 
     }
 
@@ -94,5 +94,5 @@ class RecetarioApplicationUsuariosTests {
         assert (!usuarioRepository.existsById((long) 5));
 
     }
-*/
+
 }

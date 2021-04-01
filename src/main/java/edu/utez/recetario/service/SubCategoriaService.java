@@ -21,8 +21,8 @@ public class SubCategoriaService implements SubCategoriaInterface {
     }
 
     @Override
-    public void saveSubCategoria(SubCategoria subCategoria) {
-        subCategoriaRepository.save(subCategoria);
+    public SubCategoria saveSubCategoria(SubCategoria subCategoria) {
+        return subCategoriaRepository.save(subCategoria);
     }
 
     @Override

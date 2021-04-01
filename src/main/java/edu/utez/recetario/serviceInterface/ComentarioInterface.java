@@ -8,10 +8,12 @@ public interface ComentarioInterface {
 
     List<Comentario> getAllComentarios();
 
-    void saveComentario(Comentario comentario);
+    Comentario saveComentario(Comentario comentario);
 
     Comentario getComentarioById(long id);
 
     void deleteComentarioById(long id);
+
+    List<Comentario> getComentarioByRecetaId(long id);
 
 }
