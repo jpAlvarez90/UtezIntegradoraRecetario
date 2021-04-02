@@ -21,8 +21,8 @@ public class ComentarioService implements ComentarioInterface {
     }
 
     @Override
-    public void saveComentario(Comentario comentario) {
-        comentarioRepository.save(comentario);
+    public Comentario saveComentario(Comentario comentario) {
+        return comentarioRepository.save(comentario);
     }
 
     @Override
@@ -40,5 +40,10 @@ public class ComentarioService implements ComentarioInterface {
     @Override
     public void deleteComentarioById(long id) {
         comentarioRepository.deleteById(id);
+    }
+
+    @Override
+    public List<Comentario> getComentarioByRecetaId(long id) {
+        return comentarioRepository.getAllByReceta(id);
     }
 }

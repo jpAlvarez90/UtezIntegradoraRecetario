@@ -21,12 +21,12 @@ public class Calificacion {
     private Usuario usuario;
 
     @Column(name = "calificacion", nullable = false)
-    private int calificacion;
+    private double calificacion;
 
     public Calificacion() {
     }
 
-    public Calificacion(Receta receta, Usuario usuario, int calificacion) {
+    public Calificacion(Receta receta, Usuario usuario, double calificacion) {
         this.receta = receta;
         this.usuario = usuario;
         this.calificacion = calificacion;
@@ -56,11 +56,11 @@ public class Calificacion {
         this.usuario = usuario;
     }
 
-    public int getCalificacion() {
+    public double getCalificacion() {
         return calificacion;
     }
 
-    public void setCalificacion(int calificacion) {
+    public void setCalificacion(double calificacion) {
         this.calificacion = calificacion;
     }
 }

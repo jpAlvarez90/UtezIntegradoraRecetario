@@ -18,13 +18,16 @@ public class Recetario {
     @JoinColumn(name = "usuario", nullable = false)
     private Usuario usuario;
 
+    /*
     @ManyToMany
     @JoinTable(
             name = "usuario_follow_recetario",
             joinColumns = { @JoinColumn(name = "recetario", nullable = false) },
             inverseJoinColumns = { @JoinColumn(name = "usuario", nullable = false) }
     )
-    private Set<Usuario> usuarios = new HashSet<>();
+    */
+    @OneToMany(mappedBy = "recetario")
+    private Set<UsuarioFollowRecetario> usuarioFollowRecetarios = new HashSet<>();
 
     @OneToMany(mappedBy = "recetario")
     private Set<Receta> receta = new HashSet<>();
@@ -35,8 +38,9 @@ public class Recetario {
     public Recetario() {
     }
 
-    public Recetario(Usuario usuario, Set<Receta> receta, String nombre) {
+    public Recetario(Usuario usuario, Set<UsuarioFollowRecetario> usuarioFollowRecetarios, Set<Receta> receta, String nombre) {
         this.usuario = usuario;
+        this.usuarioFollowRecetarios = usuarioFollowRecetarios;
         this.receta = receta;
         this.nombre = nombre;
     }
@@ -55,6 +59,14 @@ public class Recetario {
 
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
+    }
+
+    public Set<UsuarioFollowRecetario> getUsuarioFollowRecetarios() {
+        return usuarioFollowRecetarios;
+    }
+
+    public void setUsuarioFollowRecetarios(Set<UsuarioFollowRecetario> usuarioFollowRecetarios) {
+        this.usuarioFollowRecetarios = usuarioFollowRecetarios;
     }
 
     public Set<Receta> getReceta() {

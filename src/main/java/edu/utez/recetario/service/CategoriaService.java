@@ -21,8 +21,8 @@ public class CategoriaService implements CategoriaInterface {
     }
 
     @Override
-    public void saveCategoria(Categoria categoria) {
-        categoriaRepository.save(categoria);
+    public Categoria saveCategoria(Categoria categoria) {
+        return categoriaRepository.save(categoria);
     }
 
     @Override

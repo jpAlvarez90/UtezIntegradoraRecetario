@@ -8,7 +8,7 @@ public interface RolInterface {
 
     List<Rol> getAllRoles();
 
-    void saveRole(Rol rol);
+    Rol saveRole(Rol rol);
 
     Rol getRole(Long id);
 

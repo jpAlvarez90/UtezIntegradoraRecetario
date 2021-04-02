@@ -24,7 +24,7 @@ public class Receta {
     private Categoria categoria;
 
     @ManyToOne
-    @JoinColumn(name = "subcategoria", nullable = false)
+    @JoinColumn(name = "subcategoria")
     private SubCategoria subCategoria;
 
     @OneToMany(mappedBy = "receta")
@@ -36,20 +36,23 @@ public class Receta {
     @Column(name = "titulo", nullable = false)
     private String titulo;
 
-    @Column(name = "descripcion", nullable = false)
+    @Column(name = "descripcion", nullable = false, columnDefinition = "TEXT")
     private String descripcion;
 
-    @Column(name = "ingredientes", nullable = false)
+    @Column(name = "ingredientes", nullable = false, columnDefinition = "TEXT")
     private String ingredientes;
 
-    @Column(name = "pasos", nullable = false)
+    @Column(name = "pasos", nullable = false, columnDefinition = "TEXT")
     private String pasos;
 
-    @Column(name = "imagenes", nullable = false)
+    @Column(name = "imagenes", nullable = false, columnDefinition = "TEXT")
     private String imagenes;
 
     @Column(name = "fechaPublicacion", nullable = false)
     private Date fechaPublicacion;
+
+    @Column(name = "vistas", columnDefinition = "integer default 0")
+    private int vistas;
 
     public Receta() {
     }

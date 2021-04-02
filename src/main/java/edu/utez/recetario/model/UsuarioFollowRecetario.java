@@ -2,19 +2,21 @@ package edu.utez.recetario.model;
 
 import javax.persistence.*;
 
-//@Entity
-//@Table(name = "usuario_follow_recetario")
+@Entity
+@Table(name = "usuario_follow_recetario")
 public class UsuarioFollowRecetario {
 
-    //@Id
-    //@GeneratedValue(strategy = GenerationType.IDENTITY)
-    //@Column(name = "id")
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
-    //@Column(name = "recetario")
+    @ManyToOne
+    @JoinColumn(name = "recetario")
     private Recetario recetario;
 
-    //@Column(name = "usuario")
+    @ManyToOne
+    @JoinColumn(name = "usuario")
     private Usuario usuario;
 
     public UsuarioFollowRecetario() {

@@ -228,14 +228,28 @@
 
                 <!-- RECETARIOS -->
                 <br>
-                <h2>Mis recetarios <button type="button" style="border:none; background: none; color:#DD969C;" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo"><i class="fas fa-plus-circle"></i></button></h2>
+                <h2>Mis recetarios
+                    <button type="button" style="border:none; background: none; color:#DD969C;" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">
+                        <i class="fas fa-plus-circle"></i>
+                    </button>
+                </h2>
                 <br>
                 <div class="list-group">
+                    <div th:each="item : ${recetarioList}">
+                        <a class="list-group-item list-group-item-action">
+                            <br>
+                            <div class="d-flex w-100 justify-content-between">
+                                <h5 class="mb-1" th:text="${item.nombre}"></h5>
+                            </div>
+                            <br>
+                        </a>
+                        <br>
+                    </div>
+                    <!--
                     <a th:href="@{/test/recetas}" class="list-group-item list-group-item-action">
                         <br>
                         <div class="d-flex w-100 justify-content-between">
                             <h5 class="mb-1">Platos fuertes</h5>
-                            <small>04/Marzo/2021</small>
                         </div>
                         <br>
                     </a>
@@ -244,11 +258,11 @@
                         <br>
                         <div class="d-flex w-100 justify-content-between">
                             <h5 class="mb-1">Platos debiles</h5>
-                            <small>10/Noviembre/2021</small>
                         </div>
                         <br>
                     </a>
                     <br>
+                    -->
                 </div>
                 <!-- RECETARIOS -->
 
@@ -262,7 +276,6 @@
                         <br>
                         <div class="d-flex w-100 justify-content-between">
                             <h5 class="mb-1">Postres</h5>
-                            <small>04/Marzo/2021</small>
                         </div>
                         <br>
                     </a>
@@ -271,7 +284,6 @@
                         <br>
                         <div class="d-flex w-100 justify-content-between">
                             <h5 class="mb-1">Vegetarianos</h5>
-                            <small>10/Noviembre/2021</small>
                         </div>
                         <br>
                     </a>
@@ -288,18 +300,18 @@
                             <h5 class="modal-title" id="exampleModalLabel">Nuevo recetario</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <div class="modal-body">
-                            <form>
+                        <form th:action="@{/registrar-recetario}" method="post" th:object="${recetario}">
+                            <div class="modal-body">
                                 <div class="mb-3">
                                     <label for="recipient-name" class="col-form-label">Nombre del recetario:</label>
-                                    <input type="text" class="form-control" id="recipient-name">
+                                    <input type="text" class="form-control" id="recipient-name" th:field="*{nombre}">
                                 </div>
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                            <a class="btn btn-eliminar" type="button" data-bs-dismiss="modal">Cancelar</a>
-                            <a href="recetarios.html" class="btn btn-agregar" type="submit">Guardar</a>
-                        </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-eliminar" data-bs-dismiss="modal">Cancelar</button>
+                                <button class="btn btn-agregar" type="submit">Guardar</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>

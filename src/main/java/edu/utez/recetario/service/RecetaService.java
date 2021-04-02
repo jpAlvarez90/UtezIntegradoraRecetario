@@ -1,6 +1,7 @@
 package edu.utez.recetario.service;
 
 import edu.utez.recetario.model.Receta;
+import edu.utez.recetario.model.Recetario;
 import edu.utez.recetario.repository.RecetaRepository;
 import edu.utez.recetario.serviceInterface.RecetaInterface;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +22,8 @@ public class RecetaService implements RecetaInterface {
     }
 
     @Override
-    public void saveReceta(Receta receta) {
-        recetaRepository.save(receta);
+    public Receta saveReceta(Receta receta) {
+        return recetaRepository.save(receta);
     }
 
     @Override
@@ -40,5 +41,10 @@ public class RecetaService implements RecetaInterface {
     @Override
     public void deleteRecetaById(Long id) {
         recetaRepository.deleteById(id);
+    }
+
+    @Override
+    public List<Receta> getAllRecetasByRecetario(Recetario recetario) {
+        return recetaRepository.findAllByRecetario(recetario);
     }
 }

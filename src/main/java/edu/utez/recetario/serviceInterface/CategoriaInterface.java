@@ -8,7 +8,7 @@ public interface CategoriaInterface {
 
     List<Categoria> getAllCategorias();
 
-    void saveCategoria(Categoria categoria);
+    Categoria saveCategoria(Categoria categoria);
 
     Categoria getCategoriaById(long id);
 
