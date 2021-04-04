@@ -8,173 +8,40 @@
             <!-- Cards -->
             <div class="container">
                 <br>
-                <h2>Platos fuertes <a th:href="@{/test/formulario}" style="text-decoration: none; color:#DD969C;"><i class="fas fa-plus-circle"></i></a></h2>
+                <h2>Platos fuertes <a th:href="@{'/crear-receta/'+${recetario.idRecetario}}" style="text-decoration: none; color:#DD969C;"><i class="fas fa-plus-circle"></i></a></h2>
                 <br>
                 <div class="row">
-                    <div class="col-sm-6 marginCard">
-                        <div class="card myborder1">
-                            <div class="imagenCard1" id="box">
-                                <!--  -->
-                                <img src="../img/brochetas.jpg" class="imagenCard1"/>
-                            </div>
-                            <div class="card-body">
-                                <h5 class="card-title" style="font-weight: bolder;">Card title</h5>
-                                <p class="card-text">This is a longer card with supporting text below as a
-                                    natural lead-in to additional content. This content is a little bit longer.
-                                    This content is a little bit longer.</p>
-                            </div>
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-9">
-
-                                        <label style="font-weight: bolder;">Autor:</label>
-                                        <span class="card-text">Jean Jairo Benitez Meza</span>
-
-                                        <br>
-                                        <label style="font-weight: bolder;">Publicada</label>
-                                        <span class="card-text">03/Marzo/2021</span>
-                                        <br>
-                                        <label style="font-weight: bolder;">Calificación:</label>
-                                        <span class="card-text">4</span>
-                                    </div>
-                                    <div class="col-3">
-                                        <div class="d-grid gap-2">
-                                            <a th:href="@{/test/formulario}" class="btn btn-sm btn-editar" type="button">Editar</a>
-                                            <a class="btn btn-sm btn-eliminar" type="button">Eliminar</a>
-                                        </div>
-                                    </div>
+                    <div th:each="item: ${recetaList}">
+                        <div class="col-sm-6 marginCard">
+                            <div class="card myborder1">
+                                <div class="imagenCard1" id="box">
+                                    <img src="../img/brochetas.jpg" class="imagenCard1"/>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-sm-6 marginCard">
-                        <div class="card myborder2">
-                            <div class="imagenCard2" id="box">
-                                <!-- -->
-                                <img src="../img/pizza.jpg" class="imagenCard2" />
-                            </div>
-                            <div class="card-body">
-                                <h5 class="card-title" style="font-weight: bolder;">Card title</h5>
-                                <p class="card-text">This is a longer card with supporting text below as a
-                                    natural lead-in to additional content. This content is a little bit longer.
-                                    This content is a little bit longer.</p>
-                            </div>
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-9">
-                                        <label style="font-weight: bolder;">Autor:</label>
-                                        <span class="card-text">Jean Jairo Benitez Meza</span><br>
-                                        <label style="font-weight: bolder;">Publicada</label>
-                                        <span class="card-text">03/Marzo/2021</span>
-                                        <br>
-                                        <label style="font-weight: bolder;">Calificación:</label>
-                                        <span class="card-text">4</span>
-                                    </div>
-                                    <div class="col-3">
-                                        <div class="d-grid gap-2">
-                                            <a th:href="@{/test/formulario}" class="btn btn-sm btn-editar" type="button">Editar</a>
-                                            <button class="btn btn-sm btn-eliminar" type="button">Eliminar</button>
-                                        </div>
-                                    </div>
+                                <div class="card-body">
+                                    <h5 th:text="${item.titulo}" class="card-title" style="font-weight: bolder;"></h5>
+                                    <p th:text="${item.descripcion}" class="card-text"></p>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-9">
 
-                    <div class="col-sm-6 marginCard">
-                        <div class="card myborder3">
-                            <div class="imagenCard3" id="box">
-                                <img src="../img/fondo3.png" class="imagenCard3" />
-                            </div>
-                            <div class="card-body">
-                                <h5 class="card-title" style="font-weight: bolder;">Card title</h5>
-                                <p class="card-text">This is a longer card with supporting text below as a
-                                    natural lead-in to additional content. This content is a little bit longer.
-                                    This content is a little bit longer.</p>
-                            </div>
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-9">
-                                        <label style="font-weight: bolder;">Autor:</label>
-                                        <span class="card-text">Jean Jairo Benitez Meza</span><br>
-                                        <label style="font-weight: bolder;">Publicada</label>
-                                        <span class="card-text">03/Marzo/2021</span>
-                                        <br>
-                                        <label style="font-weight: bolder;">Calificación:</label>
-                                        <span class="card-text">4</span>
-                                    </div>
-                                    <div class="col-3">
-                                        <div class="d-grid gap-2">
-                                            <a th:href="@{/test/formulario}" class="btn btn-sm btn-editar" type="button">Editar</a>
-                                            <button class="btn btn-sm btn-eliminar" type="button">Eliminar</button>
+                                            <label style="font-weight: bolder;">Autor:</label>
+                                            <span th:text="${autor}" class="card-text"></span>
+
+                                            <br>
+                                            <label style="font-weight: bolder;">Publicada</label>
+                                            <span th:text="${item.fechaPublicacion}" class="card-text"></span>
+                                            <br>
+                                            <!--
+                                            <label style="font-weight: bolder;">Calificación:</label>
+                                            <span class="card-text">4</span>
+                                            -->
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-sm-6 marginCard">
-                        <div class="card myborder4">
-                            <div class="imagenCard4" id="box">
-                                <img src="../img/fondo4.png" class="imagenCard4" />
-                            </div>
-                            <div class="card-body">
-                                <h5 class="card-title" style="font-weight: bolder;">Card title</h5>
-                                <p class="card-text">This is a longer card with supporting text below as a
-                                    natural lead-in to additional content. This content is a little bit longer.
-                                    This content is a little bit longer.</p>
-                            </div>
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-9">
-                                        <label style="font-weight: bolder;">Autor:</label>
-                                        <span class="card-text">Jean Jairo Benitez Meza</span><br>
-                                        <label style="font-weight: bolder;">Publicada</label>
-                                        <span class="card-text">03/Marzo/2021</span>
-                                        <br>
-                                        <label style="font-weight: bolder;">Calificación:</label>
-                                        <span class="card-text">4</span>
-                                    </div>
-                                    <div class="col-3">
-                                        <div class="d-grid gap-2">
-                                            <a th:href="@{/test/formulario}" class="btn btn-sm btn-editar" type="button">Editar</a>
-                                            <button class="btn btn-sm btn-eliminar" type="button">Eliminar</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-sm-6 marginCard">
-                        <div class="card myborder5">
-                            <div class="imagenCard5" id="box">
-                                <!--<img src="../img/fondo1.jpg" class="imagenCard5"/>-->
-                                Sin imagen
-                            </div>
-                            <div class="card-body">
-                                <h5 class="card-title" style="font-weight: bolder;">Card title</h5>
-                                <p class="card-text">This is a longer card with supporting text below as a
-                                    natural lead-in to additional content. This content is a little bit longer.
-                                    This content is a little bit longer.</p>
-                            </div>
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-9">
-                                        <label style="font-weight: bolder;">Autor:</label>
-                                        <span class="card-text">Jean Jairo Benitez Meza</span><br>
-                                        <label style="font-weight: bolder;">Publicada</label>
-                                        <span class="card-text">03/Marzo/2021</span>
-                                        <br>
-                                        <label style="font-weight: bolder;">Calificación:</label>
-                                        <span class="card-text">4</span>
-                                    </div>
-                                    <div class="col-3">
-                                        <div class="d-grid gap-2">
-                                            <a th:href="@{/test/formulario}" class="btn btn-sm btn-editar" type="button">Editar</a>
-                                            <button class="btn btn-sm btn-eliminar" type="button">Eliminar</button>
+                                        <div class="col-3">
+                                            <div class="d-grid gap-2">
+                                                <a th:href="@{/test/formulario}" class="btn btn-sm btn-editar" type="button">Editar</a>
+                                                <a class="btn btn-sm btn-eliminar" type="button">Eliminar</a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

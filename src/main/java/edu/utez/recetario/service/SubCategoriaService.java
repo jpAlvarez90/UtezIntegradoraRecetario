@@ -1,5 +1,6 @@
 package edu.utez.recetario.service;
 
+import edu.utez.recetario.model.Categoria;
 import edu.utez.recetario.model.SubCategoria;
 import edu.utez.recetario.repository.SubCategoriaRepository;
 import edu.utez.recetario.serviceInterface.SubCategoriaInterface;
@@ -40,5 +41,10 @@ public class SubCategoriaService implements SubCategoriaInterface {
     @Override
     public void deleteSubCategoriaById(long id) {
         subCategoriaRepository.deleteById(id);
+    }
+
+    @Override
+    public List<SubCategoria> getAllSubcategoriasByCategoria(Categoria categoria) {
+        return subCategoriaRepository.findAllByCategoria(categoria);
     }
 }
