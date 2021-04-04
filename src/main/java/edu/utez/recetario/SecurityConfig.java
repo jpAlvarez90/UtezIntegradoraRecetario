@@ -35,7 +35,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/img/**",
                         "/icons/**",
                         "/ckeditor/**",
-                        "/tinymce/**");
+                        "/tinymce/**",
+                        "/ckeditor/**",
+                        "/json/**");
 
     }
 

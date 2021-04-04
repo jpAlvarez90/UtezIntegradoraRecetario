@@ -236,7 +236,7 @@
                 <br>
                 <div class="list-group">
                     <div th:each="item : ${recetarioList}">
-                        <a class="list-group-item list-group-item-action">
+                        <a th:href="@{'/ver-recetas/'+${item.idRecetario}}" class="list-group-item list-group-item-action">
                             <br>
                             <div class="d-flex w-100 justify-content-between">
                                 <h5 class="mb-1" th:text="${item.nombre}"></h5>

@@ -45,28 +45,31 @@ public class Receta {
     @Column(name = "pasos", nullable = false, columnDefinition = "TEXT")
     private String pasos;
 
-    @Column(name = "imagenes", nullable = false, columnDefinition = "TEXT")
+    @Column(name = "imagenes", columnDefinition = "TEXT")
     private String imagenes;
 
-    @Column(name = "fechaPublicacion", nullable = false)
+    @Column(name = "fechaPublicacion")
     private Date fechaPublicacion;
 
-    @Column(name = "vistas", columnDefinition = "integer default 0")
+    @Column(name = "vistas", columnDefinition = "integer default 0", nullable = false)
     private int vistas;
 
     public Receta() {
     }
 
-    public Receta(Recetario recetario, Categoria categoria, SubCategoria subCategoria, String titulo, String descripcion, String ingredientes, String pasos, String imagenes, Date fechaPublicacion) {
+    public Receta(Recetario recetario, Categoria categoria, SubCategoria subCategoria, Set<Comentario> comentario, Set<Calificacion> calificacion, String titulo, String descripcion, String ingredientes, String pasos, String imagenes, Date fechaPublicacion, int vistas) {
         this.recetario = recetario;
         this.categoria = categoria;
         this.subCategoria = subCategoria;
+        this.comentario = comentario;
+        this.calificacion = calificacion;
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.ingredientes = ingredientes;
         this.pasos = pasos;
         this.imagenes = imagenes;
         this.fechaPublicacion = fechaPublicacion;
+        this.vistas = vistas;
     }
 
     public Long getIdReceta() {
@@ -99,6 +102,22 @@ public class Receta {
 
     public void setSubCategoria(SubCategoria subCategoria) {
         this.subCategoria = subCategoria;
+    }
+
+    public Set<Comentario> getComentario() {
+        return comentario;
+    }
+
+    public void setComentario(Set<Comentario> comentario) {
+        this.comentario = comentario;
+    }
+
+    public Set<Calificacion> getCalificacion() {
+        return calificacion;
+    }
+
+    public void setCalificacion(Set<Calificacion> calificacion) {
+        this.calificacion = calificacion;
     }
 
     public String getTitulo() {
@@ -147,5 +166,13 @@ public class Receta {
 
     public void setFechaPublicacion(Date fechaPublicacion) {
         this.fechaPublicacion = fechaPublicacion;
+    }
+
+    public int getVistas() {
+        return vistas;
+    }
+
+    public void setVistas(int vistas) {
+        this.vistas = vistas;
     }
 }

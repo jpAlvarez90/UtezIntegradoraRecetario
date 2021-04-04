@@ -1,5 +1,8 @@
 package edu.utez.recetario.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.List;
@@ -16,9 +19,11 @@ public class SubCategoria {
 
     @ManyToOne
     @JoinColumn(name = "categoria", nullable = false)
+    @JsonIgnore
     private Categoria categoria;
 
     @OneToMany(mappedBy = "subCategoria")
+    @JsonIgnore
     private Set<Receta> receta = new HashSet<>();
 
     @Column(name = "nombre", nullable = false)
