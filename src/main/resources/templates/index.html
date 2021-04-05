@@ -10,13 +10,13 @@
             <div class="container">
                 <div class="row row-cols-1 row-cols-md-3 g-4" >
                     <div class="col" th:each="item, iStat: ${listaRecetas}">
-                        <div th:class="'card myborder'+${iStat.count}">
+                        <div th:class="'card index myborder'+${iStat.count}">
                             <div th:class="'imagenCard'+${iStat.count}">
                                 <img src="/img/pizza.jpg" th:class="'imagenCard'+${iStat.count}" />
                             </div>
-                            <div class="card-body" style="height: 200px">
+                            <div class="card-body" style="height: 190px">
                                 <b><span style="font-size: 14pt" th:text="${item.titulo}"></span></b>
-                                <p class="card-text" th:text="${#strings.abbreviate(item.descripcion, 180)}"></p>
+                                <p class="card-text" th:text="${#strings.abbreviate(item.descripcion, 170)}"></p>
                             </div>
                             <div class="card-footer">
                                 <div class="row">
