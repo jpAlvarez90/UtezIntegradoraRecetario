@@ -9,16 +9,16 @@
             <!-- Cards -->
             <div class="container">
                 <div class="row row-cols-1 row-cols-md-3 g-4" >
-                    <div class="col" th:each="item: ${listaRecetas}">
-                        <div class="card myborder1">
-                            <div class="imagenCard1">
-                                <img src="/img/pizza.jpg" class="imagenCard1" />
+                    <div class="col" th:each="item, iStat: ${listaRecetas}">
+                        <div th:class="'card myborder'+${iStat.count}">
+                            <div th:class="'imagenCard'+${iStat.count}">
+                                <img src="/img/pizza.jpg" th:class="'imagenCard'+${iStat.count}" />
                             </div>
-                            <div class="card-body">
-                                <b><span style="font-size: 18pt" th:text="${item.titulo}"></span></b>
+                            <div class="card-body" style="height: 200px">
+                                <b><span style="font-size: 14pt" th:text="${item.titulo}"></span></b>
                                 <p class="card-text" th:text="${#strings.abbreviate(item.descripcion, 180)}"></p>
                             </div>
-                            <div class="card-body">
+                            <div class="card-footer">
                                 <div class="row">
                                     <div class="col-9">
                                         <b><label>Autor:</label></b>
@@ -27,7 +27,7 @@
                                         <span class="card-text" th:text="${#dates.format(item.fechaPublicacion, 'dd-MMM-yyy')}"></span>
                                     </div>
                                     <div class="col-3">
-                                        <a th:href="@{'/ver-receta/'+${item.idReceta}}" style="background: #F6EFF4; color: #000" class="btn btn-lg">Ver</a>
+                                        <a th:href="@{'/ver-receta/'+${item.idReceta}}" style="background: #e9e2e2; color: #000;" class="btn btn-lg">Ver</a>
                                     </div>
                                 </div>
                             </div>

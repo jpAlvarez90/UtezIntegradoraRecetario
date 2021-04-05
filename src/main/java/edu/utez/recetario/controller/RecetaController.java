@@ -89,6 +89,8 @@ public class RecetaController {
         return subCategoriaList;
     }
 
+
+
     @PostMapping("/crear-receta")
     public String crearReceta(Receta receta,
                               BindingResult bindingResult,

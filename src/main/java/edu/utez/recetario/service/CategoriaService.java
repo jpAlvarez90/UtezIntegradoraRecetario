@@ -41,4 +41,9 @@ public class CategoriaService implements CategoriaInterface {
     public void deleteCategoriaById(long id) {
         categoriaRepository.deleteById(id);
     }
+
+    @Override
+    public Categoria findByNombre(String nombreCategoria) {
+        return categoriaRepository.findByNombre(nombreCategoria);
+    }
 }
