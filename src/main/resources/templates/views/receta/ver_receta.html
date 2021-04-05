@@ -9,8 +9,9 @@
 
                 <br><br>
                 <div class="row">
+
                     <div class="col-lg-6">
-                        <h1 style="font-weight: bolder;">Título de la receta</h1>
+                        <h1 style="font-weight: bolder;" th:text="${receta.titulo}"></h1>
                     </div>
                     <div class="col-lg-6">
                         <form>
@@ -43,44 +44,24 @@
                 <br>
 
                 <h2 style="font-weight: bolder;">Descripción</h2>
-                <h4>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc molestie luctus ante et sodales. Quisque eu tincidunt ex. Suspendisse feugiat nisl est, quis pretium augue sodales eget. In aliquam blandit lacinia.
-                </h4>
+                <h4 th:text="${receta.descripcion}"></h4>
                 <br>
 
                 <h2 style="font-weight: bolder;">Ingredientes</h2>
-                <ul class="">
-                    <li class="">
-                        <h4>An item</h4>
-                    </li>
-                    <li class="">
-                        <h4>A second item</h4>
-                    </li>
-                    <li class="">
-                        <h4>A third item</h4>
-                    </li>
-                    <li class="">
-                        <h4>A fourth item</h4>
-                    </li>
-                    <li class="">
-                        <h4>And a fifth one</h4>
-                    </li>
-                </ul>
+                <h4 th:utext="${receta.ingredientes}"></h4>
                 <br>
 
                 <h2 style="font-weight: bolder;">Pasos</h2>
-                <h4>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean pellentesque purus sit amet nisl facilisis, vel vehicula velit cursus. Curabitur convallis placerat ante sed pellentesque. Morbi et velit porta, ultrices quam ut, placerat diam. Vivamus
-                    auctor diam vel tellus posuere, nec auctor risus congue. Sed blandit sodales justo, a iaculis tortor. Pellentesque id dolor sit amet mauris cursus suscipit in id quam. Proin fringilla libero in orci mollis, eget tristique neque volutpat. Phasellus
-                    convallis tortor eget blandit fringilla. Morbi porttitor, nulla porta sagittis ultricies, tortor nisl auctor risus, at consectetur erat neque quis massa. Donec eget fermentum enim. Aliquam eu viverra metus. Aenean rhoncus diam sit amet urna
-                    placerat, at auctor libero porttitor. Maecenas et erat nec neque blandit congue sagittis vel nibh. Sed semper molestie massa non commodo. Sed sit amet posuere ante. Ut nunc est, euismod vel ullamcorper ut, ultrices vestibulum turpis. Quisque
-                    semper diam dui, quis sollicitudin justo faucibus a. Etiam in facilisis sapien, quis hendrerit felis. Aliquam eu nibh nibh. Phasellus semper accumsan turpis ac tincidunt. Pellentesque rutrum velit a posuere accumsan. Sed suscipit imperdiet
-                    cursus. Curabitur volutpat neque ac nisi mollis finibus. Sed pretium metus eget nulla tristique pulvinar. Curabitur rutrum lectus ac quam malesuada dapibus. Morbi fringilla convallis purus, nec ornare ex efficitur vitae. Lorem ipsum dolor
-                    sit amet, consectetur adipiscing elit. Duis nec egestas purus, non venenatis dolor.</h4>
+                <h4 th:utext="${receta.pasos}"></h4>
 
                 <br>
 
                 <h2 style="font-weight: bolder;">Imagenes</h2>
+                <div th:if="${#strings.contains(receta.imagenes,'default')}">
+                    <h4>No hay imagenes disponibles</h4>
+                </div>
                 <!-- Carrusel -->
-                <div class="Carousel">
+                <div class="Carousel" th:unless="${#strings.contains(receta.imagenes,'default')}">
                     <div class="slick-list" id="slick-list">
                         <button class="slick-arrow slick-prev" id="button-prev" data-button="button-prev" onclick="app.processingButton(event)">
                             <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="chevron-left"
@@ -98,187 +79,6 @@
                                         <h4>Tacos de canasta</h4>
                                         <picture>
                                             <img src="../img/1.jpg" alt="Image">
-                                        </picture>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="slick">
-                                <div>
-                                    <a href="/">
-                                        <h4>Tacos</h4>
-                                        <picture>
-                                            <img src="../img/2.jpg" alt="Image">
-                                        </picture>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="slick">
-                                <div>
-                                    <a href="/">
-                                        <h4>Sopes</h4>
-                                        <picture>
-                                            <img src="../img/3.jpg" alt="Image">
-                                        </picture>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="slick">
-                                <div>
-                                    <a href="/">
-                                        <h4>Enchiladas suizas</h4>
-                                        <picture>
-                                            <img src="../img/4.jpg" alt="Image">
-                                        </picture>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="slick">
-                                <div>
-                                    <a href="/">
-                                        <h4>Tacos al pastor</h4>
-                                        <picture>
-                                            <img src="../img/5.jpg" alt="Image">
-                                        </picture>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="slick">
-                                <div>
-                                    <a href="/">
-                                        <h4>Chilaquiles</h4>
-                                        <picture>
-                                            <img src="../img/6.jpg" alt="Image">
-                                        </picture>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="slick">
-                                <div>
-                                    <a href="/">
-                                        <h4>Chiles rellenos</h4>
-                                        <picture>
-                                            <img src="../img/7.jpg" alt="Image">
-                                        </picture>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="slick">
-                                <div>
-                                    <a href="/">
-                                        <h4>Pozole</h4>
-                                        <picture>
-                                            <img src="../img/8.jpg" alt="Image">
-                                        </picture>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="slick">
-                                <div>
-                                    <a href="/">
-                                        <h4>Mole rojo</h4>
-                                        <picture>
-                                            <img src="../img/9.jpg" alt="Image">
-                                        </picture>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="slick">
-                                <div>
-                                    <a href="/">
-                                        <h4><small>Share Your Message</small>Watch</h4>
-                                        <picture>
-                                            <img src="../img/10.jpg" alt="Image">
-                                        </picture>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="slick">
-                                <div>
-                                    <a href="/">
-                                        <h4>Guacamole</h4>
-                                        <picture>
-                                            <img src="../img/11.jpg" alt="Image">
-                                        </picture>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="slick">
-                                <div>
-                                    <a href="/">
-                                        <h4>Tamales</h4>
-                                        <picture>
-                                            <img src="../img/12.jpg" alt="Image">
-                                        </picture>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="slick">
-                                <div>
-                                    <a href="/">
-                                        <h4>Platillo</h4>
-                                        <picture>
-                                            <img src="../img/13.jpg" alt="Image">
-                                        </picture>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="slick">
-                                <div>
-                                    <a href="/">
-                                        <h4>Tacos dorados</h4>
-                                        <picture>
-                                            <img src="../img/14.jpg" alt="Image">
-                                        </picture>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="slick">
-                                <div>
-                                    <a href="/">
-                                        <h4>Tortas</h4>
-                                        <picture>
-                                            <img src="../img/15.jpg" alt="Image">
-                                        </picture>
-                                    </a>
-                                </div>
-                            </div>
-
-                            <div class="slick">
-                                <div>
-                                    <a href="/">
-                                        <h4>Chalupitas</h4>
-                                        <picture>
-                                            <img src="../img/fondo1.jpg" alt="Image">
-                                        </picture>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="slick">
-                                <div>
-                                    <a href="/">
-                                        <h4><small>Share Your Message</small>Watch</h4>
-                                        <picture>
-                                            <img src="../img/fondo2.png" alt="Image">
-                                        </picture>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="slick">
-                                <div>
-                                    <a href="/">
-                                        <h4><small>Share Your Message</small>Watch</h4>
-                                        <picture>
-                                            <img src="../img/fondo3.png" alt="Image">
-                                        </picture>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="slick">
-                                <div>
-                                    <a href="/">
-                                        <h4><small>Share Your Message</small>Watch</h4>
-                                        <picture>
-                                            <img src="../img/fondo4.png" alt="Image">
                                         </picture>
                                     </a>
                                 </div>
@@ -303,9 +103,10 @@
                         <button type="button" class="btn btn-light btn-circle btn-lg">JJ</button>
                     </div>
                     <div class="col-11">
-                        <form>
+                        <form id="comentarioBox" th:action="@{/realizar-comentario}" method="post">
+                            <input type="text" style="display: none" th:value="${receta.idReceta}" id="idReceta" name="idReceta" />
                             <div class="form-floating">
-                                <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 150px; resize: none"></textarea>
+                                <textarea class="form-control" placeholder="Deje un comentario aqui" id="floatingTextarea2" name="floatingTextarea2" style="height: 150px; resize: none"></textarea>
                                 <label for="floatingTextarea2">Comentario</label>
                             </div>
                             <br>
@@ -316,27 +117,27 @@
                     </div>
                 </div>
                 <br><br>
-                <div class="row">
-                    <div class="col-1">
-                        <button type="button" class="btn btn-light btn-circle btn-lg">AC</button>
-                    </div>
-                    <div class="col-11">
-                        <h3 style="font-weight: bolder;">Alan Jesus Carranza Vazquez</h3>
-                        <h4>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut sed urna vitae neque volutpat blandit sit amet sit amet lacus. Aenean consectetur auctor eros, ut sollicitudin eros efficitur non.</h4>
+                <div id="cajaComentarios">
+                    <div class="row" th:each="item : ${comentarios}">
+                        <div class="col-1">
+                            <button type="button" class="btn btn-light btn-circle btn-lg">
+                                <span th:text="${#strings.substring(item.usuario.nombre,0,1)}"></span>
+                                <span th:text="${#strings.substring(item.usuario.primerApellido,0,1)}"></span>
+                            </button>
+                        </div>
+                        <div class="col-11">
+                            <h3 style="font-weight: bolder;" th:text="${item.usuario.nombre} + ' ' + ${item.usuario.primerApellido} + ' '+ ${item.usuario.segundoApellido}"></h3>
+                            <h4 th:text="${item.comentario}"></h4>
+                        </div>
                     </div>
                 </div>
                 <br>
-                <div class="row">
-                    <div class="col-1">
-                        <button type="button" class="btn btn-light btn-circle btn-lg">DÑ</button>
-                    </div>
-                    <div class="col-11">
-                        <h3 style="font-weight: bolder;">Daniela Paola Nuño Camacho</h3>
-                        <h4>Phasellus scelerisque vehicula risus sit amet tempus. Aenean posuere imperdiet sem, et accumsan est scelerisque et. Integer ac sapien a ex hendrerit fermentum. Maecenas sit amet lobortis lectus. Class aptent taciti sociosqu ad litora torquent
-                            per conubia nostra, per inceptos himenaeos. Phasellus quis vehicula est.</h4>
-                    </div>
-                </div>
             </div>
         </div>
     </body>
 </html>
+
+
+
+
+

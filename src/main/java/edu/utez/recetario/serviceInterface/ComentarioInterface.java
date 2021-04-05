@@ -1,6 +1,7 @@
 package edu.utez.recetario.serviceInterface;
 
 import edu.utez.recetario.model.Comentario;
+import edu.utez.recetario.model.Receta;
 
 import java.util.List;
 
@@ -14,6 +15,6 @@ public interface ComentarioInterface {
 
     void deleteComentarioById(long id);
 
-    List<Comentario> getComentarioByRecetaId(long id);
+    List<Comentario> getComentarioByReceta(Receta receta);
 
 }

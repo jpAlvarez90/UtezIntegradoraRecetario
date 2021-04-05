@@ -17,4 +17,6 @@ public interface RecetaInterface {
 
     List<Receta> getAllRecetasByRecetario(Recetario recetario);
 
+    List<Receta> getAllRecetasByOrderADesc(int limit);
+
 }
