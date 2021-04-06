@@ -39,7 +39,28 @@ public class UsuarioService implements UsuarioInterface {
         usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
         return usuarioRepository.save(usuario);
     }
+    @Override
+    public Usuario savePerfil(Usuario usuario) {
+        usuario.setRol(rolService.getRole((long)2));
+        usuario.setRol(rolService.getRole((long)2));
+        usuario.setFechaRegistro(new Date());
+        usuario.setPassword(usuario.getPassword());
 
+        return usuarioRepository.save(usuario);
+    }
+
+    @Override
+    public Usuario saveUsuarioPerfil(Usuario usuario) {
+        if (usuario.getRol().getIdRol() != null || usuario.getRol().getRol() == "USER" ){
+            usuario.setRol(rolService.getRole((long)2));
+        }else if (usuario.getRol().getRol() == "ADMIN"){
+            usuario.setRol(rolService.getRole((long)1));
+        }
+        usuario.setFechaRegistro(new Date());
+        usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
+
+        return usuarioRepository.save(usuario);
+    }
     @Override
     public Usuario getUsuarioById(long id) {
         Optional<Usuario> optional = usuarioRepository.findById(id);

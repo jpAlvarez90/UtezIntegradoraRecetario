@@ -11,6 +11,10 @@ public interface UsuarioInterface {
 
     Usuario saveUsuario(Usuario usuario);
 
+    Usuario savePerfil(Usuario usuario);
+
+    Usuario saveUsuarioPerfil(Usuario usuario);
+
     Usuario getUsuarioById(long id);
 
     void deleteUsuarioById(long id);

@@ -1,219 +1,206 @@
 <!DOCTYPE html>
 <html layout:decorate="~{layout/layout_base}">
-<head>
-    <title>Configuracion</title>
-</head>
-<body>
-    <div layout:fragment="content">
-        <ul class="nav nav-tabs" id="myTab" role="tablist" style="margin: 10px;">
-            <li class="nav-item" role="presentation">
-                <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Categoría</button>
-            </li>
-            <li class="nav-item" role="presentation">
-                <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Subcategoría</button>
-            </li>
-            <li class="nav-item" role="presentation">
-                <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Perfil</button>
-            </li>
-        </ul>
-        <div class="tab-content" id="myTabContent">
-            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                <br>
-                <div class="row">
-                    <div class="col-lg-10">
-                        <h1>Categoría</h1>
-                    </div>
-                    <div class="col-lg-2">
-                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                            <button type="button" class="btn" style="background: #EADDE7" data-bs-toggle="modal" data-bs-target="#category">
-                                Nueva categoría
-                            </button>
+    <head>
+        <title>Configuracion</title>
+    </head>
+    <body>
+        <div layout:fragment="content">
+            <ul class="nav nav-tabs" id="myTab" role="tablist" style="margin: 10px;">
+                <li  class="nav-item" role="presentation">
+                    <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Perfil</button>
+                </li>
+                <li sec:authorize="hasRole('ADMIN')" class="nav-item" role="presentation">
+                    <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Categoría</button>
+                </li>
+                <li sec:authorize="hasRole('ADMIN')" class="nav-item" role="presentation">
+                    <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Subcategoría</button>
+                </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+                <div  class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                    <br>
+                    <div class="row">
+                        <div class="col-lg-10">
+                            <h1>Categoría</h1>
                         </div>
-
-                    </div>
-                </div>
-
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Nombre de la categoría</th>
-                        <th scope="col">Acciones</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Repostería</td>
-                        <td>
-                            <a href="#" class="btn btn-sm btn-eliminar"><i class="far fa-trash-alt"></i></a>
-                            <a href="#" class="btn btn-sm btn-editar"><i class="far fa-edit"></i></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>Carnes</td>
-                        <td>
-                            <a href="#" class="btn btn-sm btn-eliminar"><i class="far fa-trash-alt"></i></a>
-                            <a href="#" class="btn btn-sm btn-editar"><i class="far fa-edit"></i></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td>Cremas</td>
-                        <td>
-                            <a href="#" class="btn btn-sm btn-eliminar"><i class="far fa-trash-alt"></i></a>
-                            <a href="#" class="btn btn-sm btn-editar"><i class="far fa-edit"></i></a>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-                <!-- Modal -->
-                <div class="modal fade" id="category" tabindex="-1" aria-labelledby="categoryLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="categoryLabel">Categoria</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <div class="col-lg-2">
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                <button type="button" class="btn" style="background: #EADDE7" data-bs-toggle="modal" data-bs-target="#category">
+                                    Nueva categoría
+                                </button>
                             </div>
-                            <div class="modal-body">
-                                <form action="">
-                                    <div class="mb-3">
-                                        <label class="form-label">Nombre categoría</label>
-                                        <input type="text" class="form-control" placeholder="Reposteria">
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-eliminar" data-bs-dismiss="modal">Cancelar</button>
-                                        <button type="button" class="btn btn-agregar">Guardar</button>
-                                    </div>
-                                </form>
+
+                        </div>
+                    </div>
+
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Nombre de la categoría</th>
+                            <th scope="col">Acciones</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="item, iStat: ${listaCategoria}">
+                            <th scope="row" th:text="${iStat.count}"></th>
+                            <td th:text="${item.nombre}"></td>
+                            <td>
+                                <a th:href="@{'/eliminarCategoria/'+${item.idCategoria}}" class="btn btn-sm btn-eliminar"><i class="far fa-trash-alt"></i></a>
+                                <a th:href="@{'/editarCategoria/'+${item.idCategoria}}" id="idCategoria" class="btn btn-sm btn-editar"><i class="far fa-edit"></i></a>
+                            </td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+                    <!-- Modal -->
+                    <div class="modal fade" id="category" tabindex="-1" aria-labelledby="categoryLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="categoryLabel">Categoria</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form th:action="@{/crearCategoria}" method="post" th:object="${categoria}">
+                                        <div class="mb-3">
+                                            <label class="form-label">Nombre categoría</label>
+                                            <input type="text" th:field="*{idCategoria}" class="form-control" style="display: none"></input>
+                                            <input type="text" class="form-control" placeholder="Reposteria" th:field="*{nombre}">
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                            <button type="submit" class="btn btn-primary">Guardar</button>
+                                        </div>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
+                    <script type="text/javascript" th:if="${categoria.idCategoria != null}">
+                        document.addEventListener('DOMContentLoaded', function() {
+                            //console.log("Cargando Modal");
+                            var myModal = new bootstrap.Modal(document.getElementById('category'));
+                            myModal.show();
+                        });
+                    </script>
                 </div>
-            </div>
-            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                <br>
-                <div class="row">
-                    <div class="col-lg-8">
-                        <h1>Subcategoría</h1>
+                <div  class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                    <br>
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <h1>Subcategoría</h1>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-end ">
+                                <button type="button" class="btn" style="background: #EADDE7" data-bs-toggle="modal" data-bs-target="#subcategory">
+                                    Nueva subcategoría
+                                </button>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-lg-4">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Nombre de la subcategoría</th>
+                            <th scope="col">Nombre de la categoría</th>
+                            <th scope="col">Acciones</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="item, iStat:${listaSubcategoria}">
+                            <th th:text="${iStat.count}" scope="row"></th>
+                            <td th:text="${item.nombre}"> </td>
+                            <td th:text="${item.categoria.nombre}"></td>
+                            <td>
+                                <a th:href="@{'/eliminarSubcategoria/'+${item.idSubCategoria}}" class="btn btn-sm btn-eliminar"><i class="far fa-trash-alt"></i></a>
+                                <a th:href="@{'/editarSubCategoria/'+${item.idSubCategoria}}"class="btn btn-sm btn-editar"><i class="far fa-edit"></i></a>
+                            </td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+                    <!-- Modal -->
+                    <div class="modal fade" id="subcategory" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Subcategory</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form th:action="@{/crearSubcategoria}" method="post" th:object="${subcategoria}">
+                                        <div class="mb-3">
+                                            <label class="form-label">Nombre Subcategoria</label>
+                                            <input type="text" class="form-control" placeholder="Ingresa un nombre de subcategoria" th:field="*{nombre}">
+                                            <input type="text" th:field="*{idSubCategoria}" class="form-control" style="display: none"></input>
+
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">Categoría:</label><br/>
+                                            <select required="required" class="form-select" id="category_id" name="category_id" aria-label="Ingeniería">
+                                                <option selected>Seleccione su categoría...</option>
+                                                <option th:each="item:${listaCategoria}" th:text="${item.nombre}"  th:value="${item.idCategoria}"></option>
+                                            </select>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                            <button type="submit" class="btn btn-primary">Guardar</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <script type="text/javascript" th:if="${subcategoria.idSubCategoria != null}">
+                        document.addEventListener('DOMContentLoaded', function() {
+                            console.log("Cargando Modal");
+                            var myModal2 = new bootstrap.Modal(document
+                                .getElementById('subcategory'));
+                            myModal2.show();
+                        });
+                    </script>
+                </div>
+                <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="profile-tab">
+                    <br>
+                    <div>
+                        <h1>Perfil</h1>
+                    </div>
+                    <form th:action="@{editarPerfil}" th:object="${usuario}" method="post">
+                        <input type="text" th:field="*{idUsuario}" class="form-control" style="display: none"></input>
+                        <input type="text" th:field="*{password}" class="form-control" style="display: none"></input>
+
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon1"><i class="fas fa-file-signature"></i></span>
+                            <input type="text" class="form-control" placeholder="Nombre(s)" aria-label="Nombre" aria-describedby="basic-addon1" th:field="*{nombre}">
+                        </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon2"><i class="fas fa-file-signature"></i></span>
+                            <input type="text" class="form-control" placeholder="Primer apellido" aria-label="Primer apellido" aria-describedby="basic-addon1" th:field="*{primerApellido}">
+                        </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon8"><i class="fas fa-file-signature"></i></span>
+                            <input type="text" class="form-control" placeholder="Segundo apeliido" aria-label="Segundo apeliido" aria-describedby="basic-addon1" th:field="*{segundoApellido}">
+                        </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon3"><i class="fas fa-user"></i></span>
+                            <input type="text" class="form-control" placeholder="Usuario" aria-label="Usuario" aria-describedby="basic-addon1" th:field="*{username}">
+                        </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon4"><i class="fas fa-at"></i></span>
+                            <input type="text" class="form-control" placeholder="Correo" aria-label="Correo" aria-describedby="basic-addon1" th:field="*{correo}">
+                        </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon5"><i class="fas fa-key"></i></span>
+                            <input type="password" class="form-control" placeholder="Contraseña" aria-label="Contraseña" aria-describedby="basic-addon1"  id="passwordInput" name="passwordInput">
+                        </div>
                         <div class="d-grid gap-2 d-md-flex justify-content-md-end ">
-                            <button type="button" class="btn" style="background: #EADDE7" data-bs-toggle="modal" data-bs-target="#subcategory">
-                                Nueva subcategoría
-                            </button>
+                            <button type="submit" class="btn btn-light misRecetas">Guardar cambios</button>
                         </div>
-                    </div>
+                    </form>
                 </div>
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Nombre de la subcategoría</th>
-                        <th scope="col">Nombre de la categoría</th>
-                        <th scope="col">Acciones</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Pastel de chocolate</td>
-                        <td>Reposteria</td>
-                        <td>
-                            <a href="#" class="btn btn-sm btn-eliminar"><i class="far fa-trash-alt"></i></a>
-                            <a href="#" class="btn btn-sm btn-editar"><i class="far fa-edit"></i></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>Carne al chipotle</td>
-                        <td>Carnes</td>
-                        <td>
-                            <a href="#" class="btn btn-sm btn-eliminar"><i class="far fa-trash-alt"></i></a>
-                            <a href="#" class="btn btn-sm btn-editar"><i class="far fa-edit"></i></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td>Crema de Elote</td>
-                        <td>Cremas</td>
-                        <td>
-                            <a href="#" class="btn btn-sm btn-eliminar"><i class="far fa-trash-alt"></i></a>
-                            <a href="#" class="btn btn-sm btn-editar"><i class="far fa-edit"></i></a>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-                <!-- Modal -->
-                <div class="modal fade" id="subcategory" tabindex="-1" aria-labelledby="subcategoryLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="subcategoryLabel">Subcategory</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <form action="">
-                                    <div class="mb-3">
-                                        <label class="form-label">Nombre Subcategoria</label>
-                                        <input type="text" class="form-control" placeholder="Reposteria">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label class="form-label">Categoria</label>
-                                        <select class="form-select">
-                                            <option selected>Elige una...</option>
-                                            <option value="1">Reposteria</option>
-                                            <option value="2">Carnes</option>
-                                            <option value="3">Cremas</option>
-                                        </select>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-eliminar" data-bs-dismiss="modal">Cancelar</button>
-                                        <button type="button" class="btn btn-agregar" >Guardar</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="profile-tab">
-                <br>
-                <div>
-                    <h1>Perfil</h1>
-                </div>
-                <form action="">
-                    <div class="input-group mb-3">
-                        <span class="input-group-text" id="basic-addon1"><i class="fas fa-file-signature"></i></span>
-                        <input type="text" class="form-control" placeholder="Nombre(s)" aria-label="Nombre" aria-describedby="basic-addon1">
-                    </div>
-                    <div class="input-group mb-3">
-                        <span class="input-group-text" id="basic-addon2"><i class="fas fa-file-signature"></i></span>
-                        <input type="text" class="form-control" placeholder="Primer apellido" aria-label="Primer apellido" aria-describedby="basic-addon1">
-                    </div>
-                    <div class="input-group mb-3">
-                        <span class="input-group-text" id="basic-addon8"><i class="fas fa-file-signature"></i></span>
-                        <input type="text" class="form-control" placeholder="Segundo apeliido" aria-label="Segundo apeliido" aria-describedby="basic-addon1">
-                    </div>
-                    <div class="input-group mb-3">
-                        <span class="input-group-text" id="basic-addon3"><i class="fas fa-user"></i></span>
-                        <input type="text" class="form-control" placeholder="Usuario" aria-label="Usuario" aria-describedby="basic-addon1">
-                    </div>
-                    <div class="input-group mb-3">
-                        <span class="input-group-text" id="basic-addon4"><i class="fas fa-at"></i></span>
-                        <input type="text" class="form-control" placeholder="Correo" aria-label="Correo" aria-describedby="basic-addon1">
-                    </div>
-                    <div class="input-group mb-3">
-                        <span class="input-group-text" id="basic-addon5"><i class="fas fa-key"></i></span>
-                        <input type="text" class="form-control" placeholder="Contraseña" aria-label="Contraseña" aria-describedby="basic-addon1">
-                    </div>
-                    <div class="d-grid gap-2 d-md-flex justify-content-md-end ">
-                        <button type="button" class="btn btn-light misRecetas">Guardar cambios</button>
-                    </div>
-                </form>
             </div>
         </div>
-    </div>
-</body>
+    </body>
 </html>
