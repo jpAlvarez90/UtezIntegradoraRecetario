@@ -1,5 +1,9 @@
 package edu.utez.recetario.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -14,10 +18,12 @@ public class Comentario {
 
     @ManyToOne
     @JoinColumn(name = "receta", nullable = false)
+    @JsonIgnore
     private Receta receta;
 
     @ManyToOne
     @JoinColumn(name = "usuario", nullable = false)
+    @JsonIgnore
     private Usuario usuario;
 
     @Column(name = "comentario", nullable = false, columnDefinition = "TEXT")

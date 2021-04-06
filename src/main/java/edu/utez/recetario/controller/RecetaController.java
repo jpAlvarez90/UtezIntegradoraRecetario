@@ -89,6 +89,8 @@ public class RecetaController {
         return subCategoriaList;
     }
 
+
+
     @PostMapping("/crear-receta")
     public String crearReceta(Receta receta,
                               BindingResult bindingResult,
@@ -99,20 +101,28 @@ public class RecetaController {
         Categoria categoria = categoriaService.getCategoriaById(idCategoria);
 
         long idSubCategoria = Long.parseLong(webRequest.getParameter("subcategoria"));
-        SubCategoria subCategoria = subCategoriaService.getSubCategoriaById(idSubCategoria);
+        SubCategoria subCategoria = null;
+        if (idSubCategoria != 0) {
+            subCategoria = subCategoriaService.getSubCategoriaById(idSubCategoria);
+        }
 
         long idRecetario = Long.parseLong(webRequest.getParameter("recetario"));
         Recetario recetario = recetarioService.getRecetarioById(idRecetario);
 
-        String names = "";
+        List<String> fileNames = new ArrayList<>();
         try {
-            List<String> fileNames = new ArrayList<>();
             Arrays.asList(files).stream().forEach(file -> {
                 almacenamientoImagenesService.save(file);
                 fileNames.add(file.getOriginalFilename());
-                names.concat(file.getOriginalFilename()+";");
             });
+
+            StringBuilder names = new StringBuilder();
+            for (String file: fileNames) {
+                names.append(file+";");
+            }
+            receta.setImagenes(names.toString());
         } catch (Exception e) {
+            receta.setImagenes("default.png");
             System.out.println("No se pudieron subir las imagenes");
         }
 
@@ -120,25 +130,39 @@ public class RecetaController {
         receta.setSubCategoria(subCategoria);
         receta.setRecetario(recetario);
         receta.setFechaPublicacion(new Date());
-        receta.setImagenes(names);
 
         recetaService.saveReceta(receta);
 
         return "redirect:/ver-recetas/"+idRecetario;
     }
 
-    //@GetMapping("/ver-receta/{idReceta}")
-    public String verReceta(@PathVariable("idReceta") long idReceta, @ModelAttribute("comentario") Comentario comentario, Model model) {
+    @GetMapping("/editar-receta/{idRecetario}/{idReceta}")
+    public String editarReceta(@PathVariable("idRecetario") long idRecetario,
+                               @PathVariable("idReceta") long idReceta,
+                               @ModelAttribute("receta") Receta receta,
+                               Model model) {
 
-        Receta receta = recetaService.getRecetaById(idReceta);
-        List<Comentario> comentarios = comentarioService.getComentarioByRecetaId(idReceta);
+        Recetario recetario = recetarioService.getRecetarioById(idRecetario);
+        receta = recetaService.getRecetaById(idReceta);
 
-        model.addAttribute("receta",receta);
-        model.addAttribute("comentarios",comentarios);
+        List<Categoria> categoriaList = categoriaService.getAllCategorias();
+        List<SubCategoria> subCategoriaList = subCategoriaService.getAllSubCategorias();
 
-        // TODO Verificar el archivo html que se maneraja
-        return "verReceta";
+        model.addAttribute("receta", receta);
+        model.addAttribute("recetario", recetario);
+        model.addAttribute("categoriaList", categoriaList);
+        model.addAttribute("subCategoriaList", subCategoriaList);
+
+        return "views/receta/formulario";
     }
+
+    @GetMapping("/eliminar-receta/{idRecetario}/{idReceta}")
+    public String eliminarReceta(@PathVariable("idRecetario") long idRecetario, @PathVariable("idReceta") long idReceta) {
+        recetaService.deleteRecetaById(idReceta);
+        return "redirect:/ver-recetas/"+idRecetario;
+    }
+
+
 
 
 

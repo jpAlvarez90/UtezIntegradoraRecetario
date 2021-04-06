@@ -8,253 +8,26 @@
             <br>
             <!-- Cards -->
             <div class="container">
-                <div class="row row-cols-1 row-cols-md-3 g-4">
-
-
-                    <div class="col">
-                        <div class="card myborder1">
-                            <div class="imagenCard1">
-                                <img src="/img/pizza.jpg" class="imagenCard1" />
+                <div class="row row-cols-1 row-cols-md-3 g-4" >
+                    <div class="col" th:each="item, iStat: ${listaRecetas}">
+                        <div th:class="'card index myborder'+${iStat.count}">
+                            <div th:class="'imagenCard'+${iStat.count}">
+                                <img src="/img/pizza.jpg" th:class="'imagenCard'+${iStat.count}" />
                             </div>
-                            <div class="card-body">
-                                <b><span style="font-size: 18pt">Card title</span> - <span style="font-size: 18pt">4.5</span></b>
-                                <p class="card-text">This is a longer card with supporting text below as a
-                                    natural lead-in to additional content. This content is a little bit longer.
-                                    This content is a little bit longer.</p>
+                            <div class="card-body" style="height: 190px">
+                                <b><span style="font-size: 14pt" th:text="${item.titulo}"></span></b>
+                                <p class="card-text" th:text="${#strings.abbreviate(item.descripcion, 170)}"></p>
                             </div>
-                            <div class="card-body">
+                            <div class="card-footer">
                                 <div class="row">
                                     <div class="col-9">
                                         <b><label>Autor:</label></b>
-                                        <span class="card-text">Jean Jairo</span><br/>
+                                        <span class="card-text" th:text="${item.recetario.usuario.nombre} + ' ' +${item.recetario.usuario.primerApellido}"></span><br/>
                                         <b><label>Publicada:</label></b>
-                                        <span class="card-text">03/Marzo/2021</span>
+                                        <span class="card-text" th:text="${#dates.format(item.fechaPublicacion, 'dd-MMM-yyy')}"></span>
                                     </div>
                                     <div class="col-3">
-                                        <a th:href="@{/test/receta}" style="background: #F6EFF4; color: #000" class="btn btn-lg">Ver</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col">
-                        <div class="card myborder2">
-                            <div class="imagenCard2">
-                                <img src="./img/tacos.jpeg" class="imagenCard2" />
-                            </div>
-                            <div class="card-body">
-                                <b><span style="font-size: 18pt">Card title</span> - <span style="font-size: 18pt">4.5</span></b>
-                                <p class="card-text">This is a longer card with supporting text below as a
-                                    natural lead-in to additional content. This content is a little bit longer.
-                                    This content is a little bit longer.</p>
-                            </div>
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-9">
-                                        <b><label>Autor:</label></b>
-                                        <span class="card-text">Jean Jairo</span><br/>
-                                        <b><label>Publicada:</label></b>
-                                        <span class="card-text">03/Marzo/2021</span>
-                                    </div>
-                                    <div class="col-3">
-                                        <a th:href="@{/test/receta}" style="background: #F6EFF4; color: #000" class="btn btn-lg">Ver</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col">
-                        <div class="card myborder3">
-                            <div class="imagenCard3">
-                                <img src="./img/filete.jpg" class="imagenCard3" />
-                            </div>
-                            <div class="card-body">
-                                <b><span style="font-size: 18pt">Card title</span> - <span style="font-size: 18pt">4.5</span></b>
-                                <p class="card-text">This is a longer card with supporting text below as a
-                                    natural lead-in to additional content. This content is a little bit longer.
-                                    This content is a little bit longer.</p>
-                            </div>
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="row">
-                                        <div class="col-9">
-                                            <b><label>Autor:</label></b>
-                                            <span class="card-text">Jean Jairo</span><br/>
-                                            <b><label>Publicada:</label></b>
-                                            <span class="card-text">03/Marzo/2021</span>
-                                        </div>
-                                        <div class="col-3">
-                                            <a th:href="@{/test/receta}" style="background: #F6EFF4; color: #000" class="btn btn-lg">Ver</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col">
-                        <div class="card myborder4">
-                            <div class="imagenCard4">
-                                <img src="./img/torta.jpg" class="imagenCard4" />
-                            </div>
-                            <div class="card-body">
-                                <b><span style="font-size: 18pt">Card title</span> - <span style="font-size: 18pt">4.5</span></b>
-                                <p class="card-text">This is a longer card with supporting text below as a
-                                    natural lead-in to additional content. This content is a little bit longer.
-                                    This content is a little bit longer.</p>
-                            </div>
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-9">
-                                        <b><label>Autor:</label></b>
-                                        <span class="card-text">Jean Jairo</span><br/>
-                                        <b><label>Publicada:</label></b>
-                                        <span class="card-text">03/Marzo/2021</span>
-                                    </div>
-                                    <div class="col-3">
-                                        <a th:href="@{/test/recerta}" style="background: #F6EFF4; color: #000" class="btn btn-lg">Ver</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col">
-                        <div class="card myborder5">
-                            <div class="imagenCard5">
-                                <!--<img src="../img/fondo1.jpg" class="imagenCard5"/>-->
-                                Sin imagen
-                            </div>
-                            <div class="card-body">
-                                <b><span style="font-size: 18pt">Card title</span> - <span style="font-size: 18pt">4.5</span></b>
-                                <p class="card-text">This is a longer card with supporting text below as a
-                                    natural lead-in to additional content. This content is a little bit longer.
-                                    This content is a little bit longer.</p>
-                            </div>
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-9">
-                                        <b><label>Autor:</label></b>
-                                        <span class="card-text">Jean Jairo</span><br/>
-                                        <b><label>Publicada:</label></b>
-                                        <span class="card-text">03/Marzo/2021</span>
-                                    </div>
-                                    <div class="col-3">
-                                        <a th:href="@{/test/receta}" style="background: #F6EFF4; color: #000" class="btn btn-lg">Ver</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col">
-                        <div class="card myborder6">
-                            <div class="imagenCard6">
-                                <!--<img src="../img/fondo2.png" class="imagenCard6"/>-->
-                                Sin imagen
-                            </div>
-                            <div class="card-body">
-                                <b><span style="font-size: 18pt">Card title</span> - <span style="font-size: 18pt">4.5</span></b>
-                                <p class="card-text">This is a longer card with supporting text below as a
-                                    natural lead-in to additional content. This content is a little bit longer.
-                                    This content is a little bit longer.</p>
-                            </div>
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-9">
-                                        <b><label>Autor:</label></b>
-                                        <span class="card-text">Jean Jairo</span><br/>
-                                        <b><label>Publicada:</label></b>
-                                        <span class="card-text">03/Marzo/2021</span>
-                                    </div>
-                                    <div class="col-3">
-                                        <a th:href="@{/test/receta}" style="background: #F6EFF4; color: #000" class="btn btn-lg">Ver</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col">
-                        <div class="card myborder7">
-                            <div class="imagenCard7">
-                                <!--<img src="../img/fondo3.png" class="imagenCard7"/>-->
-                                Sin imagen
-                            </div>
-                            <div class="card-body">
-                                <b><span style="font-size: 18pt">Card title</span> - <span style="font-size: 18pt">4.5</span></b>
-                                <p class="card-text">This is a longer card with supporting text below as a
-                                    natural lead-in to additional content. This content is a little bit longer.
-                                    This content is a little bit longer.</p>
-                            </div>
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-9">
-                                        <b><label>Autor:</label></b>
-                                        <span class="card-text">Jean Jairo</span><br/>
-                                        <b><label>Publicada:</label></b>
-                                        <span class="card-text">03/Marzo/2021</span>
-                                    </div>
-                                    <div class="col-3">
-                                        <a th:href="@{/test/receta}" style="background: #F6EFF4; color: #000" class="btn btn-lg">Ver</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col">
-                        <div class="card myborder8">
-                            <div class="imagenCard8">
-                                <!--<img src="../img/fondo4.png" class="imagenCard8"/>-->
-                                Sin imagen
-                            </div>
-                            <div class="card-body">
-                                <b><span style="font-size: 18pt">Card title</span> - <span style="font-size: 18pt">4.5</span></b>
-                                <p class="card-text">This is a longer card with supporting text below as a
-                                    natural lead-in to additional content. This content is a little bit longer.
-                                    This content is a little bit longer.</p>
-                            </div>
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-9">
-                                        <b><label>Autor:</label></b>
-                                        <span class="card-text">Jean Jairo</span><br/>
-                                        <b><label>Publicada:</label></b>
-                                        <span class="card-text">03/Marzo/2021</span>
-                                    </div>
-                                    <div class="col-3">
-                                        <a th:href="@{/test/receta}" style="background: #F6EFF4; color: #000" class="btn btn-lg">Ver</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col">
-                        <div class="card myborder9">
-                            <div class="imagenCard9">
-                                <!--<img src="../img/fondo1.jpg" class="imagenCard9"/>-->
-                                Sin imagen
-                            </div>
-                            <div class="card-body">
-                                <b><span style="font-size: 18pt">Card title</span> - <span style="font-size: 18pt">4.5</span></b>
-                                <p class="card-text">This is a longer card with supporting text below as a
-                                    natural lead-in to additional content. This content is a little bit longer.
-                                    This content is a little bit longer.</p>
-                            </div>
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-9">
-                                        <b><label>Autor:</label></b>
-                                        <span class="card-text">Jean Jairo</span><br/>
-                                        <b><label>Publicada:</label></b>
-                                        <span class="card-text">03/Marzo/2021</span>
-                                    </div>
-                                    <div class="col-3">
-                                        <a th:href="@{/test/receta}" style="background: #F6EFF4; color: #000" class="btn btn-lg">Ver</a>
+                                        <a th:href="@{'/ver-receta/'+${item.idReceta}}" style="background: #e9e2e2; color: #000;" class="btn btn-lg">Ver</a>
                                     </div>
                                 </div>
                             </div>

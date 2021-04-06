@@ -7,13 +7,13 @@
             <br>
             <!-- Cards -->
             <div class="container">
+                <h5><a href="#" style="color:#000; text-decoration: none;"><i class="fas fa-arrow-left"></i> Regresar</a></h5>
                 <br>
-                <h2>Platos fuertes <a th:href="@{'/crear-receta/'+${recetario.idRecetario}}" style="text-decoration: none; color:#DD969C;"><i class="fas fa-plus-circle"></i></a></h2>
+                <h2><span th:text="${recetario.nombre}"></span> <a th:href="@{'/crear-receta/'+${recetario.idRecetario}}" style="text-decoration: none; color:#DD969C;"><i class="fas fa-plus-circle"></i></a></h2>
                 <br>
                 <div class="row">
-                    <div th:each="item: ${recetaList}">
-                        <div class="col-sm-6 marginCard">
-                            <div class="card myborder1">
+                        <div class="col-6 marginCard" th:each="item: ${recetaList}">
+                            <div class="card myborder1" >
                                 <div class="imagenCard1" id="box">
                                     <img src="../img/brochetas.jpg" class="imagenCard1"/>
                                 </div>
@@ -39,15 +39,14 @@
                                         </div>
                                         <div class="col-3">
                                             <div class="d-grid gap-2">
-                                                <a th:href="@{/test/formulario}" class="btn btn-sm btn-editar" type="button">Editar</a>
-                                                <a class="btn btn-sm btn-eliminar" type="button">Eliminar</a>
+                                                <a th:href="@{'/editar-receta/'+${recetario.idRecetario}+'/'+${item.idReceta}}" class="btn btn-sm btn-editar" type="button">Editar</a>
+                                                <a th:href="@{'/eliminar-receta/'+${recetario.idRecetario}+'/'+${item.idReceta}}" class="btn btn-sm btn-eliminar" type="button">Eliminar</a>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
                 </div>
             </div>
             <!-- Cards-->

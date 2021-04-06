@@ -14,4 +14,5 @@ public interface CategoriaInterface {
 
     void deleteCategoriaById(long id);
 
+    Categoria findByNombre(String nombreCategoria);
 }

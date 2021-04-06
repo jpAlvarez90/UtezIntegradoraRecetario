@@ -32,7 +32,7 @@
                         <label class="col-sm-2 col-form-label" style="font-weight: bolder;" for="categoria">Categoria</label>
                         <div class="col-sm-10">
                             <select class="form-select" aria-label="Default select example" id="categoria" name="categoria" >
-                                <option selected value="#">Seleccione una categoria</option>
+                                <option selected value="0">Seleccione una categoria</option>
                                 <option
                                         th:each="item : ${categoriaList}"
                                         th:text="${item.nombre}"
@@ -47,7 +47,7 @@
                         <label class="col-sm-2 col-form-label" for="subcategoria" style="font-weight: bolder;">Subcategoría</label>
                         <div class="col-sm-10">
                             <select class="form-select" aria-label="Default select example" id="subcategoria" name="subcategoria">
-                                <option selected>Seleccione una subcategoria (Opcional)</option>
+                                <option selected value="0">Seleccione una subcategoria (Opcional)</option>
                                 <option
                                         th:each="item: ${subCategoriaList}"
                                         th:text="${item.nombre}"
@@ -96,18 +96,18 @@
         <script type="text/javascript">
             $('#categoria').change(
                 function () {
-                    $.getJSON("http://localhost:8080/subcategorias", {
+                    $.getJSON("http://localhost:8080/obtener-comentarios", {
                         idCategoria: $(this).val()
                     }, function (data){
                         if (data != null) {
-                            let html = '<option value="#">Seleccione una subcategoria (Opcional)</option>'
+                            let html = '<option value="0">Seleccione una subcategoria (Opcional)</option>'
                             let len = data.length
                             for (let i = 0; i < len; i++) {
                                 html += '<option value="'+ data[i].idSubCategoria +'">'+ data[i].nombre +'</option>'
                             }
                             $('#subcategoria').html(html)
                         } else {
-                            $('#subcategoria').html('<option value="#">Seleccione una subcategoria (Opcional)</option>')
+                            $('#subcategoria').html('<option value="0">Seleccione una subcategoria (Opcional)</option>')
                         }
                     })
                 }

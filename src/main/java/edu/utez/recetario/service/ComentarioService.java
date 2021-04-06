@@ -1,6 +1,7 @@
 package edu.utez.recetario.service;
 
 import edu.utez.recetario.model.Comentario;
+import edu.utez.recetario.model.Receta;
 import edu.utez.recetario.repository.ComentarioRepository;
 import edu.utez.recetario.serviceInterface.ComentarioInterface;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +44,7 @@ public class ComentarioService implements ComentarioInterface {
     }
 
     @Override
-    public List<Comentario> getComentarioByRecetaId(long id) {
-        return comentarioRepository.getAllByReceta(id);
+    public List<Comentario> getComentarioByReceta(Receta receta) {
+        return comentarioRepository.getAllByReceta(receta);
     }
 }
