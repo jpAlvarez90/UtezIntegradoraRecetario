@@ -66,6 +66,15 @@ public class PerfilController {
         model.addAttribute("categoria",categoria);
         model.addAttribute("subcategoria", subcategoria);
 
+
+        model.addAttribute("tabPerfil","tab-pane fade show active");
+        model.addAttribute("tabCategoria","tab-pane fade");
+        model.addAttribute("tabSubcategoria","tab-pane fade");
+
+        model.addAttribute("tabSelectPerfil","nav-link active");
+        model.addAttribute("tabSelectCategoria","nav-link");
+        model.addAttribute("tabSelectSubcategoria","nav-link");
+
         return "views/perfil/perfil";
     }
 
@@ -90,6 +99,14 @@ public class PerfilController {
         model.addAttribute("listaSubcategoria", listaSubcategorias);
         model.addAttribute("listaCategoria",listaCategoria);
         model.addAttribute("categoria",categoria);
+
+        model.addAttribute("tabPerfil","tab-pane fade");
+        model.addAttribute("tabCategoria","tab-pane fade show active");
+        model.addAttribute("tabSubcategoria","tab-pane fade");
+
+        model.addAttribute("tabSelectPerfil","nav-link");
+        model.addAttribute("tabSelectCategoria","nav-link active");
+        model.addAttribute("tabSelectSubcategoria","nav-link");
 
         return "views/perfil/perfil";
     }
@@ -135,6 +152,15 @@ public class PerfilController {
         model.addAttribute("listaCategoria",listaCategoria);
         model.addAttribute("listaSubcategoria",listaSubcategorias);
         model.addAttribute("subcategoria",subcategoria);
+
+        model.addAttribute("tabPerfil","tab-pane fade");
+        model.addAttribute("tabCategoria","tab-pane fade");
+        model.addAttribute("tabSubcategoria","tab-pane fade show active");
+
+        model.addAttribute("tabSelectPerfil","nav-link");
+        model.addAttribute("tabSelectCategoria","nav-link");
+        model.addAttribute("tabSelectSubcategoria","nav-link active");
+
         return "views/perfil/perfil";
     }
 

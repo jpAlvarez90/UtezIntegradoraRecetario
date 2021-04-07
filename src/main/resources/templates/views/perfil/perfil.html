@@ -7,17 +7,19 @@
         <div layout:fragment="content">
             <ul class="nav nav-tabs" id="myTab" role="tablist" style="margin: 10px;">
                 <li  class="nav-item" role="presentation">
-                    <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Perfil</button>
+                    <button th:class="${tabSelectPerfil}" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="true">Perfil</button>
                 </li>
-                <li sec:authorize="hasRole('ADMIN')" class="nav-item" role="presentation">
-                    <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Categoría</button>
+                <li sec:authorize="hasRole('ROLE_ADMIN')" class="nav-item" role="presentation">
+                    <button th:class="${tabSelectCategoria}" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="false">Categoría</button>
                 </li>
-                <li sec:authorize="hasRole('ADMIN')" class="nav-item" role="presentation">
-                    <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Subcategoría</button>
+                <li sec:authorize="hasRole('ROLE_ADMIN')" class="nav-item" role="presentation">
+                    <button th:class="${tabSelectSubcategoria}" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Subcategoría</button>
                 </li>
             </ul>
             <div class="tab-content" id="myTabContent">
-                <div  class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+
+
+                <div th:class="${tabCategoria}" id="home" role="tabpanel" aria-labelledby="home-tab">
                     <br>
                     <div class="row">
                         <div class="col-lg-10">
@@ -69,8 +71,8 @@
                                             <input type="text" class="form-control" placeholder="Reposteria" th:field="*{nombre}">
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                            <button type="submit" class="btn btn-primary">Guardar</button>
+                                            <button type="button" class="btn btn-eliminar" data-bs-dismiss="modal">Cancelar</button>
+                                            <button type="submit" class="btn btn-agregar">Guardar</button>
                                         </div>
                                     </form>
                                 </div>
@@ -79,13 +81,13 @@
                     </div>
                     <script type="text/javascript" th:if="${categoria.idCategoria != null}">
                         document.addEventListener('DOMContentLoaded', function() {
-                            //console.log("Cargando Modal");
+                            console.log("Cargando Modal categoria");
                             var myModal = new bootstrap.Modal(document.getElementById('category'));
                             myModal.show();
                         });
                     </script>
                 </div>
-                <div  class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                <div th:class="${tabSubcategoria}" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                     <br>
                     <div class="row">
                         <div class="col-lg-8">
@@ -145,8 +147,8 @@
                                             </select>
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                            <button type="submit" class="btn btn-primary">Guardar</button>
+                                            <button type="button" class="btn btn-eliminar" data-bs-dismiss="modal">Cancelar</button>
+                                            <button type="submit" class="btn btn-agregar">Guardar</button>
                                         </div>
                                     </form>
                                 </div>
@@ -155,14 +157,14 @@
                     </div>
                     <script type="text/javascript" th:if="${subcategoria.idSubCategoria != null}">
                         document.addEventListener('DOMContentLoaded', function() {
-                            console.log("Cargando Modal");
-                            var myModal2 = new bootstrap.Modal(document
-                                .getElementById('subcategory'));
+                            console.log("Cargando Modal Subcategoria");
+                            var myModal2 = new bootstrap.Modal(document.getElementById('subcategory'));
                             myModal2.show();
                         });
                     </script>
                 </div>
-                <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="profile-tab">
+
+                <div th:class="${tabPerfil}" id="contact" role="tabpanel" aria-labelledby="profile-tab">
                     <br>
                     <div>
                         <h1>Perfil</h1>
