@@ -44,7 +44,11 @@ public class PerfilController {
     PasswordEncoder passwordEncoder;
 
     @GetMapping("/perfil")
-    public String configuracion(@ModelAttribute("categoria") Categoria categoria, @ModelAttribute("subcategoria") SubCategoria subcategoria, @ModelAttribute("usuario")Usuario usuario, Model model, BindingResult bindingResult) {
+    public String configuracion(@ModelAttribute("categoria") Categoria categoria,
+                                @ModelAttribute("subcategoria") SubCategoria subcategoria,
+                                @ModelAttribute("usuario")Usuario usuario,
+                                Model model,
+                                BindingResult bindingResult) {
 
         List<Categoria> listaCategoria = categoriaService.getAllCategorias();
         List<SubCategoria> listaSubcategorias = subCategoriaService.getAllSubCategorias();

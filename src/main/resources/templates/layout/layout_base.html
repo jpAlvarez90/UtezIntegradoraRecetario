@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmls:th="http://www.thymeleaf.com">
+<html xmls:th="http://www.thymeleaf.com"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -22,9 +23,9 @@
 <body style="background-color: #FEEFFB;">
   <div th:replace="fragments/menu :: main_menu"></div>
   <div class="container" layout:fragment="content"></div>
-  <!--
+
   <div th:replace="fragments/footer :: footer"></div>
-  -->
+
 </body>
 <!-- Import MyJS -->
 <script src="/js/main.js"></script>

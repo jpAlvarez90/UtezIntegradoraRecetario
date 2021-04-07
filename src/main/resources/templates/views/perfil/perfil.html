@@ -65,7 +65,7 @@
                                     <form th:action="@{/crearCategoria}" method="post" th:object="${categoria}">
                                         <div class="mb-3">
                                             <label class="form-label">Nombre categoría</label>
-                                            <input type="text" th:field="*{idCategoria}" class="form-control" style="display: none"></input>
+                                            <input type="text" th:field="*{idCategoria}" class="form-control" style="display: none" />
                                             <input type="text" class="form-control" placeholder="Reposteria" th:field="*{nombre}">
                                         </div>
                                         <div class="modal-footer">

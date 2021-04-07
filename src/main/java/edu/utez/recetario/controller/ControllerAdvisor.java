@@ -29,13 +29,8 @@ public class ControllerAdvisor {
     @RequestMapping(value = "/subcategoriasMenu", method = RequestMethod.GET)
     public @ResponseBody
     List<SubCategoria> subCategoriasList(@RequestParam(value = "nombreCategoria") String nombreCategoria) {
-        System.out.println(nombreCategoria);
         Categoria categoria = categoriaService.findByNombre(nombreCategoria);
-        System.out.println(categoria.getNombre());
         List<SubCategoria> subCategoriaList = subCategoriaService.getAllSubcategoriasByCategoria(categoria);
-        for (SubCategoria sub: subCategoriaList) {
-            System.out.println(sub.getNombre());
-        }
         return subCategoriaList;
     }
 }

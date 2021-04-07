@@ -30,16 +30,19 @@ public class RecetaController {
 
     private SubCategoriaService subCategoriaService;
 
+    private UsuarioFollowRecetarioService usuarioFollowRecetarioService;
+
     private AlmacenamientoImagenesService almacenamientoImagenesService;
 
     @Autowired
-    public RecetaController(RecetarioService recetarioService, RecetaService recetaService, ComentarioService comentarioService, UsuarioService usuarioService, CategoriaService categoriaService, SubCategoriaService subCategoriaService, AlmacenamientoImagenesService almacenamientoImagenesService) {
+    public RecetaController(RecetarioService recetarioService, RecetaService recetaService, ComentarioService comentarioService, UsuarioService usuarioService, CategoriaService categoriaService, SubCategoriaService subCategoriaService, UsuarioFollowRecetarioService usuarioFollowRecetarioService, AlmacenamientoImagenesService almacenamientoImagenesService) {
         this.recetarioService = recetarioService;
         this.recetaService = recetaService;
         this.comentarioService = comentarioService;
         this.usuarioService = usuarioService;
         this.categoriaService = categoriaService;
         this.subCategoriaService = subCategoriaService;
+        this.usuarioFollowRecetarioService = usuarioFollowRecetarioService;
         this.almacenamientoImagenesService = almacenamientoImagenesService;
     }
 
@@ -49,17 +52,37 @@ public class RecetaController {
         Recetario recetario = recetarioService.getRecetarioById(idRecetario);
         List<Receta> recetaList = recetaService.getAllRecetasByRecetario(recetario);
 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        String username = userDetails.getUsername();
+        model.addAttribute("recetario", recetario);
+        model.addAttribute("recetaList",recetaList);
+        model.addAttribute("autor", recetario.getUsuario().getNombre() + " " +
+                recetario.getUsuario().getPrimerApellido() + " " +recetario.getUsuario().getSegundoApellido());
+        return "views/receta/recetas";
+    }
 
-        Optional<Usuario> tempUsuario = usuarioService.getUsuarioByUsername(username);
-        Usuario usuario = tempUsuario.get();
+    // Recetas del recetario seguido
+    @GetMapping("/ver-recetas-seguidas/{idRecetario}")
+    public String verRecetasSeguidas(@PathVariable("idRecetario") long idRecetario, Model model) {
+
+        Recetario recetario = recetarioService.getRecetarioById(idRecetario);
+        List<Receta> recetaList = recetaService.getAllRecetasByRecetario(recetario);
 
         model.addAttribute("recetario", recetario);
         model.addAttribute("recetaList",recetaList);
-        model.addAttribute("autor", usuario.getNombre() + " " + usuario.getPrimerApellido() + " " +usuario.getSegundoApellido());
-        return "views/receta/recetas";
+        model.addAttribute("autor", recetario.getUsuario().getNombre() + " " +
+                recetario.getUsuario().getPrimerApellido() + " " +recetario.getUsuario().getSegundoApellido());
+
+        return "views/receta/recetas_seguidas";
+    }
+
+    @GetMapping("/ver-receta-seguida/{idReceta}")
+    public String verRecetaSeguida(@PathVariable("idReceta") long idReceta,
+                            Model model) {
+
+        Receta receta = recetaService.getRecetaById(idReceta);
+
+        model.addAttribute("receta",receta);
+
+        return "/views/receta/ver_receta_seguida";
     }
 
     @GetMapping("/crear-receta/{idRecetario}")
@@ -79,16 +102,10 @@ public class RecetaController {
 
     @RequestMapping(value = "/subcategorias", method = RequestMethod.GET)
     public @ResponseBody List<SubCategoria> subCategoriasList(@RequestParam(value = "idCategoria") long idCategoria) {
-        System.out.println(idCategoria);
         Categoria categoria = categoriaService.getCategoriaById(idCategoria);
-        System.out.println(categoria.getNombre());
         List<SubCategoria> subCategoriaList = subCategoriaService.getAllSubcategoriasByCategoria(categoria);
-        for (SubCategoria sub: subCategoriaList) {
-            System.out.println(sub.getNombre());
-        }
         return subCategoriaList;
     }
-
 
 
     @PostMapping("/crear-receta")
@@ -163,7 +180,26 @@ public class RecetaController {
     }
 
 
+    // El recetario del path param es el que esta en la receta
+    @GetMapping("/seguir-recetario/{idRecetario}")
+    public String seguirRecetario(@PathVariable("idRecetario") long idRecetario) {
 
+        Recetario recetario = recetarioService.getRecetarioById(idRecetario);
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        String username = userDetails.getUsername();
+
+        Optional<Usuario> tempUsuario = usuarioService.getUsuarioByUsername(username);
+        Usuario usuario;
+
+        if (tempUsuario.isPresent()) {
+            usuario = tempUsuario.get();
+            usuarioFollowRecetarioService.saveUsuarioFollowRecetario(recetario,usuario);
+        }
+
+        return "redirect:/ver-recetarios";
+    }
 
 
 

@@ -12,11 +12,11 @@ public class UsuarioFollowRecetario {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "recetario")
+    @JoinColumn(name = "recetario", nullable = false)
     private Recetario recetario;
 
     @ManyToOne
-    @JoinColumn(name = "usuario")
+    @JoinColumn(name = "usuario", nullable = false)
     private Usuario usuario;
 
     public UsuarioFollowRecetario() {

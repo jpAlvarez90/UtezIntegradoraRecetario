@@ -36,13 +36,7 @@ public class MainController {
 
     @GetMapping("/")
     public String main(Model model){
-
-        List<Receta> listaRecetas= recetaService.getAllRecetasByOrderADesc(5);
-
-        for (Receta receta: listaRecetas) {
-            System.out.println(receta.getTitulo());
-        }
-
+        List<Receta> listaRecetas= recetaService.getAllRecetasByOrderADesc(10);
         model.addAttribute("listaRecetas",listaRecetas);
         return "index";
     }

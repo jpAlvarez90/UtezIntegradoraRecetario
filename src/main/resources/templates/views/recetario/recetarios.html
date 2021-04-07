@@ -270,29 +270,21 @@
 
 
                 <!-- RECETARIOS GUARDADOS -->
-                <!--
                 <br>
                 <h2>Recetarios guardados</h2>
                 <br>
                 <div class="list-group">
-                    <a th:href="@{/test/recetas}" class="list-group-item list-group-item-action">
+                    <div th:each="item : ${ufrList}">
+                        <a th:href="@{'/ver-recetas-seguidas/'+${item.recetario.idRecetario}}" class="list-group-item list-group-item-action">
+                            <br>
+                            <div class="d-flex w-100 justify-content-between">
+                                <h5 class="mb-1" th:text="${item.recetario.nombre}"></h5>
+                            </div>
+                            <br>
+                        </a>
                         <br>
-                        <div class="d-flex w-100 justify-content-between">
-                            <h5 class="mb-1">Postres</h5>
-                        </div>
-                        <br>
-                    </a>
-                    <br>
-                    <a th:href="@{/test/recetas}" class="list-group-item list-group-item-action">
-                        <br>
-                        <div class="d-flex w-100 justify-content-between">
-                            <h5 class="mb-1">Vegetarianos</h5>
-                        </div>
-                        <br>
-                    </a>
-                    <br>
+                    </div>
                 </div>
-                -->
                 <!-- RECETARIOS GUARDADOS -->
             </div>
 
@@ -304,7 +296,7 @@
                             <h5 class="modal-title" id="exampleModalLabel">Nuevo recetario</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <form th:action="@{/registrar-recetario}" method="post" th:object="${recetario}">
+                        <form id="recetario-form" th:action="@{/registrar-recetario}" method="post" th:object="${recetario}">
                             <div class="modal-body">
                                 <div class="mb-3">
                                     <label for="recipient-name" class="col-form-label">Nombre del recetario:</label>
@@ -320,7 +312,6 @@
                 </div>
             </div>
             <!-- Model-->
-
         </div>
     </body>
 </html>

@@ -2,7 +2,9 @@ package edu.utez.recetario.controller;
 
 import edu.utez.recetario.model.Recetario;
 import edu.utez.recetario.model.Usuario;
+import edu.utez.recetario.model.UsuarioFollowRecetario;
 import edu.utez.recetario.service.RecetarioService;
+import edu.utez.recetario.service.UsuarioFollowRecetarioService;
 import edu.utez.recetario.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -25,10 +27,13 @@ public class RecetarioController {
 
     private UsuarioService usuarioService;
 
+    private UsuarioFollowRecetarioService usuarioFollowRecetarioService;
+
     @Autowired
-    public RecetarioController(RecetarioService recetarioService, UsuarioService usuarioService) {
+    public RecetarioController(RecetarioService recetarioService, UsuarioService usuarioService, UsuarioFollowRecetarioService usuarioFollowRecetarioService) {
         this.recetarioService = recetarioService;
         this.usuarioService = usuarioService;
+        this.usuarioFollowRecetarioService = usuarioFollowRecetarioService;
     }
 
     @GetMapping("/ver-recetarios")
@@ -44,10 +49,16 @@ public class RecetarioController {
         if (tempUsuario.isPresent()) {
             usuario = tempUsuario.get();
             List<Recetario> recetarioList = recetarioService.getRecetariosByUserId(usuario);
+            List<UsuarioFollowRecetario> ufrList = usuarioFollowRecetarioService.getAllFollowingRecetarios(usuario);
+
             model.addAttribute("recetarioList",recetarioList);
+            model.addAttribute("ufrList", ufrList);
         } else {
             List<Recetario> recetarioList = new ArrayList<>();
+            List<UsuarioFollowRecetario> ufrList = new ArrayList<>();
+
             model.addAttribute("recetarioList",recetarioList);
+            model.addAttribute("ufrList", ufrList);
         }
 
         return "views/recetario/recetarios";

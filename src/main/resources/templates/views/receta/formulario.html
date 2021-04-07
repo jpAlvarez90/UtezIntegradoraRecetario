@@ -77,14 +77,6 @@
                             <input class="form-control" type="file" multiple accept="image/png, image/jpeg" id="imgs" name="imgs">
                         </div>
                         <br><br>
-                        <div class="col-sm-2 col-form-label"></div>
-                        <div class="col-sm-10 col-form-label">
-                            <ul class="list-group list-group-horizontal">
-                                <li class="list-group-item">img2.jpg</li>
-                                <li class="list-group-item">img3.jpg</li>
-                                <li class="list-group-item">img4.jpg</li>
-                            </ul>
-                        </div>
                     </div>
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                         <a th:href="@{'/ver-recetas/'+${recetario.idRecetario}}" class="btn btn-eliminar" type="button">Cancelar</a>
@@ -96,7 +88,7 @@
         <script type="text/javascript">
             $('#categoria').change(
                 function () {
-                    $.getJSON("http://localhost:8080/obtener-comentarios", {
+                    $.getJSON("http://localhost:8080/subcategorias", {
                         idCategoria: $(this).val()
                     }, function (data){
                         if (data != null) {
