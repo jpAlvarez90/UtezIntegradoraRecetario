@@ -6,66 +6,64 @@
         <div layout:fragment="content">
             <div class="container">
                 <div class="button-container">
-                    <a th:href="@{/}"><i class="fas fa-arrow-left"></i> Regresar</a>
-                    <img src="../img/pizza.jpg" style="width: 100%;height: 500px;">
-                </div>
-                <br><br>
-                <div class="row">
+                    <a class="btnRegresar" th:href="@{/}" ><i class="fas fa-arrow-left"></i> Regresar</a>
+                    <img src="../img/pizza.jpg" style="width: 100%; height: 450px;">
+                    <a class="btnSeguirRecetario"th:href="@{'/seguir-recetario/'+${receta.recetario.idRecetario}}" ><i class="fas fa-heart"></i></a>
 
-                    <div class="col-lg-5">
-                        <h1 style="font-weight: bolder;" th:text="${receta.titulo}"></h1>
-                    </div>
-                    <div class="col-lg-5">
+                    <div class="calificarRecetario">
                         <form>
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <p class="clasificacion">
-                                        <input id="radio1" type="radio" name="estrellas" value="5">
-                                        <label for="radio1" class="star">★</label>
-                                        <input id="radio2" type="radio" name="estrellas" value="4">
-                                        <label for="radio2" class="star">★</label>
-                                        <input id="radio3" type="radio" name="estrellas" value="3">
-                                        <label for="radio3" class="star">★</label>
-                                        <input id="radio4" type="radio" name="estrellas" value="2">
-                                        <label for="radio4" class="star">★</label>
-                                        <input id="radio5" type="radio" name="estrellas" value="1">
-                                        <label for="radio5" class="star">★</label>
+                            <div class="">
+                                <div class="" style="display: inline">
+                                    <p class="clasificacion" style="display: inline; font-size: 10pt;">
+                                        <input id="radio1" style="font-size: 15pt;" type="radio" name="estrellas" value="5">
+                                        <label for="radio1" style="font-size: 15pt;" class="star"><i class="fas fa-star"></i></label>
+                                        <input id="radio2" style="font-size: 15pt;" type="radio" name="estrellas" value="4">
+                                        <label for="radio2" style="font-size: 15pt;" class="star"><i class="fas fa-star"></i></label>
+                                        <input id="radio3" style="font-size: 15pt;" type="radio" name="estrellas" value="3">
+                                        <label for="radio3" style="font-size: 15pt;" class="star"><i class="fas fa-star"></i></label>
+                                        <input id="radio4" style="font-size: 15pt;" type="radio" name="estrellas" value="2">
+                                        <label for="radio4" style="font-size: 15pt;" class="star"><i class="fas fa-star"></i></label>
+                                        <input id="radio5" style="font-size: 15pt;" type="radio" name="estrellas" value="1">
+                                        <label for="radio5" style="font-size: 15pt;" class="star"><i class="fas fa-star"></i></label>
                                     </p>
                                 </div>
-                                <div class="col-lg-6">
-                                    <button type="submit" class="btn btn-light">Calificar</button>
+                                <div style="display: inline">
+                                    <button type="submit" class="botonPer" style="display: inline; margin-left: 15px;" >Calificar</button>
                                 </div>
                             </div>
                         </form>
                     </div>
-                    <div class="col-lg-2">
-                        <a th:href="@{'/seguir-recetario/'+${receta.recetario.idRecetario}}" class="btn btn-light">Seguir recetario</a>
+                </div>
+                <br><br>
+
+                <div class="row recuadro_recetario">
+                    <h1 style="font-weight: bolder; text-align: center;" th:text="${receta.titulo}"></h1>
+                </div>
+
+                <div class="recuadro_recetario">
+                    <h2 style="font-weight: bolder;">Descripción</h2>
+                    <h4 th:text="${receta.descripcion}"></h4>
+                </div>
+
+                <div class="recuadro_recetario">
+                    <h2 style="font-weight: bolder;">Ingredientes</h2>
+                    <h4 th:utext="${receta.ingredientes}"></h4>
+                </div>
+
+                <div class="recuadro_recetario">
+                    <h2 style="font-weight: bolder;">Pasos</h2>
+                    <h4 th:utext="${receta.pasos}"></h4>
+                </div>
+
+                <div class="recuadro_recetario">
+                    <h2 style="font-weight: bolder;">Imagenes</h2>
+                    <div th:if="${#strings.contains(receta.imagenes,'default')}">
+                        <h4>No hay imagenes disponibles</h4>
                     </div>
                 </div>
 
-
-
-                <br>
-
-                <h2 style="font-weight: bolder;">Descripción</h2>
-                <h4 th:text="${receta.descripcion}"></h4>
-                <br>
-
-                <h2 style="font-weight: bolder;">Ingredientes</h2>
-                <h4 th:utext="${receta.ingredientes}"></h4>
-                <br>
-
-                <h2 style="font-weight: bolder;">Pasos</h2>
-                <h4 th:utext="${receta.pasos}"></h4>
-
-                <br>
-
-                <h2 style="font-weight: bolder;">Imagenes</h2>
-                <div th:if="${#strings.contains(receta.imagenes,'default')}">
-                    <h4>No hay imagenes disponibles</h4>
-                </div>
                 <!-- Carrusel -->
-                <div class="Carousel" th:unless="${#strings.contains(receta.imagenes,'default')}">
+                <div class="Carousel recuadro_recetario" th:unless="${#strings.contains(receta.imagenes,'default')}">
                     <div class="slick-list" id="slick-list">
                         <button class="slick-arrow slick-prev" id="button-prev" data-button="button-prev" onclick="app.processingButton(event)">
                             <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="chevron-left"
@@ -101,37 +99,39 @@
                 </div>
                 <br>
 
-                <h2 style="font-weight: bolder;">Comentarios</h2>
-                <div class="row">
-                    <div class="col-1">
-                        <button type="button" class="btn btn-light btn-circle btn-lg">JJ</button>
-                    </div>
-                    <div class="col-11">
-                        <form id="comentarioBox" th:action="@{/realizar-comentario}" method="post">
-                            <input type="text" style="display: none" th:value="${receta.idReceta}" id="idReceta" name="idReceta" />
-                            <div class="form-floating">
-                                <textarea class="form-control" placeholder="Deje un comentario aqui" id="floatingTextarea2" name="floatingTextarea2" style="height: 150px; resize: none"></textarea>
-                                <label for="floatingTextarea2">Comentario</label>
-                            </div>
-                            <br>
-                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                                <button type="submit" class="btn btn-light">Comentar</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-                <br><br>
-                <div id="cajaComentarios">
-                    <div class="row" th:each="item : ${comentarios}">
+                <div class="recuadro_recetario">
+                    <h2 style="font-weight: bolder;">Comentarios</h2>
+                    <div class="row">
                         <div class="col-1">
-                            <button type="button" class="btn btn-light btn-circle btn-lg">
-                                <span th:text="${#strings.substring(item.usuario.nombre,0,1)}"></span>
-                                <span th:text="${#strings.substring(item.usuario.primerApellido,0,1)}"></span>
-                            </button>
+                            <button type="button" class="btn btn-light btn-circle btn-lg">JJ</button>
                         </div>
                         <div class="col-11">
-                            <h3 style="font-weight: bolder;" th:text="${item.usuario.nombre} + ' ' + ${item.usuario.primerApellido} + ' '+ ${item.usuario.segundoApellido}"></h3>
-                            <h4 th:text="${item.comentario}"></h4>
+                            <form id="comentarioBox" th:action="@{/realizar-comentario}" method="post">
+                                <input type="text" style="display: none" th:value="${receta.idReceta}" id="idReceta" name="idReceta" />
+                                <div class="form-floating">
+                                    <textarea class="form-control" placeholder="Deje un comentario aqui" id="floatingTextarea2" name="floatingTextarea2" style="height: 150px; resize: none"></textarea>
+                                    <label for="floatingTextarea2">Comentario</label>
+                                </div>
+                                <br>
+                                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                    <button type="submit" class="btn btn-light">Comentar</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <br><br>
+                    <div id="cajaComentarios" class="">
+                        <div class="row comentario" th:each="item : ${comentarios}">
+                            <div class="col-1">
+                                <button type="button" class="btn btn-light btn-circle btn-lg">
+                                    <span th:text="${#strings.substring(item.usuario.nombre,0,1)}"></span>
+                                    <span th:text="${#strings.substring(item.usuario.primerApellido,0,1)}"></span>
+                                </button>
+                            </div>
+                            <div class="col-11">
+                                <h3 style="font-weight: bolder;" th:text="${item.usuario.nombre} + ' ' + ${item.usuario.primerApellido} + ' '+ ${item.usuario.segundoApellido}"></h3>
+                                <h4 th:text="${item.comentario}"></h4>
+                            </div>
                         </div>
                     </div>
                 </div>

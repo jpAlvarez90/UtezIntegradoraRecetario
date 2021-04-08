@@ -27,14 +27,40 @@ footer {
 }
 
 .recetarioBoton{
+    width: 180px;
     background-color: #f8f9fa;
     border-radius: 15px;
+    padding: 6px;
+    text-align: center;
+}
+
+.recetarioBoton:hover{
+    background-color: #dddde0;
+    color:#000;
+}
+
+.recetarioBoton a {
     text-decoration: none;
     color: #000;
-    padding: 6px;
     font-size: 15pt;
     font-width: bolder;
+    text-align: center;
 }
+
+.recetarioBoton a:hover{
+    color: #000;
+}
+
+.nav-link{
+    color:#FFF;
+    font-size: 12pt;
+}
+
+.nav-link:hover{
+    color: #dddde0;
+}
+
+
 
 .btn.btn-sm.btn-editar {
     background-color: #71bd74;
@@ -75,12 +101,28 @@ footer {
     color: #FFF;
 }
 
+.botonPer {
+    display: inline;
+    background-color: #e54f4f;
+    color:#FFF;
+    border: none;
+    border-radius: 15px;
+    padding: 10px;
+    font-size: 12pt;
+    font-weight: bolder;
+}
+
+.botonPer:hover{
+    background-color: #7a0c14;
+    color:#FFF;
+}
+
 .button-container {
     display: inline-block;
     position: relative;
 }
 
-.button-container a {
+.btnRegresar {
     position: absolute;
     top: 10px;
     left: 10px;
@@ -88,9 +130,35 @@ footer {
     text-decoration: none;
 }
 
-.button-container a:hover{
+.btnRegresar:hover{
     color: #FFF;
 }
+
+.btnSeguirRecetario {
+    position: absolute;
+    bottom: 10px;
+    right: 15px;
+    color: #e54f4f;
+    font-size: 25pt;
+    text-decoration: none;
+}
+
+.btnSeguirRecetario:hover{
+    color: #7a0c14;
+}
+
+.calificarRecetario {
+    position: absolute;
+    width: 500px;
+    bottom: 10px;
+    left: 15px;
+    color: #FFF;
+    font-size: 10pt;
+    text-decoration: none;
+    display: inline;
+}
+
+
 /*
 .imgButton a {
     display: none;
@@ -154,13 +222,13 @@ textarea {
 }
 
 .btn-circle.btn-lg {
-    width: 42px;
+    width: 47px;
     height: 39px;
     text-align: center;
     padding: 6px 0;
     font-size: 15px;
     line-height: 1.428571429;
-    border-radius: 18px;
+    border-radius: 19px;
     margin-left: 10px;
 }
 
@@ -382,13 +450,12 @@ textarea {
     position: absolute;
     bottom: 5px;
     right: 5px;
-    background-color: #DD969C;
-    font-width: bold;
+    background-color: #ca8f94;
     color:#FFF;
 }
 
 .imgButton a:hover{
-    background-color: #ca8f94;
+    background-color: #e54f4f;
     color:#FFF;
 }
 
@@ -562,6 +629,21 @@ a {
     text-transform: uppercase;
     letter-spacing: 10px;
     text-align: center;
+}
+
+.recuadro_recetario{
+    background-color: #FEEFFB;
+    padding: 30px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.comentario{
+    background-color: #f3ecf3;
+    padding: 25px;
+    border-radius: 20px;
+    margin-top: 15px;
+    margin-bottom: 15px;
 }
 
 
