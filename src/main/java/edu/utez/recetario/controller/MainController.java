@@ -48,7 +48,9 @@ public class MainController {
     }
 
     @GetMapping("/mas-buscados")
-    public String masBuscados() {
+    public String masBuscados(Model model) {
+        List<Receta> listaRecetas = recetaService.getAllRecetasByVistasDesc(10);
+        model.addAttribute("listaRecetas",listaRecetas);
         return "index";
     }
 

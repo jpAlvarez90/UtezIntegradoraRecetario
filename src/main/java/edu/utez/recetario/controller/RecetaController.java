@@ -59,6 +59,20 @@ public class RecetaController {
         return "views/receta/recetas";
     }
 
+    // Aumentar la visita de la receta despues de 30 segundos
+    @RequestMapping(value = "/aumentar-vista", method = RequestMethod.GET)
+    public @ResponseBody boolean aumentarVisita(@RequestParam(value = "idReceta") long idReceta) {
+
+        Receta receta = recetaService.getRecetaById(idReceta);
+
+        int vistas = receta.getVistas();
+        vistas = vistas+1;
+        receta.setVistas(vistas);
+        recetaService.saveReceta(receta);
+
+        return true;
+    }
+
     // Recetas del recetario seguido
     @GetMapping("/ver-recetas-seguidas/{idRecetario}")
     public String verRecetasSeguidas(@PathVariable("idRecetario") long idRecetario, Model model) {

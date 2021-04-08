@@ -11,7 +11,6 @@
                 </div>
                 <br><br>
                 <div class="row">
-
                     <div class="col-lg-5">
                         <h1 style="font-weight: bolder;" th:text="${receta.titulo}"></h1>
                     </div>
@@ -33,13 +32,21 @@
                                     </p>
                                 </div>
                                 <div class="col-lg-6">
-                                    <button type="submit" class="btn btn-light">Calificar</button>
+                                    <button type="submit"
+                                            class="btn btn-light"
+                                            sec:authorize="isAuthenticated()">Calificar</button>
+                                    <button type="submit"
+                                            class="btn btn-light"
+                                            sec:authorize="!isAuthenticated()" disabled>Calificar</button>
                                 </div>
                             </div>
                         </form>
                     </div>
                     <div class="col-lg-2">
-                        <a th:href="@{'/seguir-recetario/'+${receta.recetario.idRecetario}}" class="btn btn-light">Seguir recetario</a>
+                        <a th:href="@{'/seguir-recetario/'+${receta.recetario.idRecetario}}"
+                           class="btn btn-light" sec:authorize="isAuthenticated()">Seguir recetario</a>
+                        <a th:href="@{'/seguir-recetario/'+${receta.recetario.idRecetario}}"
+                           class="btn btn-light" sec:authorize="!isAuthenticated()" style="pointer-events: none">Seguir recetario</a>
                     </div>
                 </div>
 
@@ -115,7 +122,8 @@
                             </div>
                             <br>
                             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                                <button type="submit" class="btn btn-light">Comentar</button>
+                                <button type="submit" class="btn btn-light" sec:authorize="isAuthenticated()">Comentar</button>
+                                <button type="submit" class="btn btn-light" sec:authorize="!isAuthenticated()" disabled>Comentar</button>
                             </div>
                         </form>
                     </div>
@@ -140,7 +148,10 @@
             <script type="text/javascript">
                 $(document).ready(function () {
                     setTimeout(function (){
-                        console.log("Se espero 5 segundos")
+                        console.log("Id receta: "+$('#idReceta').val())
+                        $.getJSON("http://localhost:8080/aumentar-vista",{
+                            idReceta: $('#idReceta').val()
+                        })
                     }, 5000)
                 })
             </script>

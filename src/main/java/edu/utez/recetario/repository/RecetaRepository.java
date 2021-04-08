@@ -17,4 +17,7 @@ public interface RecetaRepository extends JpaRepository<Receta, Long> {
     @Query(value = "SELECT * FROM recetario_v1.receta order by id_receta desc limit :limit", nativeQuery = true)
     List<Receta> findByOrderByIdRecetaDesc(@Param("limit")int limit);
 
+    @Query(value = "SELECT * FROM recetario_v1.receta order by vistas desc limit :limit", nativeQuery = true)
+    List<Receta> findByOrderByVistasDesc(@Param("limit")int limit);
+
 }
