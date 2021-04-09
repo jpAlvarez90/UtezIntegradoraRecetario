@@ -19,12 +19,12 @@
         <h1>Recuperar Contraseña</h1>
         <span>Se enviará un correo con la nueva contraseña</span>
     </div>
-    <form action="">
+    <form th:action="@{/enviarCorreo}" method="post" >
         <div class="input-group mb-3">
             <span class="input-group-text" id="basic-addon1">@</span>
-            <input type="text" class="form-control" placeholder="Correo" aria-label="Correo" aria-describedby="basic-addon1">
+            <input type="email" name="mail" id="mail" class="form-control" placeholder="Correo" aria-label="Correo" aria-describedby="basic-addon1">
         </div>
-        <button class="botton">Enviar Correo</button>
+        <button class="botton" type="submit" >Enviar Correo</button>
     </form>
     <div class="contenido">
         <a th:href="@{'/login'}"> Volver a la página principal</a>

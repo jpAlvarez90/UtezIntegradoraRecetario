@@ -34,15 +34,19 @@ public class UsuarioService implements UsuarioInterface {
 
     @Override
     public Usuario saveUsuario(Usuario usuario) {
-        usuario.setRol(rolService.getRole((long)2));
+        usuario.setRol(rolService.getRole((long) 2));
         usuario.setFechaRegistro(new Date());
         usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
         return usuarioRepository.save(usuario);
     }
+
     @Override
     public Usuario savePerfil(Usuario usuario) {
-        usuario.setRol(rolService.getRole((long)2));
-        usuario.setRol(rolService.getRole((long)2));
+        if (usuario.getRol().getRol() == "ROLE_ADMIN") {
+            usuario.setRol(rolService.getRole((long) 1));
+        } else if (usuario.getRol().getRol() == "ROLE_USER") {
+            usuario.setRol(rolService.getRole((long) 2));
+        }
         usuario.setFechaRegistro(new Date());
         usuario.setPassword(usuario.getPassword());
 
@@ -51,24 +55,25 @@ public class UsuarioService implements UsuarioInterface {
 
     @Override
     public Usuario saveUsuarioPerfil(Usuario usuario) {
-        if (usuario.getRol().getIdRol() != null || usuario.getRol().getRol() == "USER" ){
-            usuario.setRol(rolService.getRole((long)2));
-        }else if (usuario.getRol().getRol() == "ADMIN"){
-            usuario.setRol(rolService.getRole((long)1));
+        if (usuario.getRol().getRol() == "ROLE_ADMIN") {
+            usuario.setRol(rolService.getRole((long) 1));
+        } else if (usuario.getRol().getRol() == "ROLE_USER") {
+            usuario.setRol(rolService.getRole((long) 2));
         }
         usuario.setFechaRegistro(new Date());
         usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
 
         return usuarioRepository.save(usuario);
     }
+
     @Override
     public Usuario getUsuarioById(long id) {
         Optional<Usuario> optional = usuarioRepository.findById(id);
         Usuario usuario = null;
-        if(optional.isPresent()) {
+        if (optional.isPresent()) {
             usuario = optional.get();
         } else {
-            throw new RuntimeException("User not found with for id :: "+id);
+            throw new RuntimeException("User not found with for id :: " + id);
         }
         return usuario;
     }
@@ -78,8 +83,14 @@ public class UsuarioService implements UsuarioInterface {
         usuarioRepository.deleteById(id);
     }
 
+
     @Override
     public Optional<Usuario> getUsuarioByUsername(String username) {
         return usuarioRepository.findByUsername(username);
+    }
+
+    @Override
+    public Optional<Usuario> getUsuarioByCorreo(String correo) {
+        return usuarioRepository.findByCorreo(correo);
     }
 }

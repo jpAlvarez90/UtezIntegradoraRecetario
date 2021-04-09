@@ -21,4 +21,6 @@ public interface UsuarioInterface {
 
     Optional<Usuario> getUsuarioByUsername(String username);
 
+    Optional <Usuario> getUsuarioByCorreo (String correo);
+
 }
