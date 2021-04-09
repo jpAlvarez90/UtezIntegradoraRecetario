@@ -11,7 +11,7 @@
                     <a class="btnSeguirRecetario"th:href="@{'/seguir-recetario/'+${receta.recetario.idRecetario}}" ><i class="fas fa-heart"></i></a>
 
                     <div class="calificarRecetario">
-                        <form>
+                        <form id="calificar-receta" >
                             <div class="">
                                 <div class="" style="display: inline">
                                     <p class="clasificacion" style="display: inline; font-size: 10pt;">
@@ -145,6 +145,25 @@
                             idReceta: $('#idReceta').val()
                         })
                     }, 5000)
+                })
+            </script>
+            <script type="text/javascript">
+                $('#calificar-receta').submit(function (e){
+                    let estrellas  = $('input[name=estrellas]:checked').val()
+                    if (estrellas == undefined) estrellas = 0
+                    $.post("http://localhost:8080/calificar-receta",{
+                        idReceta: $('#idReceta').val(),
+                        calificacion: estrellas
+                    })
+                })
+            </script>
+            <script type="text/javascript">
+                $(document).ready(function (){
+                    $.getJSON("http://localhost:8080/subcategoriasMenu", {
+                        nombreCategoria: "Sopas"
+                    }, function (data){
+                        console.log(data)
+                    })
                 })
             </script>
         </div>

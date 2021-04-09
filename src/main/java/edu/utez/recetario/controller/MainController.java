@@ -1,8 +1,10 @@
 package edu.utez.recetario.controller;
 
+import edu.utez.recetario.model.Calificacion;
 import edu.utez.recetario.model.Comentario;
 import edu.utez.recetario.model.Receta;
 import edu.utez.recetario.model.Usuario;
+import edu.utez.recetario.service.CalificacionService;
 import edu.utez.recetario.service.ComentarioService;
 import edu.utez.recetario.service.RecetaService;
 import edu.utez.recetario.service.UsuarioService;
@@ -15,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,12 +28,15 @@ public class MainController {
 
     private ComentarioService comentarioService;
 
+    private CalificacionService calificacionService;
+
     private UsuarioService usuarioService;
 
     @Autowired
-    public MainController(RecetaService recetaService, ComentarioService comentarioService, UsuarioService usuarioService) {
+    public MainController(RecetaService recetaService, ComentarioService comentarioService, CalificacionService calificacionService, UsuarioService usuarioService) {
         this.recetaService = recetaService;
         this.comentarioService = comentarioService;
+        this.calificacionService = calificacionService;
         this.usuarioService = usuarioService;
     }
 
@@ -42,8 +48,16 @@ public class MainController {
     }
 
     @GetMapping("/mejor-calificado")
-    public String mejorCalificados() {
+    public String mejorCalificados(Model model) {
 
+        List<Calificacion> calificacionList = calificacionService.getRecetasByCalificaciones();
+        List<Receta> listaRecetas = new ArrayList<>();
+
+        for (Calificacion calificacion: calificacionList) {
+            listaRecetas.add(calificacion.getReceta());
+        }
+
+        model.addAttribute("listaRecetas",listaRecetas);
         return "index";
     }
 
@@ -72,30 +86,6 @@ public class MainController {
 
         return "/views/receta/ver_receta";
     }
-
-    @PostMapping("/realizar-comentario")
-    public String realizarComentario(WebRequest webRequest) {
-
-        long idReceta = Long.parseLong(webRequest.getParameter("idReceta"));
-        Receta receta = recetaService.getRecetaById(idReceta);
-
-        String comentario = webRequest.getParameter("floatingTextarea2");
-
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        String username = userDetails.getUsername();
-
-        Optional<Usuario> tempUsuario = usuarioService.getUsuarioByUsername(username);
-        Usuario usuario = tempUsuario.get();
-
-        Comentario comentarioSave = new Comentario(receta,usuario,comentario);
-
-        comentarioService.saveComentario(comentarioSave);
-
-        return "redirect:/ver-receta/"+idReceta;
-    }
-
-
 
 
 

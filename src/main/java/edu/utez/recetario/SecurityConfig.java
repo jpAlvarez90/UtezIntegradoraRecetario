@@ -52,7 +52,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/obtener-comentarios",
                         "/aumentar-vista",
                         "/mas-buscados",
-                        "/mejor-calificado")
+                        "/mejor-calificado",
+                        "/subcategoriasMenu")
                 .permitAll()
                 .antMatchers("/**")
                 .hasAnyAuthority("ROLE_ADMIN", "ROLE_USER")
