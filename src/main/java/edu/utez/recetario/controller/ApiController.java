@@ -41,7 +41,7 @@ public class ApiController {
 
     @RequestMapping(value = "/subcategorias", method = RequestMethod.GET)
     public @ResponseBody
-    List<SubCategoria> subCategoriasList(@RequestParam(value = "idCategoria") long idCategoria) {
+        List<SubCategoria> subCategoriasList(@RequestParam(value = "idCategoria") long idCategoria) {
         Categoria categoria = categoriaService.getCategoriaById(idCategoria);
         List<SubCategoria> subCategoriaList = subCategoriaService.getAllSubcategoriasByCategoria(categoria);
         return subCategoriaList;
@@ -164,8 +164,11 @@ public class ApiController {
 
     @RequestMapping(value = "/subcategoriasMenu", method = RequestMethod.GET)
     public @ResponseBody List<SubCategoria> subCategoriasList(@RequestParam(value = "nombreCategoria") String nombreCategoria) {
+        System.out.println("1. Categoría: "+nombreCategoria);
         Categoria categoria = categoriaService.findByNombre(nombreCategoria);
         List<SubCategoria> subCategoriaList = subCategoriaService.getAllSubcategoriasByCategoria(categoria);
+        System.out.println("2. Subcategoría: "+subCategoriaList.size());
+
         return subCategoriaList;
     }
 
