@@ -12,10 +12,13 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -65,15 +68,33 @@ public class RecetarioController {
     }
 
     @PostMapping("/registrar-recetario")
-    public String registrarRecetario(Recetario recetario) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        String username = userDetails.getUsername();
+    public String registrarRecetario(@Valid Recetario recetario, Errors errors) {
 
-        Optional<Usuario> tempUsuario = usuarioService.getUsuarioByUsername(username);
-        recetario.setUsuario(tempUsuario.get());
+        if (errors.hasErrors()) {
+            return "redirect:/ver-recetarios";
+        } else {
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+            String username = userDetails.getUsername();
 
-        recetarioService.saveRecetario(recetario);
-        return "redirect:/ver-recetarios";
+            Optional<Usuario> tempUsuario = usuarioService.getUsuarioByUsername(username);
+            recetario.setUsuario(tempUsuario.get());
+
+            recetarioService.saveRecetario(recetario);
+            return "redirect:/ver-recetarios";
+        }
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

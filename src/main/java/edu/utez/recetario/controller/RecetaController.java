@@ -32,10 +32,12 @@ public class RecetaController {
 
     private UsuarioFollowRecetarioService usuarioFollowRecetarioService;
 
+    private CalificacionService calificacionService;
+
     private AlmacenamientoImagenesService almacenamientoImagenesService;
 
     @Autowired
-    public RecetaController(RecetarioService recetarioService, RecetaService recetaService, ComentarioService comentarioService, UsuarioService usuarioService, CategoriaService categoriaService, SubCategoriaService subCategoriaService, UsuarioFollowRecetarioService usuarioFollowRecetarioService, AlmacenamientoImagenesService almacenamientoImagenesService) {
+    public RecetaController(RecetarioService recetarioService, RecetaService recetaService, ComentarioService comentarioService, UsuarioService usuarioService, CategoriaService categoriaService, SubCategoriaService subCategoriaService, UsuarioFollowRecetarioService usuarioFollowRecetarioService, CalificacionService calificacionService, AlmacenamientoImagenesService almacenamientoImagenesService) {
         this.recetarioService = recetarioService;
         this.recetaService = recetaService;
         this.comentarioService = comentarioService;
@@ -43,6 +45,7 @@ public class RecetaController {
         this.categoriaService = categoriaService;
         this.subCategoriaService = subCategoriaService;
         this.usuarioFollowRecetarioService = usuarioFollowRecetarioService;
+        this.calificacionService = calificacionService;
         this.almacenamientoImagenesService = almacenamientoImagenesService;
     }
 
@@ -99,14 +102,6 @@ public class RecetaController {
 
         return "views/receta/formulario";
     }
-
-    @RequestMapping(value = "/subcategorias", method = RequestMethod.GET)
-    public @ResponseBody List<SubCategoria> subCategoriasList(@RequestParam(value = "idCategoria") long idCategoria) {
-        Categoria categoria = categoriaService.getCategoriaById(idCategoria);
-        List<SubCategoria> subCategoriaList = subCategoriaService.getAllSubcategoriasByCategoria(categoria);
-        return subCategoriaList;
-    }
-
 
     @PostMapping("/crear-receta")
     public String crearReceta(Receta receta,
