@@ -48,10 +48,6 @@ public class RecuperarContraseña {
     }
 
     public String enviarDatos(Usuario usuario, Model model){
-
-
-        //model.addAttribute("usuario",usuario);
-        System.out.println("Desde enviarDatos "+usuario.getNombre());
         return "plantillaEmail";
     }
 
@@ -59,13 +55,14 @@ public class RecuperarContraseña {
     public String sendEmail (@RequestParam("mail") String mail, Model model,final Locale locale) throws IOException, MessagingException {
         List<Receta> listaRecetas = recetaService.getAllRecetasByOrderADesc(10);
         model.addAttribute("listaRecetas", listaRecetas);
-        Usuario usuario = usuarioService.getUsuarioByCorreo(mail).get();
-
-        final Context ctx = new Context(locale);
-        ctx.setVariable("correo", usuario.getCorreo());
-        enviarDatos(usuario, model);
 
         if (!usuarioService.getUsuarioByCorreo(mail).isEmpty()){
+            Usuario usuario = usuarioService.getUsuarioByCorreo(mail).get();
+
+            final Context ctx = new Context(locale);
+            ctx.setVariable("correo", usuario.getCorreo());
+            enviarDatos(usuario, model);
+
             SimpleMailMessage email = new SimpleMailMessage();
             Context context = new Context();
 
@@ -82,14 +79,13 @@ public class RecuperarContraseña {
             System.out.println("No hay coincidencias");
         }
 
-        return "index";
+        return "redirect:index";
     }
 
     @GetMapping("/cambioContrasena/{correo}")
     public String cambioContrasena(@PathVariable("correo") String correo,Model model,@ModelAttribute("usuario") Usuario usuario){
         usuario = usuarioService.getUsuarioByCorreo(correo).get();
         model.addAttribute("usuario", usuario);
-        System.out.println("llegada 1 "+usuario.getNombre());
         return "recuperar_contrasena_2";
     }
 
@@ -102,10 +98,13 @@ public class RecuperarContraseña {
         String contraConfirmacion = request.getParameter("contraConfirmacion");
         String idUsuario = request.getParameter("idUsuario");
         usuario = usuarioService.getUsuarioById(Long.parseLong(idUsuario));
-        System.out.println("cambio Contra 1 "+contraNueva + "  cambio contra 2 "+contraConfirmacion);
-        System.out.println("usuario cambio "+usuario.getCorreo()+" - "+usuario.getNombre());
+
+        if (contraNueva.equals(contraConfirmacion)){
             usuario.setPassword(contraNueva);
             usuarioService.saveUsuarioPerfil(usuario);
+        }else{
+            System.out.println("Son diferentes");
+        }
 
         return "index";
     }

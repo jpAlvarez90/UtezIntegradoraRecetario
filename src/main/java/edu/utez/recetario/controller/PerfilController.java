@@ -180,8 +180,8 @@ public class PerfilController {
     public String editarPerfil (Model model,Usuario usuario , WebRequest request){
 
         String idUsuario = request.getParameter("idUsuario");
-        usuario = usuarioService.getUsuarioById(Long.parseLong(idUsuario));
         String password = request.getParameter("passwordInput") ;
+
         if (!password.isEmpty()){
             usuario.setPassword(password);
             usuarioService.saveUsuarioPerfil(usuario);
@@ -190,6 +190,4 @@ public class PerfilController {
         }
         return "redirect:/perfil";
     }
-
-
 }

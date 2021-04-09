@@ -172,6 +172,7 @@
                     <form th:action="@{editarPerfil}" th:object="${usuario}" method="post">
                         <input type="text"  id="idUsuario" name="idUsuario" th:field="*{idUsuario}" class="form-control" style="display: none"></input>
                         <input type="text" th:field="*{password}" class="form-control" style="display: none"></input>
+                        <input type="text" th:field="*{rol}" class="form-control" style="display: none"></input>
 
                         <div class="input-group mb-3">
                             <span class="input-group-text" id="basic-addon1"><i class="fas fa-file-signature"></i></span>

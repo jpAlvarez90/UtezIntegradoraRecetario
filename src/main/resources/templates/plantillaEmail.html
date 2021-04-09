@@ -55,15 +55,12 @@
             <div class="con">
                 <img src="https://image.flaticon.com/icons/png/512/683/683488.png" alt="" srcset="">
                 <br><br>
-                <h2 class="titulo">¡Hola compañero!</h2>
+                <h2 class="titulo">¡Hola!</h2>
                 <div >
-                    <p>Hemos recibimos una petici&oacuten de cambio de contrase&ntildea, has clic en el bot&oacuten para seguir con el proceso.</p>
-                    <!--
-                    < th:object="${correoVista}" method="get" th:action="@{enviarCorreo}">
-                    <a th:href="@{'//'+${item.idCategoria}}" class="btn btn-sm btn-eliminar"><i class="far fa-trash-alt"></i></a> -->
-                    <a th:href="@{'http://localhost:8080/cambioContrasena/'+${correo}}" >Da click para continuar con el proceso</a>
+                    <p>Hemos recibido una petición de cambio de contraseña, da clic en el botón para seguir con el proceso.</p>
+                    <a th:href="@{'http://localhost:8080/cambioContrasena/'+${correo}}" >Recuperar contraseña</a>
                     <br><br>
-                    <p class="pie">Si no fuiste tu, <b>ignora</b> este correo.</p>
+                    <p class="pie">Si no fuiste tú, <b>ignora</b> este correo.</p>
                 </div>
             </div>
         </div>
