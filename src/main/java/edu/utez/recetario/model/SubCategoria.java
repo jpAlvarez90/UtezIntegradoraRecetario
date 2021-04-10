@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
+import javax.validation.constraints.Pattern;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -27,6 +28,7 @@ public class SubCategoria {
     private Set<Receta> receta = new HashSet<>();
 
     @Column(name = "nombre", nullable = false)
+    @Pattern(regexp = "^[a-zA-Z][a-z\\s]*$",message = "Solo se permiten letras mayusculas y minusculas")
     private String nombre;
 
     public SubCategoria() {

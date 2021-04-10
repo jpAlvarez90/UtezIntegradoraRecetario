@@ -1,10 +1,13 @@
 @font-face {
-    font-family: IndieFlower;
-    src: url(IndieFlower.ttf);
+    font-family: ArchitectsDaughter;
+    src: url(ArchitectsDaughter.ttf);
 }
-
+/*
+ArchitectsDaughter.ttf
+IndieFlower.ttf
+*/
 * {
-    font-family: IndieFlower;
+    font-family: ArchitectsDaughter;
 }
 
 html {

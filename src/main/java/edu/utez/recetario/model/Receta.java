@@ -1,6 +1,7 @@
 package edu.utez.recetario.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.Pattern;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -34,9 +35,11 @@ public class Receta {
     private Set<Calificacion> calificacion = new HashSet<>();
 
     @Column(name = "titulo", nullable = false)
+    @Pattern(regexp = "^[a-zA-Z][a-z\\s]*$",message = "Solo se permiten letras mayusculas y minusculas")
     private String titulo;
 
     @Column(name = "descripcion", nullable = false, columnDefinition = "TEXT")
+    @Pattern(regexp = "^[a-zA-Z][a-z\\s]*$",message = "Solo se permiten letras mayusculas y minusculas")
     private String descripcion;
 
     @Column(name = "ingredientes", nullable = false, columnDefinition = "TEXT")

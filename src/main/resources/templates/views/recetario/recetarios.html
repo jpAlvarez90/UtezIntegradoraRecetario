@@ -8,7 +8,6 @@
             <!-- MIS RECETARIOS -->
             <div class="container">
                 <h2>Últimas recetas</h2>
-
                 <!-- Carrusel -->
                 <!--
                 <div class="Carousel">
@@ -301,6 +300,7 @@
                                 <div class="mb-3">
                                     <label for="recipient-name" class="col-form-label">Nombre del recetario:</label>
                                     <input type="text" class="form-control" id="recipient-name" th:field="*{nombre}">
+                                    <span th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></span>
                                 </div>
                             </div>
                             <div class="modal-footer">
@@ -312,6 +312,14 @@
                 </div>
             </div>
             <!-- Model-->
+
+            <script th:if="${exito}" type="text/javascript">
+                //swal("Registro exitoso");
+                toastr.success('Se registró con exito!', 'Exito');
+            </script>
+            <script th:if="${mensajeError}">
+                toastr.error("Solo se aceptan letras","Error");
+            </script>
         </div>
     </body>
-</html>
+    </html>

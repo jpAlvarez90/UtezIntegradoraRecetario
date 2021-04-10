@@ -35,7 +35,7 @@
                         </div>
                     </div>
 
-                    <table class="table">
+                    <table class="table" style="background-color:#F5EEF8">
                         <thead>
                         <tr>
                             <th scope="col">#</th>
@@ -48,7 +48,7 @@
                             <th scope="row" th:text="${iStat.count}"></th>
                             <td th:text="${item.nombre}"></td>
                             <td>
-                                <a th:href="@{'/eliminarCategoria/'+${item.idCategoria}}" class="btn btn-sm btn-eliminar"><i class="far fa-trash-alt"></i></a>
+                                <a th:href="@{'/eliminarCategoria/'+${item.idCategoria}}" class="btn btn-sm btn-eliminar" onclick="llamarAlerta()"><i class="far fa-trash-alt"></i></a>
                                 <a th:href="@{'/editarCategoria/'+${item.idCategoria}}" id="idCategoria" class="btn btn-sm btn-editar"><i class="far fa-edit"></i></a>
                             </td>
                         </tr>
@@ -101,7 +101,7 @@
                             </div>
                         </div>
                     </div>
-                    <table class="table">
+                    <table class="table"  style="background-color:#F5EEF8">
                         <thead>
                         <tr>
                             <th scope="col">#</th>
@@ -203,6 +203,19 @@
                     </form>
                 </div>
             </div>
+
+            <script th:if="${exito}">
+                toastr.success('Se guardó con exito!', 'Exito');
+            </script>
+            <script th:if="${error}">
+                toastr.error("Solo se aceptan letras","Error");
+            </script>
+            <script th:if="${exitoEliminar}">
+                toastr.success('Se elimino con exito!', 'Exito');
+            </script>
+            <script th:if="${eliminar}">
+                toastr.error("No se elimino","Error");
+            </script>
         </div>
     </body>
 </html>

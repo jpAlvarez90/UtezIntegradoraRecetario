@@ -1,13 +1,16 @@
 * {
     box-sizing: border-box;
 }
-@font-face{
-    font-family: IndieFlower;
-    src: url(IndieFlower.ttf);
+@font-face {
+    font-family: ArchitectsDaughter;
+    src: url(ArchitectsDaughter.ttf);
 }
-
-*{
-    font-family: IndieFlower;
+/*
+ArchitectsDaughter.ttf
+IndieFlower.ttf
+*/
+* {
+    font-family: ArchitectsDaughter;
 }
 
 body {

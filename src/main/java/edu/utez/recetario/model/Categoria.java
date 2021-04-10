@@ -3,6 +3,7 @@ package edu.utez.recetario.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
+import javax.validation.constraints.Pattern;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -16,6 +17,7 @@ public class Categoria {
     private Long idCategoria;
 
     @Column(name = "nombre", nullable = false)
+    @Pattern(regexp = "^[a-zA-Z][a-z\\s]*$",message = "Solo se permiten letras mayusculas y minusculas")
     private String nombre;
 
     @OneToMany(mappedBy = "categoria")
