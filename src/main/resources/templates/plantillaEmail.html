@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <title>Correo</title>
+    <style>
+        * {
+            font-family: Arial;
+            text-align: center;
+        }
+
+        .contenido1 {
+            background-color: #DD969C;
+            color: #FFF;
+        }
+
+        .contenido2 {
+            padding: 30px;
+        }
+
+        .con {
+            position: relative;
+            top: 20px;
+            padding: 50px;
+            background-color: #c77077;
+        }
+
+        a {
+            color: #FFF;
+            font-weight: bold;
+        }
+
+        img {
+            width: 100px;
+        }
+
+        .container {
+            margin: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    <div class="row">
+        <div class="col contenido1">
+            <div class="con">
+                <img src="https://image.flaticon.com/icons/png/512/683/683488.png" alt="" srcset="">
+                <br><br>
+                <h2 class="titulo">¡Hola!</h2>
+                <div >
+                    <p>Hemos recibido una petición de cambio de contraseña, da clic en el botón para seguir con el proceso.</p>
+                    <a th:href="@{'http://localhost:8080/cambioContrasena/'+${correo}}" >Recuperar contraseña</a>
+                    <br><br>
+                    <p class="pie">Si no fuiste tú, <b>ignora</b> este correo.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col contenido2">
+        </div>
+    </div>
+</div>
+</body>
+
+<script>
+    $email = document.getElementById('email').;
+    window.location.href + $email;
+</script>
+</html>

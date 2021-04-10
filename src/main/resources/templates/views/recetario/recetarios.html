@@ -7,10 +7,14 @@
             <br>
             <!-- MIS RECETARIOS -->
             <div class="container">
-                <h2>Últimas recetas</h2>
+
+                <div class="recuadro_recetario">
+                    <h2>Últimas recetas</h2>
+                </div>
+
                 <!-- Carrusel -->
                 <!--
-                <div class="Carousel">
+                <div class="Carousel recuadro_recetario">
                     <div class="slick-list" id="slick-list">
                         <button class="slick-arrow slick-prev" id="button-prev" data-button="button-prev" onclick="app.processingButton(event)">
                             <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="chevron-left"
@@ -228,56 +232,41 @@
                 -->
 
                 <!-- RECETARIOS -->
-                <br>
-                <h2>Mis recetarios
-                    <button type="button" style="border:none; background: none; color:#DD969C; outline: none" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo" >
-                        <i class="fas fa-plus-circle" data-bs-toggle="tooltip" data-bs-placement="right" title="Crear nuevo recetario"></i>
-                    </button>
-                </h2>
-                <br>
-                <div class="list-group">
-                    <div th:each="item : ${recetarioList}">
-                        <a th:href="@{'/ver-recetas/'+${item.idRecetario}}" class="list-group-item list-group-item-action">
+                <div class="recuadro_recetario">
+                    <h2>Mis recetarios
+                        <button type="button" style="border:none; background: none; color:#FF4B2B; outline: none" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo" >
+                            <i class="fas fa-plus-circle" data-bs-toggle="tooltip" data-bs-placement="right" title="Crear nuevo recetario"></i>
+                        </button>
+                    </h2>
+                </div>
+
+                <div style="padding: 20px;">
+                    <div style="background-color: #f3ecf3; margin-top: 15px; margin-bottom: 15px; padding: 25px;" th:each="item : ${recetarioList}" >
+                        <a th:href="@{'/ver-recetas/'+${item.idRecetario}}" style="text-decoration: none; color:#8a8f97;">
                             <br>
                             <div class="d-flex w-100 justify-content-between">
-                                <h5 class="mb-1" th:text="${item.nombre}"></h5>
+                                <h5 style="font-size: 18pt;" class="mb-1" th:text="${item.nombre}"></h5>
+                                <small><a href="#" style="display: inline; text-decoration: none; color:#8a8f97; font-size: 15pt;"><i class="fas fa-times"></i></a></small>
                             </div>
                             <br>
                         </a>
-                        <br>
                     </div>
-                    <!--
-                    <a th:href="@{/test/recetas}" class="list-group-item list-group-item-action">
-                        <br>
-                        <div class="d-flex w-100 justify-content-between">
-                            <h5 class="mb-1">Platos fuertes</h5>
-                        </div>
-                        <br>
-                    </a>
-                    <br>
-                    <a th:href="@{/test/recetas}" class="list-group-item list-group-item-action">
-                        <br>
-                        <div class="d-flex w-100 justify-content-between">
-                            <h5 class="mb-1">Platos debiles</h5>
-                        </div>
-                        <br>
-                    </a>
-                    <br>
-                    -->
                 </div>
                 <!-- RECETARIOS -->
 
 
                 <!-- RECETARIOS GUARDADOS -->
-                <br>
-                <h2>Recetarios guardados</h2>
-                <br>
-                <div class="list-group">
-                    <div th:each="item : ${ufrList}">
-                        <a th:href="@{'/ver-recetas-seguidas/'+${item.recetario.idRecetario}}" class="list-group-item list-group-item-action">
+                <div class="recuadro_recetario">
+                    <h2>Recetarios guardados</h2>
+                </div>
+
+                <div style="padding: 20px;">
+                    <div style="background-color: #f3ecf3; margin-top: 15px; margin-bottom: 15px; padding: 25px;" th:each="item : ${ufrList}">
+                        <a th:href="@{'/ver-recetas-seguidas/'+${item.recetario.idRecetario}}" style="text-decoration: none; color:#8a8f97;">
                             <br>
                             <div class="d-flex w-100 justify-content-between">
-                                <h5 class="mb-1" th:text="${item.recetario.nombre}"></h5>
+                                <h5 style="font-size: 18pt;" th:text="${item.recetario.nombre}"></h5>
+                                <small><a href="#" style="display: inline; text-decoration: none; color:#8a8f97; font-size: 15pt;"><i class="fas fa-times"></i></a></small>
                             </div>
                             <br>
                         </a>
@@ -300,7 +289,6 @@
                                 <div class="mb-3">
                                     <label for="recipient-name" class="col-form-label">Nombre del recetario:</label>
                                     <input type="text" class="form-control" id="recipient-name" th:field="*{nombre}">
-                                    <span th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></span>
                                 </div>
                             </div>
                             <div class="modal-footer">

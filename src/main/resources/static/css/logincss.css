@@ -14,7 +14,7 @@ IndieFlower.ttf
 }
 
 body {
-    background-image: url('https://cdn.ticbeat.com/src/uploads/2018/12/cultura-gastronomica-mundo.jpg');
+    background-image: url('/img/fondoPantalla2.jpg');
     display: flex;
     justify-content: center;
     align-items: center;

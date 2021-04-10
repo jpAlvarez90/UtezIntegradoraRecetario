@@ -23,4 +23,6 @@ public interface UsuarioInterface {
 
     public String codigosError(String errores);
 
+    Optional <Usuario> getUsuarioByCorreo (String correo);
+
 }

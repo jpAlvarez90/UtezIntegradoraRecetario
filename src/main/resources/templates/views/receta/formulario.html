@@ -20,20 +20,18 @@
                         <label for="titulo" style="font-weight: bolder;" class="col-sm-2 col-form-label">Título</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" id="titulo" th:field="*{titulo}">
-                            <p th:if="${#fields.hasErrors('titulo')}" th:errors="*{titulo}"></p>
                         </div>
                     </div>
                     <div class="row mb-3">
                         <label style="font-weight: bolder;" class="col-sm-2 col-form-label" for="descripcion">Descripción</label>
                         <div class="col-sm-10">
                             <textarea class="form-control" style="height: 150px; resize: none" id="descripcion" rows="3" th:field="*{descripcion}"></textarea>
-                            <span th:if="${#fields.hasErrors('descripcion')}" th:errors="*{descripcion}"></span>
                         </div>
                     </div>
                     <div class="row mb-3">
                         <label class="col-sm-2 col-form-label" style="font-weight: bolder;" for="categoria">Categoria</label>
                         <div class="col-sm-10">
-                            <select class="form-select" aria-label="Default select example" id="categoria" name="categoria" required="required">
+                            <select class="form-select" aria-label="Default select example" id="categoria" name="categoria" >
                                 <option selected value="0">Seleccione una categoria</option>
                                 <option
                                         th:each="item : ${categoriaList}"
@@ -63,7 +61,6 @@
                         <label for="ingredientes" class="col-sm-2 col-form-label" style="font-weight: bolder;">Ingredientes</label>
                         <div class="col-sm-10" >
                             <textarea class="form-control" id="ingredientes" th:field="*{ingredientes}" ></textarea>
-                            <span th:if="${#fields.hasErrors('ingredientes')}" th:errors="*{ingredientes}"></span>
                         </div>
                     </div>
 
@@ -71,7 +68,6 @@
                         <label for="pasos" class="col-sm-2 col-form-label" style="font-weight: bolder;">Pasos: </label>
                         <div class="col-sm-10">
                             <textarea class="form-control" id="pasos" th:field="*{pasos}"></textarea>
-                            <span th:if="${#fields.hasErrors('pasos')}" th:errors="*{pasos}"></span>
                         </div>
                     </div>
 
@@ -84,7 +80,7 @@
                     </div>
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                         <a th:href="@{'/ver-recetas/'+${recetario.idRecetario}}" class="btn btn-eliminar" type="button">Cancelar</a>
-                        <button class="btn btn-agregar" type="submit" >Guardar</button>
+                        <button class="btn btn-agregar" type="submit">Guardar</button>
                     </div>
                     <br>
                 </form>
@@ -108,13 +104,6 @@
                     })
                 }
             )
-        </script>
-        <script th:if="${errorCat}">
-            toastr.error("Debe Selecionar una categoria", "Error");
-            document.getElementById("categoria").focus();
-        </script>
-        <script th:if="${error}">
-            toastr.error("Hay un error");
         </script>
         </div>
     </body>

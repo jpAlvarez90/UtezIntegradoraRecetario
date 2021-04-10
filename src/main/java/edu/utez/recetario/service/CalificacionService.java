@@ -1,6 +1,8 @@
 package edu.utez.recetario.service;
 
 import edu.utez.recetario.model.Calificacion;
+import edu.utez.recetario.model.Receta;
+import edu.utez.recetario.model.Usuario;
 import edu.utez.recetario.repository.CalificacionRepository;
 import edu.utez.recetario.serviceInterface.CalificacionInterface;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +47,12 @@ public class CalificacionService implements CalificacionInterface {
     @Override
     public List<Calificacion> getRecetasByCalificaciones() {
         return calificacionRepository.getRecetasByCalificacion();
+    }
+
+    @Override
+    public boolean existCalificacionByRecetaAndUsuario(Receta receta, Usuario usuario) {
+        Optional<Calificacion> calificacion = calificacionRepository.findByRecetaAndUsuario(receta,usuario);
+        return calificacion.isPresent();
     }
 
 }

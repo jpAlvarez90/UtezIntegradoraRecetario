@@ -35,12 +35,14 @@ public class RecetaController {
 
     private UsuarioFollowRecetarioService usuarioFollowRecetarioService;
 
+    private CalificacionService calificacionService;
+
     private AlmacenamientoImagenesService almacenamientoImagenesService;
 
     private String mensaje;
 
     @Autowired
-    public RecetaController(RecetarioService recetarioService, RecetaService recetaService, ComentarioService comentarioService, UsuarioService usuarioService, CategoriaService categoriaService, SubCategoriaService subCategoriaService, UsuarioFollowRecetarioService usuarioFollowRecetarioService, AlmacenamientoImagenesService almacenamientoImagenesService) {
+    public RecetaController(RecetarioService recetarioService, RecetaService recetaService, ComentarioService comentarioService, UsuarioService usuarioService, CategoriaService categoriaService, SubCategoriaService subCategoriaService, UsuarioFollowRecetarioService usuarioFollowRecetarioService, CalificacionService calificacionService, AlmacenamientoImagenesService almacenamientoImagenesService) {
         this.recetarioService = recetarioService;
         this.recetaService = recetaService;
         this.comentarioService = comentarioService;
@@ -48,6 +50,7 @@ public class RecetaController {
         this.categoriaService = categoriaService;
         this.subCategoriaService = subCategoriaService;
         this.usuarioFollowRecetarioService = usuarioFollowRecetarioService;
+        this.calificacionService = calificacionService;
         this.almacenamientoImagenesService = almacenamientoImagenesService;
     }
 

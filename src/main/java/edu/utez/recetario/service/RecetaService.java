@@ -53,5 +53,10 @@ public class RecetaService implements RecetaInterface {
         return recetaRepository.findByOrderByIdRecetaDesc(limit);
     }
 
+    @Override
+    public List<Receta> getAllRecetasByVistasDesc(int limit) {
+        return recetaRepository.findByOrderByVistasDesc(limit);
+    }
+
 
 }

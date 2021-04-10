@@ -225,7 +225,7 @@ public class PerfilController {
     }
 
     @PostMapping("editarPerfil")
-    public String editarPerfil (Usuario usuario, Model model, WebRequest request){
+    public String editarPerfil (Model model,Usuario usuario , WebRequest request){
 
         try {
             String password = request.getParameter("passwordInput") ;
@@ -242,7 +242,15 @@ public class PerfilController {
             model.addAttribute("mensaje",mensaje);
             return "error/404";
         }
+        String idUsuario = request.getParameter("idUsuario");
+        String password = request.getParameter("passwordInput") ;
+
+        if (!password.isEmpty()){
+            usuario.setPassword(password);
+            usuarioService.saveUsuarioPerfil(usuario);
+        }else {
+            usuarioService.savePerfil(usuario);
+        }
+        return "redirect:/perfil";
     }
-
-
 }

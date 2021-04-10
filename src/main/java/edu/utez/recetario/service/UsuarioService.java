@@ -109,6 +109,7 @@ public class UsuarioService implements UsuarioInterface {
         }
     }
 
+
     @Override
     public Optional<Usuario> getUsuarioByUsername(String username) {
         try {
@@ -201,5 +202,10 @@ public class UsuarioService implements UsuarioInterface {
         }
 
         return "Error no localizado :c";
+    }
+
+    @Override
+    public Optional<Usuario> getUsuarioByCorreo(String correo) {
+        return usuarioRepository.findByCorreo(correo);
     }
 }

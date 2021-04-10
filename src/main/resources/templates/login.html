@@ -11,7 +11,7 @@
     <link href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" rel="stylesheet" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
 </head>
 <body>
-
+<br/>
 <div class="container" id="container">
     <div class="form-container sign-up-container">
         <form th:action="@{/registrar-usuario}" th:object="${usuario}" method="post">
@@ -26,11 +26,12 @@
         </form>
     </div>
     <div class="form-container sign-in-container">
+        <br/>
         <form action="#" th:action="@{/login}" method="post">
-            <h1>Iniciar Sesión</h1>
-            <input type="text" placeholder="Usuario" name="username"/>
-            <input type="password" placeholder="Contraseña" name="password"/>
-            <a th:href="@{/test/recuperar}">Recuperar Contraseña</a>
+            <h1>Iniciar sesión</h1>
+            <input type="text" placeholder="Usuario..." name="username"/>
+            <input type="password" placeholder="Contraseña..." name="password"/>
+            <a th:href="@{/recuperarC}">Recuperar contraseña</a>
             <button type="submit">Entrar</button>
             <br>
             <a th:href="@{/}">Volver</a>
@@ -39,9 +40,9 @@
     <div class="overlay-container">
         <div class="overlay">
             <div class="overlay-panel overlay-left">
-                <h1>Bienvenido de Nuevo!</h1>
+                <h1>Bienvenido de nuevo!</h1>
                 <p>Manten tu información actualizada y </p>
-                <button class="ghost" id="signIn">Iniciar Sesión</button>
+                <button class="ghost" id="signIn">Iniciar sesión</button>
             </div>
             <div class="overlay-panel overlay-right">
                 <h1>Hola, amigo!</h1>

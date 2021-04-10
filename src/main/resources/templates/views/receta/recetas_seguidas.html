@@ -8,9 +8,11 @@
             <!-- Cards -->
             <div class="container">
                 <h5><a th:href="@{/ver-recetarios}" style="color:#000; text-decoration: none;"><i class="fas fa-arrow-left"></i> Regresar</a></h5>
-                <br>
-                <h2><span th:text="${recetario.nombre}"></span> <a th:href="@{'/crear-receta/'+${recetario.idRecetario}}" style="text-decoration: none; color:#DD969C;"><i class="fas fa-plus-circle"></i></a></h2>
-                <br>
+
+                <div class="recuadro_recetario">
+                    <h2><span th:text="${recetario.nombre}"></span> <a th:href="@{'/crear-receta/'+${recetario.idRecetario}}" style="text-decoration: none; color:#DD969C;"><i class="fas fa-plus-circle"></i></a></h2>
+                </div>
+
                 <div class="row">
                         <div class="col-6 marginCard" th:each="item: ${recetaList}">
                             <div class="card myborder1" >
