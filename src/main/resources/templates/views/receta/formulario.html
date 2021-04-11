@@ -9,27 +9,31 @@
 
         <br>
         <!-- FORMULARIO-->
-        <div class="container">
-            <br>
-            <h2 style="font-weight: bolder;">Nueva receta</h2>
-            <br>
+        <div class="container ">
+            <div class="recuadro_recetario ">
+                <h2 style="font-weight: bolder; text-align: center;">Nueva receta</h2>
+            </div>
                 <form method="post" th:object="${receta}" th:action="@{/crear-receta}" enctype="multipart/form-data">
                     <input type="text" style="display: none" th:field="*{idReceta}" />
+
                     <input type="text" style="display: none" th:value="${recetario.idRecetario}" id="recetario" name="recetario">
-                    <div class="row mb-3">
+
+                    <div class="row mb-3 recuadro_recetario">
                         <label for="titulo" style="font-weight: bolder;" class="col-sm-2 col-form-label">Título</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" id="titulo" th:field="*{titulo}">
 
                         </div>
                     </div>
-                    <div class="row mb-3">
+
+                    <div class="row mb-3 recuadro_recetario">
                         <label style="font-weight: bolder;" class="col-sm-2 col-form-label" for="descripcion">Descripción</label>
                         <div class="col-sm-10">
                             <textarea class="form-control" style="height: 150px; resize: none" id="descripcion" rows="3" th:field="*{descripcion}"></textarea>
                         </div>
                     </div>
-                    <div class="row mb-3">
+
+                    <div class="row mb-3 recuadro_recetario">
                         <label class="col-sm-2 col-form-label" style="font-weight: bolder;" for="categoria">Categoria</label>
                         <div class="col-sm-10">
                             <select class="form-select" aria-label="Default select example" id="categoria" name="categoria" >
@@ -38,13 +42,13 @@
                                         th:each="item : ${categoriaList}"
                                         th:text="${item.nombre}"
                                         th:value="${item.idCategoria}"
-
                                 >
                                 </option>
                             </select>
                         </div>
                     </div>
-                    <div class="row mb-3">
+
+                    <div class="row mb-3 recuadro_recetario">
                         <label class="col-sm-2 col-form-label" for="subcategoria" style="font-weight: bolder;">Subcategoría</label>
                         <div class="col-sm-10">
                             <select class="form-select" aria-label="Default select example" id="subcategoria" name="subcategoria">
@@ -58,31 +62,36 @@
                             </select>
                         </div>
                     </div>
-                    <div class="row mb-3">
+
+                    <div class="row mb-3 recuadro_recetario">
                         <label for="ingredientes" class="col-sm-2 col-form-label" style="font-weight: bolder;">Ingredientes</label>
                         <div class="col-sm-10" >
                             <textarea class="form-control" id="ingredientes" th:field="*{ingredientes}" ></textarea>
                         </div>
                     </div>
 
-                    <div class="row mb-3">
+                    <div class="row mb-3 recuadro_recetario">
                         <label for="pasos" class="col-sm-2 col-form-label" style="font-weight: bolder;">Pasos: </label>
                         <div class="col-sm-10">
                             <textarea class="form-control" id="pasos" th:field="*{pasos}"></textarea>
                         </div>
                     </div>
 
-                    <div class="row mb-3">
+                    <div class="row mb-3 recuadro_recetario">
                         <label for="imgs" class="col-sm-2 col-form-label" style="font-weight: bolder;">Agregar imagenes</label>
                         <div class="col-sm-10">
                             <input class="form-control" type="file" multiple accept="image/png, image/jpeg" id="imgs" name="imgs">
                         </div>
                         <br><br>
                     </div>
-                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                        <a th:href="@{'/ver-recetas/'+${recetario.idRecetario}}" class="btn btn-eliminar" type="button">Cancelar</a>
-                        <button class="botonPer" type="submit">Guardar</button>
+
+                    <div class="recuadro_recetario">
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <a th:href="@{'/ver-recetas/'+${recetario.idRecetario}}" class="btnCancelar" type="button">Cancelar</a>
+                            <button class="botonPer" type="submit">Guardar</button>
+                        </div>
                     </div>
+
                     <br>
                 </form>
             </div>

@@ -51,68 +51,124 @@ footer {
     color: #000;
 }
 
-.nav-link{
-    color:#FFF;
+
+
+.nav-link-Per{
+    color:#000;
     font-size: 12pt;
+    margin-bottom: -1px;
+    border: 1px solid transparent;
+    border-top-left-radius:10px;
+    border-top-right-radius: 10px;
+    padding: 13px;
 }
 
-.nav-link:hover{
-    color: #dddde0;
+.nav-link-Per:hover{
+    background-color: #bcbcbc;
+}
+
+.nav-link-Per.active{
+    background-color: #FEEFFB;
+    color:#000;
+    font-size: 12pt;
+    margin-bottom: -1px;
+    border: 1px solid transparent;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    padding: 13px;
 }
 
 
 
-.btn.btn-sm.btn-editar {
+.btn-editar {
+    display: inline;
     background-color: #71bd74;
-    color: #FFF;
+    color:#FFF;
+    border: none;
+    border-radius: 15px;
+    padding: 8px;
+    font-size: 10pt;
+    font-weight: bolder;
+    text-decoration: none;
 }
 
-.btn.btn-sm.btn-editar:hover {
-    background-color: #509c52;
-}
-
-.btn.btn-agregar {
-    background-color: #71bd74;
-    color: #FFF;
-}
-
-.btn.btn-agregar:hover {
+.btn-editar:hover {
     background-color: #509c52;
     color: #FFF;
 }
 
-.btn.btn-sm.btn-eliminar {
+
+.btn-eliminar {
+    display: inline;
     background-color: #e07070;
-    color: #FFF;
+    color:#FFF;
+    border: none;
+    border-radius: 15px;
+    padding: 8px;
+    font-size: 10pt;
+    font-weight: bolder;
+    text-decoration: none;
+
 }
 
-.btn.btn-sm.btn-eliminar:hover {
+.btn-eliminar:hover {
     background-color: #ff6b3d;
     color: #FFF;
 }
 
-.btn.btn-eliminar {
-    background-color: #e07070;
-    color: #FFF;
+
+.btnCancelar{
+    display: inline;
+    background-color: #dddddd;
+    color: #292929;
+    border: none;
+    border-radius: 15px;
+    padding: 10px;
+    font-size: 12pt;
+    font-weight: bolder;
+    text-decoration: none;
 }
 
-.btn.btn-eliminar:hover {
+.Cancelar:hover{
+    background-color: #bcbcbc;
+    color:#292929;
+}
+
+.btn-eliminar:hover {
     background-color: #ff6b3d;
     color: #FFF;
 }
 
 .botonPer {
     display: inline;
-    background-color: #FF4B2B;
+    background-color: #e0727b;
     color:#FFF;
     border: none;
     border-radius: 15px;
     padding: 10px;
     font-size: 12pt;
     font-weight: bolder;
+    text-decoration: none;
 }
 
 .botonPer:hover{
+    background-color: #7a0c14;
+    color:#FFF;
+}
+
+.botonPer-index {
+    display: inline;
+    background-color: #e0727b;
+    color:#FFF;
+    border: none;
+    border-radius: 15px;
+    padding: 7px;
+    font-size: 10pt;
+    font-weight: bolder;
+    text-decoration: none;
+}
+
+.botonPer-index:hover{
     background-color: #7a0c14;
     color:#FFF;
 }
@@ -138,13 +194,13 @@ footer {
     position: absolute;
     bottom: 10px;
     right: 15px;
-    color: #FF4B2B;
+    color: #DDDDDD;
     font-size: 25pt;
     text-decoration: none;
 }
 
 .btnSeguirRecetario:hover{
-    color: #7a0c14;
+    color: #FF4B2B;
 }
 
 .calificarRecetario {
@@ -158,17 +214,6 @@ footer {
     display: inline;
 }
 
-
-/*
-.imgButton a {
-    display: none;
-}
-*/
-
-
-card-body.index{
-    padding: 5px;
-}
 
 .card-text.tituloCard {
     text-align: center;
@@ -238,8 +283,6 @@ textarea {
 }
 
 .imagenCard1 {
-    width: 100%;
-    height: 200px;
     background-color: #F8BBD0;
     display: flex;
     justify-content: center;
@@ -252,9 +295,8 @@ textarea {
 
 }
 
+
 .imagenCard2 {
-    width: 100%;
-    height: 200px;
     background-color: #E1BEE7;
     display: flex;
     justify-content: center;
@@ -264,12 +306,10 @@ textarea {
     font-size: 20pt;
     border-top-left-radius: 15px;
     border-top-right-radius: 15px
-
 }
 
 .imagenCard3 {
-    width: 100%;
-    height: 200px;
+    /*width: 100%;height: 200px;*/
     background-color: #D1C4E9;
     display: flex;
     justify-content: center;
@@ -283,8 +323,7 @@ textarea {
 }
 
 .imagenCard4 {
-    width: 100%;
-    height: 200px;
+    /*width: 100%; height: 200px;*/
     background-color: #E1BEE7;
     display: flex;
     justify-content: center;
@@ -298,8 +337,7 @@ textarea {
 }
 
 .imagenCard5 {
-    width: 100%;
-    height: 200px;
+    /*width: 100%; height: 200px;*/
     background-color: #C5CAE9;
     display: flex;
     justify-content: center;
@@ -313,8 +351,7 @@ textarea {
 }
 
 .imagenCard6 {
-    width: 100%;
-    height: 200px;
+    /*width: 100%; height: 200px;*/
     background-color: #BBDEFB;
     display: flex;
     justify-content: center;
@@ -328,8 +365,7 @@ textarea {
 }
 
 .imagenCard7 {
-    width: 100%;
-    height: 200px;
+    /*width: 100%; height: 200px;*/
     background-color: #FFCCBC;
     display: flex;
     justify-content: center;
@@ -343,8 +379,7 @@ textarea {
 }
 
 .imagenCard8 {
-    width: 100%;
-    height: 200px;
+    /*width: 100%; height: 200px;*/
     background-color: #B3E5FC;
     display: flex;
     justify-content: center;
@@ -358,8 +393,7 @@ textarea {
 }
 
 .imagenCard9 {
-    width: 100%;
-    height: 200px;
+    /*width: 100%; height: 200px;*/
     background-color: #FFCDD2;
     display: flex;
     justify-content: center;
@@ -373,8 +407,7 @@ textarea {
 }
 
 .imagenCard10 {
-    width: 100%;
-    height: 200px;
+    /*width: 100%; height: 200px;*/
     background-color: #FFCDD2;
     display: flex;
     justify-content: center;
@@ -388,8 +421,7 @@ textarea {
 }
 
 .imagenCard11 {
-    width: 100%;
-    height: 200px;
+    /*width: 100%; height: 200px;*/
     background-color: #F8BBD0;
     display: flex;
     justify-content: center;
@@ -403,8 +435,7 @@ textarea {
 }
 
 .imagenCard12 {
-    width: 100%;
-    height: 200px;
+    /*width: 100%; height: 200px;*/
     background-color: #E1BEE7;
     display: flex;
     justify-content: center;
@@ -431,7 +462,7 @@ textarea {
 
 .card.index{
     border-radius: 15px;
-    border: 2px solid;
+    border: 4px solid;
 
 }
 
@@ -450,160 +481,247 @@ textarea {
     position: absolute;
     bottom: 5px;
     right: 5px;
-    background-color: #FF4B2B;
-    color:#FFF;
+    background-color: #e0d8db;
+    color: #000;
 }
 
 .imgButton a:hover{
-    background-color: #e54f4f;
+    background-color: #F8BBD0;
     color:#FFF;
 }
 
-
-
 .card.myborder1 {
     border-color: #F8BBD0;
-    border-radius: 15px;
+    border-radius: 20px;
 }
 
 .myfooter1{
     padding: .5rem 1rem;
-    background-color: rgba(0, 0, 0, 0.03);
+    background-color: #F8BBD0;
     border-top: 2px solid #F8BBD0;
     border-bottom-left-radius: 15px;
     border-bottom-right-radius: 15px;
+    font-size: 10pt;
+    font-weight: bolder;
+    color: #FFFFFF;
+}
+
+.myfooter-recetario-1{
+    padding: .5rem 1rem;
+    background-color: #F8BBD0;
+    border-top: 2px solid #F8BBD0;
+    border-bottom-right-radius: 15px;
+    font-size: 10pt;
+    font-weight: bolder;
+    color: #FFFFFF;
 }
 
 .card.myborder2 {
     border-color: #E1BEE7;
+    border-radius: 20px;
 }
 
 .myfooter2{
     padding: .5rem 1rem;
-    background-color: rgba(0, 0, 0, 0.03);
+    background-color: #E1BEE7;
     border-top: 2px solid #E1BEE7;
     border-bottom-left-radius: 15px;
     border-bottom-right-radius: 15px;
+    font-size: 10pt;
+    font-weight: bolder;
+    color: #FFFFFF;
+}
+
+.myfooter-recetario-2{
+    padding: .5rem 1rem;
+    background-color: #E1BEE7;
+    border-top: 2px solid #E1BEE7;
+    border-bottom-right-radius: 15px;
+    font-size: 10pt;
+    font-weight: bolder;
+    color: #FFFFFF;
 }
 
 .card.myborder3 {
     border-color: #D1C4E9;
+    border-radius: 20px;
 }
 
 .myfooter3{
     padding: .5rem 1rem;
-    background-color: rgba(0, 0, 0, 0.03);
+    background-color: #D1C4E9;
+    color: #FFFFFF;
     border-top: 2px solid #D1C4E9;
     border-bottom-left-radius: 15px;
     border-bottom-right-radius: 15px;
+    font-size: 10pt;
+    font-weight: bolder;
+}
+
+.myfooter-recetario-3{
+    padding: .5rem 1rem;
+    background-color: #D1C4E9;
+    border-top: 2px solid #D1C4E9;
+    border-bottom-right-radius: 15px;
+    font-size: 10pt;
+    font-weight: bolder;
+    color: #FFFFFF;
 }
 
 .card.myborder4 {
     border-color: #E1BEE7;
+    border-radius: 20px;
 }
 
 .myfooter4{
     padding: .5rem 1rem;
-    background-color: rgba(0, 0, 0, 0.03);
+    background-color: #E1BEE7;
     border-top: 2px solid #E1BEE7;
     border-bottom-left-radius: 15px;
     border-bottom-right-radius: 15px;
+    font-size: 10pt;
+    font-weight: bolder;
+    color: #FFFFFF;
+}
+
+.myfooter-recetario-4{
+    padding: .5rem 1rem;
+    background-color: #E1BEE7;
+    border-top: 2px solid #E1BEE7;
+    border-bottom-right-radius: 15px;
+    font-size: 10pt;
+    font-weight: bolder;
+    color: #FFFFFF;
 }
 
 .card.myborder5 {
     border-color: #C5CAE9;
+    border-radius: 20px;
 }
 
 .myfooter5{
     padding: .5rem 1rem;
-    background-color: rgba(0, 0, 0, 0.03);
+    background-color: #C5CAE9;
     border-top: 2px solid #C5CAE9;
     border-bottom-left-radius: 15px;
     border-bottom-right-radius: 15px;
+    font-size: 10pt;
+    font-weight: bolder;
+    color: #FFFFFF;
+}
+
+.myfooter-recetario-5{
+    padding: .5rem 1rem;
+    background-color: #C5CAE9;
+    border-top: 2px solid #C5CAE9;
+    border-bottom-right-radius: 15px;
+    font-size: 10pt;
+    font-weight: bolder;
+    color: #FFFFFF;
 }
 
 .card.myborder6 {
     border-color: #BBDEFB;
+    border-radius: 20px;
 }
 
 .myfooter6{
     padding: .5rem 1rem;
-    background-color: rgba(0, 0, 0, 0.03);
+    background-color: #BBDEFB;
     border-top: 2px solid #BBDEFB;
     border-bottom-left-radius: 15px;
     border-bottom-right-radius: 15px;
+    font-size: 10pt;
+    font-weight: bolder;
+    color: #FFFFFF;
+}
+
+.myfooter-recetario-6{
+    padding: .5rem 1rem;
+    background-color: #BBDEFB;
+    border-top: 2px solid #BBDEFB;
+    border-bottom-right-radius: 15px;
+    font-size: 10pt;
+    font-weight: bolder;
+    color: #FFFFFF;
 }
 
 .card.myborder7 {
     border-color: #FFCCBC;
+    border-radius: 20px;
 }
 
 .myfooter7{
     padding: .5rem 1rem;
-    background-color: rgba(0, 0, 0, 0.03);
+    background-color: #FFCCBC;
     border-top: 2px solid #FFCCBC;
     border-bottom-left-radius: 15px;
     border-bottom-right-radius: 15px;
+    font-size: 10pt;
+    font-weight: bolder;
+    color: #FFFFFF;
+}
+
+.myfooter-recetario-7{
+    padding: .5rem 1rem;
+    background-color: #FFCCBC;
+    border-top: 2px solid #FFCCBC;
+    border-bottom-right-radius: 15px;
+    font-size: 10pt;
+    font-weight: bolder;
+    color: #FFFFFF;
 }
 
 .card.myborder8 {
     border-color: #B3E5FC;
+    border-radius: 20px;
 }
 
 .myfooter8{
     padding: .5rem 1rem;
-    background-color: rgba(0, 0, 0, 0.03);
+    background-color: #B3E5FC;
     border-top: 2px solid #B3E5FC;
     border-bottom-left-radius: 15px;
     border-bottom-right-radius: 15px;
+    font-size: 10pt;
+    font-weight: bolder;
+    color: #FFFFFF;
+}
+
+.myfooter-recetario-8{
+    padding: .5rem 1rem;
+    background-color: #B3E5FC;
+    border-top: 2px solid #B3E5FC;
+    border-bottom-right-radius: 15px;
+    font-size: 10pt;
+    font-weight: bolder;
+    color: #FFFFFF;
 }
 
 .card.myborder9 {
     border-color: #FFCDD2;
+    border-radius: 20px;
 }
 
 .myfooter9{
     padding: .5rem 1rem;
-    background-color: rgba(0, 0, 0, 0.03);
+    background-color: #FFCDD2;
     border-top: 2px solid #FFCDD2;
     border-bottom-left-radius: 15px;
     border-bottom-right-radius: 15px;
+    font-size: 10pt;
+    font-weight: bolder;
+    color: #FFFFFF;
 }
 
-.card.myborder10 {
-    border-color: #FFCDD2;
-}
-
-.myfooter10{
+.myfooter-recetario-9{
     padding: .5rem 1rem;
-    background-color: rgba(0, 0, 0, 0.03);
+    background-color: #FFCDD2;
     border-top: 2px solid #FFCDD2;
-    border-bottom-left-radius: 15px;
     border-bottom-right-radius: 15px;
-}
-
-.card.myborder11 {
-    border-color: #F8BBD0;
-}
-
-.myfooter11{
-    padding: .5rem 1rem;
-    background-color: rgba(0, 0, 0, 0.03);
-    border-top: 2px solid #F8BBD0;
-    border-bottom-left-radius: 15px;
-    border-bottom-right-radius: 15px;
-}
-
-.card.myborder12 {
-    border-color: #E1BEE7;
-}
-
-.myfooter12{
-    padding: .5rem 1rem;
-    background-color: rgba(0, 0, 0, 0.03);
-    border-top: 2px solid #E1BEE7;
-    border-bottom-left-radius: 15px;
-    border-bottom-right-radius: 15px;
+    font-size: 10pt;
+    font-weight: bolder;
+    color: #FFFFFF;
 }
 
 body {
@@ -634,6 +752,13 @@ a {
 .recuadro_recetario{
     background-color: #FEEFFB;
     padding: 30px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.recuadro_recetario_formulario{
+    background-color: #FEEFFB;
+    padding: 50px;
     margin-top: 20px;
     margin-bottom: 20px;
 }

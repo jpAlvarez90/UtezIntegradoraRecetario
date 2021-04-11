@@ -1,8 +1,8 @@
 <!-- Barra de navegación -->
-<nav th:fragment="main_menu" class="navbar navbar-expand-lg navbar-light" style="background-color: #DD969C;">
+<nav th:fragment="main_menu" class="navbar navbar-expand-lg navbar-light" style="background-color: #e0727b;">
     <div class="container-fluid">
         <div class="recetarioBoton">
-            <b><a style="display:inline;" th:href="@{/}"><i style="color:#FF4B2B; display:inline;" class="fas fa-book"></i> Recetario</a></b>
+            <b><a style="display:inline;" th:href="@{/}"><i style="color:#F8BBD0; display:inline;" class="fas fa-book"></i> Recetario</a></b>
         </div>
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse"  data-bs-target="#main_nav" aria-expanded="false" aria-label="Toggle navigation">
@@ -44,7 +44,7 @@
         <div class="d-flex">
             <div class="recetarioBoton" sec:authorize="isAuthenticated()">
                 <b><a th:href="@{/ver-recetarios}" tabindex="-1" aria-disabled="false">
-                    <i style="color:#FF4B2B;" class="fas fa-book-open"></i> Mis recetarios
+                    <i style="color:#F8BBD0;" class="fas fa-book-open"></i> Mis recetarios
                 </a></b>
             </div>
 
@@ -53,7 +53,7 @@
 
                 <div class="recetarioBoton" sec:authorize="!isAuthenticated()" style="width: 160px; margin-left:5px;">
                     <b><a href=""  th:href="@{'/login'}">
-                        <i style="color:#FF4B2B;" class="fas fa-sign-in-alt"></i> Iniciar sesión
+                        <i style="color:#F8BBD0;" class="fas fa-sign-in-alt"></i> Iniciar sesión
                     </a></b>
                 </div>
                 <div class="btn-group dropstart" role="group" sec:authorize="isAuthenticated()">
