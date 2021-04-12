@@ -2,15 +2,15 @@
     box-sizing: border-box;
 }
 @font-face {
-    font-family: ArchitectsDaughter;
-    src: url(ArchitectsDaughter.ttf);
+    font-family: Kalam;
+    src: url(Kalam.ttf);
 }
 /*
 ArchitectsDaughter.ttf
 IndieFlower.ttf
 */
 * {
-    font-family: ArchitectsDaughter;
+    font-family: Kalam;
 }
 
 body {

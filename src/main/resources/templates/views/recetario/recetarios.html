@@ -300,9 +300,7 @@
                 </div>
             </div>
             <!-- Model-->
-
             <script th:if="${exito}" type="text/javascript">
-                //swal("Registro exitoso");
                 toastr.success('Se registró con exito!', 'Exito');
             </script>
             <script th:if="${mensajeError}">

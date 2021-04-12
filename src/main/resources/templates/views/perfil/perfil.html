@@ -48,7 +48,7 @@
                             <th scope="row" th:text="${iStat.count}"></th>
                             <td th:text="${item.nombre}"></td>
                             <td>
-                                <a th:href="@{'/eliminarCategoria/'+${item.idCategoria}}" class="btn btn-sm btn-eliminar" onclick="llamarAlerta()"><i class="far fa-trash-alt"></i></a>
+                                <a th:href="@{'/eliminarCategoria/'+${item.idCategoria}}" class="btn btn-sm btn-eliminar"><i class="far fa-trash-alt"></i></a>
                                 <a th:href="@{'/editarCategoria/'+${item.idCategoria}}" id="idCategoria" class="btn btn-sm btn-editar"><i class="far fa-edit"></i></a>
                             </td>
                         </tr>
@@ -204,7 +204,6 @@
                     </form>
                 </div>
             </div>
-
             <script th:if="${exito}">
                 toastr.success('Se guardó con exito!', 'Exito');
             </script>

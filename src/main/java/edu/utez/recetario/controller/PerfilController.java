@@ -236,21 +236,11 @@ public class PerfilController {
                 usuarioService.savePerfil(usuario);
             }
             return "redirect:/perfil";
-        }catch (Exception e){
+        }catch (Exception e) {
             mensaje = usuarioService.codigosError(e.toString());
-            System.out.println("Error en el controller de Perfil -> editarPerfil"+mensaje);
-            model.addAttribute("mensaje",mensaje);
+            System.out.println("Error en el controller de Perfil -> editarPerfil" + mensaje);
+            model.addAttribute("mensaje", mensaje);
             return "error/404";
         }
-        String idUsuario = request.getParameter("idUsuario");
-        String password = request.getParameter("passwordInput") ;
-
-        if (!password.isEmpty()){
-            usuario.setPassword(password);
-            usuarioService.saveUsuarioPerfil(usuario);
-        }else {
-            usuarioService.savePerfil(usuario);
-        }
-        return "redirect:/perfil";
     }
 }

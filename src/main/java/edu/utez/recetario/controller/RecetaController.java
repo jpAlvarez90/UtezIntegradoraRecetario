@@ -133,13 +133,13 @@ public class RecetaController {
        }
     }
 
-    @RequestMapping(value = "/subcategorias", method = RequestMethod.GET)
+    /*@RequestMapping(value = "/subcategorias", method = RequestMethod.GET)
     public @ResponseBody List<SubCategoria> subCategoriasList(@RequestParam(value = "idCategoria") long idCategoria,Model model) {
 
         Categoria categoria = categoriaService.getCategoriaById(idCategoria);
         List<SubCategoria> subCategoriaList = subCategoriaService.getAllSubcategoriasByCategoria(categoria);
         return subCategoriaList;
-    }
+    }*/
 
 
     @PostMapping("/crear-receta")
