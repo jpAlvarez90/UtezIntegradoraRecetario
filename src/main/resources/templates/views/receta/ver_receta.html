@@ -112,14 +112,14 @@
                                     <textarea class="form-control" placeholder="Deje un comentario aqui" id="floatingTextarea2" name="floatingTextarea2" style="height: 150px; resize: none"></textarea>
                                     <label for="floatingTextarea2">Comentario</label>
                                 </div>
-                                <br>
-                                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+
+                                <div class="d-grid gap-2 d-md-flex justify-content-md-end" style="margin-bottom: 15px; margin-top: 15px;">
                                     <button type="submit" class="botonPer">Comentar</button>
                                 </div>
                             </form>
                         </div>
                     </div>
-                    <br><br>
+
                     <div id="cajaComentarios" class="">
                         <div class="row comentario" th:each="item : ${comentarios}">
                             <div class="col-1">
@@ -135,7 +135,6 @@
                         </div>
                     </div>
                 </div>
-                <br>
             </div>
             <script type="text/javascript">
                 $(document).ready(function () {

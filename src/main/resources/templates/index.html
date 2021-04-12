@@ -7,15 +7,15 @@
         <div layout:fragment="content">
             <br>
             <!-- Cards -->
-            <div class="container" style="padding-left: 60px; padding-right: 60px;padding-bottom: 50px;/* border-left: 8px solid #DD969C; border-right: 8px solid #DD969C */">
+            <div class="container" style="padding-left: 60px; padding-right: 60px; padding-bottom: 50px;/* border-left: 8px solid #DD969C; border-right: 8px solid #DD969C */">
                 <div class="row row-cols-1 row-cols-md-3 g-4" >
 
                     <div class="col" th:each="item, iStat: ${listaRecetas}">
                         <div th:class="'card index myborder'+${iStat.count}">
 
-                            <div th:class="'imgButton imagenCard'+${iStat.count}">
-                                <img src="/img/tacos.jpeg" th:class="'imagenCard'+${iStat.count}" style="border:none;"/>
-                                <a th:href="@{'/ver-receta/'+${item.idReceta}}" class="btn btn-sm">Ver receta</a>
+                            <div th:class="'imgButton imagenCard'+${iStat.count}" style="width: 100%;height: 200px;">
+                                <img src="/img/tacos.jpeg" th:class="'imagenCard'+${iStat.count}" style="border:none; width: 100%; height: 200px;"/>
+                                <a th:href="@{'/ver-receta/'+${item.idReceta}}" class="botonPer-index">Ver receta</a>
                             </div>
 
                             <div class="card-body index" style="height: 155px">
@@ -24,6 +24,7 @@
                                         <b><p class="card-text tituloCard" style="" th:text="${item.titulo}"></p></b>
                                     </div>
                                 </div>
+
                                 <div style="margin-bottom: 5px">
                                     <p class="card-text descripcion" th:text="${#strings.abbreviate(item.descripcion, 175)}"></p>
                                 </div>
