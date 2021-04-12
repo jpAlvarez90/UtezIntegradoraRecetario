@@ -113,8 +113,6 @@ public class RecuperarContraseña {
 
            String contraNueva = request.getParameter("contraNueva");
            String contraConfirmacion = request.getParameter("contraConfirmacion");
-           String idUsuario = request.getParameter("idUsuario");
-           usuario = usuarioService.getUsuarioById(Long.parseLong(idUsuario));
 
            if (contraNueva.equals(contraConfirmacion)){
                usuario.setPassword(contraNueva);
