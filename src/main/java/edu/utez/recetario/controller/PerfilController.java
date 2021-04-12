@@ -77,9 +77,9 @@ public class PerfilController {
             model.addAttribute("tabCategoria","tab-pane fade");
             model.addAttribute("tabSubcategoria","tab-pane fade");
 
-        model.addAttribute("tabSelectPerfil","nav-link active");
-        model.addAttribute("tabSelectCategoria","nav-link");
-        model.addAttribute("tabSelectSubcategoria","nav-link");
+            model.addAttribute("tabSelectPerfil","nav-link active");
+            model.addAttribute("tabSelectCategoria","nav-link");
+            model.addAttribute("tabSelectSubcategoria","nav-link");
 
             return "views/perfil/perfil";
         }catch (Exception e){
@@ -126,9 +126,9 @@ public class PerfilController {
             model.addAttribute("tabCategoria","tab-pane fade show active");
             model.addAttribute("tabSubcategoria","tab-pane fade");
 
-        model.addAttribute("tabSelectPerfil","nav-link");
-        model.addAttribute("tabSelectCategoria","nav-link active");
-        model.addAttribute("tabSelectSubcategoria","nav-link");
+            model.addAttribute("tabSelectPerfil","nav-link");
+            model.addAttribute("tabSelectCategoria","nav-link active");
+            model.addAttribute("tabSelectSubcategoria","nav-link");
 
             return "views/perfil/perfil";
         }catch (Exception e){
@@ -156,16 +156,18 @@ public class PerfilController {
 
     }
 
-
-
-
     @PostMapping("/crearSubcategoria")
-    public String crearSubcategoria ( SubCategoria subCategoria, Categoria categoria, BindingResult bindingResult, Model model, WebRequest request){
+    public String crearSubcategoria ( @Valid SubCategoria subCategoria,RedirectAttributes ra, Model model, WebRequest request,Errors errors){
 
         try {
-           long category_id = Long.parseLong(request.getParameter("category_id"));
-           subCategoria.setCategoria(categoriaService.getCategoriaById(category_id));
-           subCategoriaService.saveSubCategoria(subCategoria);
+            if(errors.hasErrors()){
+                ra.addFlashAttribute("error","hay un error");
+                return "redirect:/perfil";
+            }
+            long category_id = Long.parseLong(request.getParameter("category_id"));
+            subCategoria.setCategoria(categoriaService.getCategoriaById(category_id));
+            ra.addFlashAttribute("exito","todo bien");
+            subCategoriaService.saveSubCategoria(subCategoria);
             return "redirect:/perfil";
        }catch (Exception e){
             mensaje = usuarioService.codigosError(e.toString());
@@ -194,9 +196,9 @@ public class PerfilController {
             model.addAttribute("tabCategoria","tab-pane fade");
             model.addAttribute("tabSubcategoria","tab-pane fade show active");
 
-        model.addAttribute("tabSelectPerfil","nav-link");
-        model.addAttribute("tabSelectCategoria","nav-link");
-        model.addAttribute("tabSelectSubcategoria","nav-link active");
+            model.addAttribute("tabSelectPerfil","nav-link");
+            model.addAttribute("tabSelectCategoria","nav-link");
+            model.addAttribute("tabSelectSubcategoria","nav-link active");
 
             return "views/perfil/perfil";
         }catch (Exception e){

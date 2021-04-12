@@ -33,7 +33,7 @@
                         </div>
                     </div>
 
-                    <table class="table" style="background-color:#F5EEF8">
+                    <table class="table">
                         <thead>
                         <tr>
                             <th scope="col">#</th>
@@ -72,12 +72,14 @@
 
                                         </div>
                                         <div class="mb-3">
-                                            <label class="form-label">Nombre categoría</label>
-                                            <input type="text" th:field="*{idCategoria}" class="form-control" style="display: none" />
-                                            <input type="text" class="form-control" placeholder="Reposteria" th:field="*{nombre}">
+                                            <label class="form-label">Categoría:</label><br/>
+                                            <select required="required" class="form-select" id="category_id" name="category_id" aria-label="Ingeniería">
+                                                <option selected>Seleccione su categoría...</option>
+                                                <option th:each="item:${listaCategoria}" th:text="${item.nombre}"  th:value="${item.idCategoria}"></option>
+                                            </select>
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-eliminar" data-bs-dismiss="modal">Cancelar</button>
+                                            <a th:href="@{/perfil}" class="btn btn-eliminar">Cancelar</a>
                                             <button type="submit" class="btn btn-agregar">Guardar</button>
                                         </div>
                                     </form>
@@ -95,7 +97,7 @@
                 </div>
 
 
-                <div th:class="${tabCategoria}" id="home" style="background: #FEEFFB; padding-top: 10px; padding-right: 30px; padding-left: 30px; padding-bottom: 20px;" role="tabpanel" aria-labelledby="home-tab">
+                <div th:class="${tabCategoria}" id="home" style="padding-top: 10px; padding-right: 30px; padding-left: 30px; padding-bottom: 20px;" role="tabpanel" aria-labelledby="home-tab">
                     <br>
                     <div class="row">
                         <div class="col-lg-10">
@@ -142,20 +144,21 @@
                                 <div class="modal-body">
                                     <form th:action="@{/crearCategoria}" method="post" th:object="${categoria}">
                                         <div class="mb-3">
-                                            <label class="form-label">Nombre Subcategoria</label>
+                                            <label class="form-label">Nombre Categoria</label>
                                             <input type="text" class="form-control" placeholder="Ingresa un nombre de subcategoria" th:field="*{nombre}">
-                                            <input type="text" th:field="*{idSubCategoria}" class="form-control" style="display: none"></input>
+                                            <input type="text" th:field="*{idCategoria}" class="form-control" style="display: none"></input>
 
                                         </div>
-                                        <div class="mb-3">
+                                        <!--<div class="mb-3">
                                             <label class="form-label">Categoría:</label><br/>
                                             <select required="required" class="form-select" id="category_id" name="category_id" aria-label="Ingeniería">
                                                 <option selected>Seleccione su categoría...</option>
                                                 <option th:each="item:${listaCategoria}" th:text="${item.nombre}"  th:value="${item.idCategoria}"></option>
                                             </select>
-                                        </div>
+                                        </div>-->
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-eliminar" data-bs-dismiss="modal">Cancelar</button>
+                                            <a th:href="@{/perfil}" class="btn btn-eliminar">Cancelar</a>
+                                            <!--<button type="button" class="btn btn-eliminar" data-bs-dismiss="modal">Cancelar</button>-->
                                             <button type="submit" class="btn btn-agregar">Guardar</button>
                                         </div>
                                     </form>
