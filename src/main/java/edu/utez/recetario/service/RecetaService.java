@@ -58,5 +58,23 @@ public class RecetaService implements RecetaInterface {
         return recetaRepository.findByOrderByVistasDesc(limit);
     }
 
+    @Override
+    public int saveVistasReceta(long idReceta) {
+        Optional<Receta> receta = recetaRepository.findById(idReceta);
+        int views = 0;
+
+        if (receta.isPresent()) {
+
+            Receta temp = receta.get();
+            views = temp.getVistas();
+            views = views+1;
+
+            recetaRepository.saveVistasRecetas(idReceta, views);
+
+        }
+
+        return views;
+    }
+
 
 }

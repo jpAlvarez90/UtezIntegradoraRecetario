@@ -21,4 +21,6 @@ public interface RecetaInterface {
 
     List<Receta> getAllRecetasByVistasDesc(int limit);
 
+    int saveVistasReceta(long idReceta);
+
 }

@@ -8,12 +8,13 @@
             <!-- MIS RECETARIOS -->
             <div class="container">
 
+                <!-- Carrusel -->
+                <!--
                 <div class="recuadro_recetario">
                     <h2>Últimas recetas</h2>
                 </div>
 
-                <!-- Carrusel -->
-                <!--
+
                 <div class="Carousel recuadro_recetario">
                     <div class="slick-list" id="slick-list">
                         <button class="slick-arrow slick-prev" id="button-prev" data-button="button-prev" onclick="app.processingButton(event)">
@@ -246,7 +247,7 @@
                             <br>
                             <div class="d-flex w-100 justify-content-between">
                                 <h5 style="font-size: 18pt;" class="mb-1" th:text="${item.nombre}"></h5>
-                                <small><a href="#" style="display: inline; text-decoration: none; color:#8a8f97; font-size: 15pt;"><i class="fas fa-times"></i></a></small>
+                                <small><a th:href="@{'/eliminar-recetario/'+${item.idRecetario}}" style="display: inline; text-decoration: none; color:#8a8f97; font-size: 15pt;"><i class="fas fa-times"></i></a></small>
                             </div>
                             <br>
                         </a>
@@ -266,7 +267,7 @@
                             <br>
                             <div class="d-flex w-100 justify-content-between">
                                 <h5 style="font-size: 18pt;" th:text="${item.recetario.nombre}"></h5>
-                                <small><a href="#" style="display: inline; text-decoration: none; color:#8a8f97; font-size: 15pt;"><i class="fas fa-times"></i></a></small>
+                                <small><a th:href="@{'/dejar-seguir-recetario/'+${item.recetario.idRecetario}}" style="display: inline; text-decoration: none; color:#8a8f97; font-size: 15pt;"><i class="fas fa-times"></i></a></small>
                             </div>
                             <br>
                         </a>
@@ -305,6 +306,15 @@
             </script>
             <script th:if="${mensajeError}">
                 toastr.error("Solo se aceptan letras","Error");
+            </script>
+            <script th:if="${eliminarRecetario}" type="text/javascript">
+                toastr.error('Necesita eliminar sus recetas del recetario para eliminarlo', 'Error');
+            </script>
+            <script th:if="${eliminado}" type="text/javascript">
+                toastr.success('Recetario eliminado con exito!', 'Exito');
+            </script>
+            <script th:if="${dejarSeguirRecetario}" type="text/javascript">
+                toastr.success('Dejo de seguir el recetario', 'Exito');
             </script>
         </div>
     </body>
