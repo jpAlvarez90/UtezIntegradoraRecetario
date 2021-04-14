@@ -49,17 +49,8 @@ public class ApiController {
 
     // Aumentar la visita de la receta despues de 5 segundos
     @RequestMapping(value = "/aumentar-vista", method = RequestMethod.GET)
-    public @ResponseBody
-    boolean aumentarVisita(@RequestParam(value = "idReceta") long idReceta) {
-
-        Receta receta = recetaService.getRecetaById(idReceta);
-
-        int vistas = receta.getVistas();
-        vistas = vistas+1;
-        receta.setVistas(vistas);
-        recetaService.saveReceta(receta);
-
-        return true;
+    public @ResponseBody int aumentarVisita(@RequestParam(value = "idReceta") long idReceta) {
+        return recetaService.saveVistasReceta(idReceta);
     }
 
     @RequestMapping(value = "/calificar-receta", method = RequestMethod.POST)
@@ -113,8 +104,12 @@ public class ApiController {
         return "redirect:/ver-receta/"+idReceta;
     }
 
-    @PostMapping("/realizar-comentario-test")
-    public @ResponseBody ComentarioDTO realizarComentarioTest(@RequestParam("idReceta") long idReceta, @RequestParam("comentario") String comentario) {
+    @GetMapping("/realizar-comentario-test")
+    public @ResponseBody ComentarioDTO realizarComentarioTest(@RequestParam("idReceta") long idReceta,
+                                                              @RequestParam("comentario") String comentario) {
+
+        System.out.println(idReceta);
+        System.out.println(comentario);
 
         Receta receta = recetaService.getRecetaById(idReceta);
 
@@ -140,7 +135,7 @@ public class ApiController {
     }
 
     @RequestMapping(value = "/calificar-receta-test", method = RequestMethod.GET)
-    public boolean calificarRecetaTest(@RequestParam(value = "idReceta") long idReceta,
+    public @ResponseBody boolean calificarRecetaTest(@RequestParam(value = "idReceta") long idReceta,
                                   @RequestParam(value = "calificacion") int calificacion) {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

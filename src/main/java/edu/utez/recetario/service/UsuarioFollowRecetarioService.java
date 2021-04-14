@@ -54,4 +54,14 @@ public class UsuarioFollowRecetarioService implements UsuarioFollowRecetarioInte
         return isRegistered;
     }
 
+    @Override
+    public UsuarioFollowRecetario getUsuarioFollowingRecetario(Usuario usuario, Recetario recetario) {
+        return usuarioFollowRecetarioRepository.findByUsuarioAndRecetario(usuario, recetario);
+    }
+
+    @Override
+    public void deleteUsuarioFollowRecetario(UsuarioFollowRecetario ufr) {
+        usuarioFollowRecetarioRepository.delete(ufr);
+    }
+
 }

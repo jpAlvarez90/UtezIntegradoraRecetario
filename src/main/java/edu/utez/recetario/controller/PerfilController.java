@@ -157,13 +157,18 @@ public class PerfilController {
     }
 
     @PostMapping("/crearSubcategoria")
-    public String crearSubcategoria ( @Valid SubCategoria subCategoria,RedirectAttributes ra, Model model, WebRequest request,Errors errors){
-
+    public String crearSubcategoria ( @Valid SubCategoria subCategoria,
+                                      RedirectAttributes ra,
+                                      Model model,
+                                      WebRequest request,
+                                      Errors errors){
+        if(errors.hasErrors()){
+            System.out.println("Error de subcattegoria");
+            ra.addFlashAttribute("error","hay un error");
+            return "redirect:/perfil";
+        }
         try {
-            if(errors.hasErrors()){
-                ra.addFlashAttribute("error","hay un error");
-                return "redirect:/perfil";
-            }
+
             long category_id = Long.parseLong(request.getParameter("category_id"));
             if(category_id == 0){
                 ra.addFlashAttribute("errorSub","hay un error");

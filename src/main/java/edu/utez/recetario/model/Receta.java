@@ -35,11 +35,11 @@ public class Receta {
     private Set<Calificacion> calificacion = new HashSet<>();
 
     @Column(name = "titulo", nullable = false)
-   // @Pattern(regexp = "^[a-zA-Z][a-z\\s]*$",message = "Solo se permiten letras mayusculas y minusculas")
+    @Pattern(regexp = "[a-zA-Z][a-zA-ZÀ-ÿ\\s]*$",message = "Solo se permiten letras mayusculas y minusculas")
     private String titulo;
 
     @Column(name = "descripcion", nullable = false, columnDefinition = "TEXT")
-    //@Pattern(regexp = "^[a-zA-Z][a-z\\s]*$",message = "Solo se permiten letras mayusculas y minusculas")
+    @Pattern(regexp = "[a-zA-z]+([ '-,&ñ][a-zA-ZÀ-ÿ\\s\\.¿?!¡]+)*", message = "No se permiten caracteres especiales")
     private String descripcion;
 
     @Column(name = "ingredientes", nullable = false, columnDefinition = "TEXT")

@@ -1,5 +1,6 @@
 package edu.utez.recetario.repository;
 
+import edu.utez.recetario.model.Receta;
 import edu.utez.recetario.model.Recetario;
 import edu.utez.recetario.model.Usuario;
 import edu.utez.recetario.model.UsuarioFollowRecetario;
@@ -14,5 +15,7 @@ public interface UsuarioFollowRecetarioRepository extends JpaRepository<UsuarioF
     List<UsuarioFollowRecetario> findByRecetarioAndUsuario(Recetario recetario, Usuario usuario);
 
     List<UsuarioFollowRecetario> findAllByUsuario(Usuario usuario);
+
+    UsuarioFollowRecetario findByUsuarioAndRecetario(Usuario usuario, Recetario recetario);
 
 }

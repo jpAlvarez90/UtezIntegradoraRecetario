@@ -12,4 +12,8 @@ public interface UsuarioFollowRecetarioInterface {
 
     boolean saveUsuarioFollowRecetario(Recetario recetario, Usuario usuario);
 
+    UsuarioFollowRecetario getUsuarioFollowingRecetario(Usuario usuario, Recetario recetario);
+
+    void deleteUsuarioFollowRecetario(UsuarioFollowRecetario ufr);
+
 }

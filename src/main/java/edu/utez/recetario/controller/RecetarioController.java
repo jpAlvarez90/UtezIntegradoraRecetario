@@ -1,8 +1,10 @@
 package edu.utez.recetario.controller;
 
+import edu.utez.recetario.model.Receta;
 import edu.utez.recetario.model.Recetario;
 import edu.utez.recetario.model.Usuario;
 import edu.utez.recetario.model.UsuarioFollowRecetario;
+import edu.utez.recetario.service.RecetaService;
 import edu.utez.recetario.service.RecetarioService;
 import edu.utez.recetario.service.UsuarioFollowRecetarioService;
 import edu.utez.recetario.service.UsuarioService;
@@ -15,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -28,6 +31,8 @@ public class RecetarioController {
 
     private RecetarioService recetarioService;
 
+    private RecetaService recetaService;
+
     private UsuarioService usuarioService;
 
     private UsuarioFollowRecetarioService usuarioFollowRecetarioService;
@@ -35,8 +40,9 @@ public class RecetarioController {
     private String mensaje;
 
     @Autowired
-    public RecetarioController(RecetarioService recetarioService, UsuarioService usuarioService, UsuarioFollowRecetarioService usuarioFollowRecetarioService) {
+    public RecetarioController(RecetarioService recetarioService, RecetaService recetaService, UsuarioService usuarioService, UsuarioFollowRecetarioService usuarioFollowRecetarioService) {
         this.recetarioService = recetarioService;
+        this.recetaService = recetaService;
         this.usuarioService = usuarioService;
         this.usuarioFollowRecetarioService = usuarioFollowRecetarioService;
     }
@@ -99,5 +105,44 @@ public class RecetarioController {
             model.addAttribute("mensaje",mensaje);
             return "error/404";
         }
+    }
+
+    @GetMapping("/eliminar-recetario/{idRecetario}")
+    public String eliminarRecetario(@PathVariable("idRecetario") long idRecetario, RedirectAttributes redirectAttributes) {
+
+        Recetario recetario = recetarioService.getRecetarioById(idRecetario);
+
+        List<Receta> recetaList = recetaService.getAllRecetasByRecetario(recetario);
+
+        if (!recetaList.isEmpty()){
+            redirectAttributes.addFlashAttribute("eliminarRecetario",true);
+            return "redirect:/ver-recetarios";
+        }
+
+        recetarioService.deleteRecetarioById(idRecetario);
+        redirectAttributes.addFlashAttribute("eliminado",true);
+
+        return "redirect:/ver-recetarios";
+    }
+
+    @GetMapping("/dejar-seguir-recetario/{idRecetario}")
+    public String dejarSeguirRecetario(@PathVariable("idRecetario") long idRecetario, RedirectAttributes redirectAttributes) {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        String username = userDetails.getUsername();
+
+        Optional<Usuario> tempUsuario = usuarioService.getUsuarioByUsername(username);
+        Usuario usuario = tempUsuario.get();
+
+        Recetario recetario = recetarioService.getRecetarioById(idRecetario);
+
+        UsuarioFollowRecetario ufr = usuarioFollowRecetarioService.getUsuarioFollowingRecetario(usuario, recetario);
+
+        usuarioFollowRecetarioService.deleteUsuarioFollowRecetario(ufr);
+
+        redirectAttributes.addFlashAttribute("dejarSeguirRecetario", true);
+
+        return "redirect:/ver-recetarios";
     }
 }

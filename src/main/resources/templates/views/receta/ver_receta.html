@@ -8,9 +8,14 @@
                 <div class="button-container">
                     <a class="btnRegresar" th:href="@{/}" ><i class="fas fa-arrow-left"></i> Regresar</a>
                     <img src="../img/pizza.jpg" style="width: 100%; height: 450px;">
-                    <a class="btnSeguirRecetario"th:href="@{'/seguir-recetario/'+${receta.recetario.idRecetario}}" ><i class="fas fa-heart"></i></a>
 
-                    <div class="calificarRecetario">
+                    <div sec:authorize="isAuthenticated()">
+                        <a class="btnSeguirRecetario" th:href="@{'/seguir-recetario/'+${receta.recetario.idRecetario}}" >
+                            <i class="fas fa-heart"></i>
+                        </a>
+                    </div>
+
+                    <div class="calificarRecetario" sec:authorize="isAuthenticated()">
                         <form id="calificar-receta" >
                             <div class="">
                                 <div class="" style="display: inline">
@@ -107,6 +112,9 @@
                         </div>
                         <div class="col-11"  sec:authorize="isAuthenticated()">
 
+
+                        <div class="col">
+                            <!--
                             <form id="comentarioBox" th:action="@{/realizar-comentario}" method="post">
                                 <input type="text" style="display: none" th:value="${receta.idReceta}" id="idReceta" name="idReceta" />
                                 <div class="form-floating">
@@ -118,6 +126,22 @@
                                     <button type="submit" class="botonPer">Comentar</button>
                                 </div>
                             </form>
+                            -->
+
+                            <!-- Formulario nuevo de comentario -->
+
+                            <form id="comentarioBox" >
+                                <input type="text" style="display: none" th:value="${receta.idReceta}" id="idReceta" name="idReceta" />
+                                <div class="form-floating">
+                                    <textarea class="form-control" placeholder="Deje un comentario aqui" id="floatingTextarea2" name="floatingTextarea2" style="height: 150px; resize: none"></textarea>
+                                    <label for="floatingTextarea2">Comentario</label>
+                                </div>
+
+                                <div class="d-grid gap-2 d-md-flex justify-content-md-end" style="margin-bottom: 15px; margin-top: 15px;">
+                                    <button type="submit" class="botonPer">Comentar</button>
+                                </div>
+                            </form>
+
                         </div>
                     </div>
 
@@ -148,22 +172,45 @@
                 })
             </script>
             <script type="text/javascript">
-                $('#calificar-receta').submit(function (e){
-                    let estrellas  = $('input[name=estrellas]:checked').val()
-                    if (estrellas == undefined) estrellas = 0
-                    $.post("http://localhost:8080/calificar-receta",{
-                        idReceta: $('#idReceta').val(),
-                        calificacion: estrellas
+                $('#comentarioBox').submit(function (e){
+                    let idReceta  = $('#idReceta').val()
+                    let comentario = $('#floatingTextarea2').val()
+                    $.getJSON("http://localhost:8080/realizar-comentario-test",{
+                        idReceta: idReceta,
+                        comentario: comentario
+                    },function (data){
+                        let nombreChar = data.nombre.substr(0,1)
+                        let apellidoChar = data.primerApellido.substr(0,1)
+                        let comentario = '<div class="row comentario">\n' +
+                            '                    <div class="col-1">\n' +
+                            '                        <button type="button" class="btn btn-light btn-circle btn-lg">' +
+                            '                               <span>'+nombreChar+'</span>\n' +
+                            '                               <span>'+apellidoChar+'</span>' +
+                            '                        </button>\n' +
+                            '                    </div>\n' +
+                            '                    <div class="col-11">\n' +
+                            '                        <h3 style="font-weight: bolder;">'+data.nombre+' '+data.primerApellido+' '+data.segundoApellido+'</h3>\n' +
+                            '                        <h4>'+data.comentario+'</h4>\n' +
+                            '                    </div>\n' +
+                            '                </div>'
+                        $('#cajaComentarios').append(comentario)
+                        $('#floatingTextarea2').val('')
                     })
+                    e.preventDefault()
                 })
             </script>
             <script type="text/javascript">
-                $(document).ready(function (){
-                    $.getJSON("http://localhost:8080/subcategoriasMenu", {
-                        nombreCategoria: "Sopas"
-                    }, function (data){
-                        console.log(data)
+                $('#calificar-receta').submit(function (e){
+                    let estrellas  = $('input[name=estrellas]:checked').val()
+                    if (estrellas == undefined) estrellas = 0
+                    $.getJSON("http://localhost:8080/calificar-receta-test",{
+                        idReceta: $('#idReceta').val(),
+                        calificacion: estrellas
+                    },function (data){
+                        $('#calificar-receta').hide()
+                        toastr.success('Calificación enviada', 'Exito');
                     })
+                    e.preventDefault()
                 })
             </script>
         </div>
