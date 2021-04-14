@@ -79,6 +79,19 @@
                 </div>
             </div>
             <!-- Cards-->
+            <script th:if="${exito}" type="text/javascript">
+                toastr.success('Receta registrada con exito', 'Exito');
+            </script>
+            <script th:if="${errorCMReceta}" type="text/javascript">
+                toastr.error('Hubo un error en la creacion de la receta', 'Error');
+            </script>
+            <script th:if="${errorRecetaSoloTexto}" type="text/javascript">
+                toastr.error('Error: Solo se puede usar letras en el titulo y subtitulo de la receta', 'Error');
+            </script>
         </div>
     </body>
 </html>
+
+
+
+

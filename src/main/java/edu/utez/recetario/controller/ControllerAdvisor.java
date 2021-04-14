@@ -41,7 +41,6 @@ public class ControllerAdvisor {
     public String perfilUsuario() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String iniciales = "";
-        System.out.println("-----------"+authentication.getPrincipal());
         if (!authentication.getPrincipal().equals("anonymousUser")) {
             UserDetails userDetails = (UserDetails) authentication.getPrincipal();
             String username = userDetails.getUsername();

@@ -1,5 +1,6 @@
 package edu.utez.recetario.service;
 
+import edu.utez.recetario.model.Receta;
 import edu.utez.recetario.serviceInterface.AlmacenamientoImagenesInterface;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -27,13 +28,19 @@ public class AlmacenamientoImagenesService implements AlmacenamientoImagenesInte
     @Override
     public void save(MultipartFile multipartFile) {
         try {
-            Files.copy(multipartFile.getInputStream(), this.root.resolve(multipartFile.getOriginalFilename()));
+            Files.copy(multipartFile.getInputStream(), this.root.resolve("receta_"+multipartFile.getOriginalFilename()));
         } catch (IOException e) {
             throw new RuntimeException("No se pudo guardar el archivo. Error :: "+e.getMessage());
         }
     }
 
-
+    public void aSave(MultipartFile multipartFile, long idRecetario, int cont) {
+        try {
+            Files.copy(multipartFile.getInputStream(), this.root.resolve("receta_"+idRecetario+"_"+cont+"_"+multipartFile.getOriginalFilename()));
+        } catch (IOException e) {
+            throw new RuntimeException("No se pudo guardar el archivo. Error :: "+e.getMessage());
+        }
+    }
 
 
 

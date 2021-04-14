@@ -2,6 +2,8 @@ package edu.utez.recetario.controller;
 
 import edu.utez.recetario.model.*;
 import edu.utez.recetario.service.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -10,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.multipart.MultipartFile;
@@ -17,6 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Controller
 public class RecetaController {
@@ -40,6 +44,8 @@ public class RecetaController {
     private AlmacenamientoImagenesService almacenamientoImagenesService;
 
     private String mensaje;
+
+    Logger logger = LoggerFactory.getLogger(RecetaController.class);
 
     @Autowired
     public RecetaController(RecetarioService recetarioService, RecetaService recetaService, ComentarioService comentarioService, UsuarioService usuarioService, CategoriaService categoriaService, SubCategoriaService subCategoriaService, UsuarioFollowRecetarioService usuarioFollowRecetarioService, CalificacionService calificacionService, AlmacenamientoImagenesService almacenamientoImagenesService) {
@@ -146,25 +152,54 @@ public class RecetaController {
     public String crearReceta(@Valid Receta receta,
                               BindingResult bindingResult,
                               WebRequest webRequest,
-                              @RequestParam("imgs")MultipartFile[] files, RedirectAttributes redirectAttributes, Errors errors,Model model) {
+                              @RequestParam("imgs")MultipartFile[] files,
+                              RedirectAttributes redirectAttributes,
+                              Errors errors,
+                              Model model) {
 
         try {
+            long idRecetario = Long.parseLong(webRequest.getParameter("recetario"));
+            Recetario recetario = recetarioService.getRecetarioById(idRecetario);
+
             long idCategoria = Long.parseLong(webRequest.getParameter("categoria"));
+            if (idCategoria == 0){
+                logger.error("Se debe seleccionar una categoria");
+                redirectAttributes.addFlashAttribute("errorCategoria",true);
+                return "redirect:/editar-receta/"+idRecetario+"/"+receta.getIdReceta();
+            }
             Categoria categoria = categoriaService.getCategoriaById(idCategoria);
 
             long idSubCategoria = Long.parseLong(webRequest.getParameter("subcategoria"));
             SubCategoria subCategoria = null;
-            if (idSubCategoria != 0) {
+
+            if (idSubCategoria != 0)
                 subCategoria = subCategoriaService.getSubCategoriaById(idSubCategoria);
+
+            if(errors.hasErrors()){
+                List<ObjectError> errores = errors.getAllErrors();
+                for (ObjectError error: errores) {
+                    logger.error(error.getCode() + ": " + error.getDefaultMessage());
+
+                    if (error.getDefaultMessage().equals("Solo se permiten letras mayusculas y minusculas")){
+                        logger.error("Solo se pueden usar letras en el titulo y subtitulo");
+                        redirectAttributes.addFlashAttribute("errorRecetaSoloTexto",true);
+                    }
+                    if (error.getDefaultMessage().equals("No se permiten caracteres especiales")){
+                        logger.error("No se permiten caracteres especiales (Solo &, !, ¡, ¿, ?)");
+                        redirectAttributes.addFlashAttribute("errorRecetaSoloTexto",true);
+                    }
+                }
+                redirectAttributes.addFlashAttribute("errorCMReceta",true);
+                return "redirect:/ver-recetas/"+idRecetario;
             }
 
-            long idRecetario = Long.parseLong(webRequest.getParameter("recetario"));
-            Recetario recetario = recetarioService.getRecetarioById(idRecetario);
-
             List<String> fileNames = new ArrayList<>();
+            AtomicInteger cont = new AtomicInteger();
+
             try {
                 Arrays.asList(files).stream().forEach(file -> {
-                    almacenamientoImagenesService.save(file);
+                    int tempCont = cont.getAndIncrement();
+                    almacenamientoImagenesService.aSave(file,idRecetario, tempCont);
                     fileNames.add(file.getOriginalFilename());
                 });
 
@@ -182,19 +217,12 @@ public class RecetaController {
             receta.setSubCategoria(subCategoria);
             receta.setRecetario(recetario);
             receta.setFechaPublicacion(new Date());
-            if(receta.getCategoria() == null){
-                redirectAttributes.addFlashAttribute("errorCat","Hay un error en la receta");
-                return "redirect:/ver-recetas/"+idRecetario;
-            }
 
-            if(errors.hasErrors()){
-                //redirectAttributes.addFlashAttribute("error","Hay un error en la receta");
-                return "redirect:/crear-receta/"+idRecetario;
-            }
-            redirectAttributes.addFlashAttribute("exito","Todo esta bien");
+            redirectAttributes.addFlashAttribute("exito",true);
             recetaService.saveReceta(receta);
 
             return "redirect:/ver-recetas/"+idRecetario;
+
         }catch (Exception e){
             mensaje = usuarioService.codigosError(e.toString());
             System.out.println("Error en el controller de Receta -> crearReceta"+mensaje);
