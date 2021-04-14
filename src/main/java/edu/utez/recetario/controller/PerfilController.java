@@ -165,6 +165,10 @@ public class PerfilController {
                 return "redirect:/perfil";
             }
             long category_id = Long.parseLong(request.getParameter("category_id"));
+            if(category_id == 0){
+                ra.addFlashAttribute("errorSub","hay un error");
+                return "redirect:/perfil";
+            }
             subCategoria.setCategoria(categoriaService.getCategoriaById(category_id));
             ra.addFlashAttribute("exito","todo bien");
             subCategoriaService.saveSubCategoria(subCategoria);

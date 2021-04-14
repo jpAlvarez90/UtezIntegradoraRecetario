@@ -293,7 +293,7 @@
                             </div>
                             <div class="modal-footer">
                                 <button class="btnCancelar" data-bs-dismiss="modal">Cancelar</button>
-                                <button class="botonPer" type="submit">Guardar</button>
+                                <button class="botonPer" type="submit" id="btnGuardar">Guardar</button>
                             </div>
                         </form>
                     </div>
@@ -305,6 +305,16 @@
             </script>
             <script th:if="${mensajeError}">
                 toastr.error("Solo se aceptan letras","Error");
+            </script>
+            <script type="text/javascript">
+                $("#btnGuardar").on('click',function (e) {
+                    if(document.getElementById("recipient-name").value == ""){
+                        toastr.warning("No puede ir vacio","Error");
+                        document.getElementById("recipient-name").focus()
+                        e.preventDefault()
+                    }
+
+                })
             </script>
         </div>
     </body>

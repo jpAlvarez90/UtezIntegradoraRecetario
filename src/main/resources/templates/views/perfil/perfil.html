@@ -67,20 +67,20 @@
                                     <form th:action="@{/crearSubcategoria}" method="post" th:object="${subcategoria}">
                                         <div class="mb-3">
                                             <label class="form-label">Nombre Subcategoria</label>
-                                            <input type="text" class="form-control" placeholder="Ingresa un nombre de subcategoria" th:field="*{nombre}">
+                                            <input type="text" class="form-control" placeholder="Ingresa un nombre de subcategoria" th:field="*{nombre}" id="nombreSubcategoria">
                                             <input type="text" th:field="*{idSubCategoria}" class="form-control" style="display: none"></input>
 
                                         </div>
                                         <div class="mb-3">
                                             <label class="form-label">Categoría:</label><br/>
                                             <select required="required" class="form-select" id="category_id" name="category_id" aria-label="Ingeniería">
-                                                <option selected>Seleccione su categoría...</option>
+                                                <option selected value="0">Seleccione su categoría...</option>
                                                 <option th:each="item:${listaCategoria}" th:text="${item.nombre}"  th:value="${item.idCategoria}"></option>
                                             </select>
                                         </div>
                                         <div class="modal-footer">
                                             <a th:href="@{/perfil}" class="btn btn-eliminar">Cancelar</a>
-                                            <button type="submit" class="btn btn-agregar">Guardar</button>
+                                            <button type="submit" class="btn btn-agregar" id="subcategoriaBtn">Guardar</button>
                                         </div>
                                     </form>
                                 </div>
@@ -145,7 +145,7 @@
                                     <form th:action="@{/crearCategoria}" method="post" th:object="${categoria}">
                                         <div class="mb-3">
                                             <label class="form-label">Nombre Categoria</label>
-                                            <input type="text" class="form-control" placeholder="Ingresa un nombre de subcategoria" th:field="*{nombre}">
+                                            <input type="text" class="form-control" placeholder="Ingresa un nombre de subcategoria" th:field="*{nombre}" id="nameCategoria">
                                             <input type="text" th:field="*{idCategoria}" class="form-control" style="display: none"></input>
 
                                         </div>
@@ -159,7 +159,7 @@
                                         <div class="modal-footer">
                                             <a th:href="@{/perfil}" class="btn btn-eliminar">Cancelar</a>
                                             <!--<button type="button" class="btn btn-eliminar" data-bs-dismiss="modal">Cancelar</button>-->
-                                            <button type="submit" class="btn btn-agregar">Guardar</button>
+                                            <button type="submit" class="btn btn-agregar" id="btnCategoria">Guardar</button>
                                         </div>
                                     </form>
                                 </div>
@@ -205,32 +205,25 @@
                             <span class="input-group-text" id="basic-addon4"><i class="fas fa-at"></i></span>
                             <input type="text" class="form-control" placeholder="Correo" aria-label="Correo" aria-describedby="basic-addon1" th:field="*{correo}">
                         </div>
-
+                        <div>
+                            <h1>Cambio de contraseña</h1>
+                        </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon5"><i class="fas fa-key"></i></span>
+                            <input type="password" class="form-control" placeholder="Ingrese su nueva contraseña" aria-label="Contraseña" aria-describedby="basic-addon1"  id="passwordInput" name="passwordInput" th:field="*{password}">
+                        </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon6"><i class="fas fa-key"></i></span>
+                            <input type="password" class="form-control" placeholder="Repita su contraseña" aria-label="Contraseña" aria-describedby="basic-addon1"  id="passwordInputConfirm" name="passwordInput">
+                        </div>
                         <div class="d-grid gap-2 d-md-flex justify-content-md-end ">
-                            <button type="submit" class="botonPer">Guardar cambios</button>
+                            <button type="submit" class="botonPer" id="checarPass">Guardar cambios</button>
                         </div>
                     </form>
 
                     <hr/>
 
                     <br/>
-                    <div>
-                        <h1>Cambio de contraseña</h1>
-                    </div>
-                    <form action="#" method="POST">
-                        <div class="input-group mb-3">
-                            <span class="input-group-text" id="basic-addon5"><i class="fas fa-key"></i></span>
-                            <input type="password" class="form-control" placeholder="Ingrese su nueva contraseña" aria-label="Contraseña" aria-describedby="basic-addon1"  id="passwordInput" name="passwordInput">
-                        </div>
-                        <div class="input-group mb-3">
-                            <span class="input-group-text" id="basic-addon6"><i class="fas fa-key"></i></span>
-                            <input type="password" class="form-control" placeholder="Repita su contraseña" aria-label="Contraseña" aria-describedby="basic-addon1"  id="passwordInput" name="passwordInput">
-                        </div>
-
-                        <div class="d-grid gap-2 d-md-flex justify-content-md-end ">
-                            <button type="submit" class="botonPer">Cambiar contraseña</button>
-                        </div>
-                    </form>
                 </div>
             </div>
             <script th:if="${exito}">
@@ -239,11 +232,48 @@
             <script th:if="${error}">
                 toastr.error("Solo se aceptan letras","Error");
             </script>
+            <script th:if="${errorSub}">
+                toastr.error("Debe seleccionar una categoria","Error");
+            </script>
+            <script th:if="${errorName}">
+                toastr.error("El nombre no puede ir vacío","Error");
+            </script>
             <script th:if="${exitoEliminar}">
                 toastr.success('Se elimino con exito!', 'Exito');
             </script>
             <script th:if="${eliminar}">
                 toastr.error("No se elimino","Error");
+            </script>
+            <script type="text/javascript">
+                $('#checarPass').on('click',function (e) {
+                    if(document.getElementById("passwordInput").value != document.getElementById("passwordInputConfirm").value){
+                        toastr.warning("Las contraseñas no coinciden","Error");
+                        document.getElementById("passwordInputConfirm").focus()
+                        e.preventDefault()
+                    }
+                });
+
+                $('#subcategoriaBtn').on('click',function (e) {
+                    if(document.getElementById("nombreSubcategoria").value == ""){
+                        toastr.warning("No puede ir vacio","Error");
+                        document.getElementById("nombreSubcategoria").focus()
+                        e.preventDefault()
+                    }
+                    if(document.getElementById("category_id").value == 0){
+                        toastr.warning("Debe seleccionar al menos una categoria","Error");
+                        document.getElementById("category_id").focus()
+                        e.preventDefault()
+                    }
+                });
+
+                $('#btnCategoria').on('click',function (e) {
+                    if(document.getElementById("nameCategoria").value == ""){
+                        toastr.warning("No puede ir vacio","Error");
+                        document.getElementById("nameCategoria").focus()
+                        e.preventDefault()
+                    }
+
+                })
             </script>
         </div>
     </body>

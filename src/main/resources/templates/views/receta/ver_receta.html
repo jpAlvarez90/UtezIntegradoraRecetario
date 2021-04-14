@@ -99,13 +99,14 @@
                 </div>
                 <br>
 
-                <div class="recuadro_recetario">
+                <div class="recuadro_recetario" >
                     <h2 style="font-weight: bolder;">Comentarios</h2>
                     <div class="row">
                         <div class="col-1">
                             <button type="button" class="btn btn-light btn-circle btn-lg">JJ</button>
                         </div>
-                        <div class="col-11">
+                        <div class="col-11"  sec:authorize="isAuthenticated()">
+
                             <form id="comentarioBox" th:action="@{/realizar-comentario}" method="post">
                                 <input type="text" style="display: none" th:value="${receta.idReceta}" id="idReceta" name="idReceta" />
                                 <div class="form-floating">
