@@ -58,7 +58,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/recuperarC/**",
                         "/enviarCorreo",
                         "/cambioContrasena/**",
-                        "/cambiarContrasena")
+                        "/cambiarContrasena",
+                        "/f/**")
                 .permitAll()
                 .antMatchers("/**")
                 .hasAnyAuthority("ROLE_ADMIN", "ROLE_USER")

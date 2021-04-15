@@ -42,6 +42,17 @@ public class AlmacenamientoImagenesService implements AlmacenamientoImagenesInte
         }
     }
 
+    public void deleteImage(String imageName) {
+        try {
+            if (Files.exists(Paths.get("uploads", imageName))) {
+                Files.delete(Paths.get("uploads", imageName));
+            }
+        } catch (IOException e) {
+            throw new RuntimeException("No se pudo eliminar el archivo. Error :: "+e.getMessage());
+        }
+
+    }
+
 
 
 

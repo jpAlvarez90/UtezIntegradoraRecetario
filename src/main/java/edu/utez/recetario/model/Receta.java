@@ -28,10 +28,10 @@ public class Receta {
     @JoinColumn(name = "subcategoria")
     private SubCategoria subCategoria;
 
-    @OneToMany(mappedBy = "receta")
+    @OneToMany(mappedBy = "receta", cascade = {CascadeType.REMOVE})
     private Set<Comentario> comentario = new HashSet<>();
 
-    @OneToMany(mappedBy = "receta")
+    @OneToMany(mappedBy = "receta", cascade = {CascadeType.REMOVE})
     private Set<Calificacion> calificacion = new HashSet<>();
 
     @Column(name = "titulo", nullable = false)

@@ -1,7 +1,9 @@
 package edu.utez.recetario.service;
 
+import edu.utez.recetario.model.Categoria;
 import edu.utez.recetario.model.Receta;
 import edu.utez.recetario.model.Recetario;
+import edu.utez.recetario.model.SubCategoria;
 import edu.utez.recetario.repository.RecetaRepository;
 import edu.utez.recetario.serviceInterface.RecetaInterface;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,5 +78,14 @@ public class RecetaService implements RecetaInterface {
         return views;
     }
 
+    @Override
+    public List<Receta> getAllRecetasByCategoria(Categoria categoria) {
+        return recetaRepository.findAllByCategoria(categoria);
+    }
+
+    @Override
+    public List<Receta> getAllRecetasBySubCategoria(Categoria categoria, SubCategoria subCategoria) {
+        return recetaRepository.findAllByCategoriaAndSubCategoria(categoria,subCategoria);
+    }
 
 }
