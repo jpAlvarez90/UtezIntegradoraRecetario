@@ -15,40 +15,11 @@
 
                 <div class="row">
                     <div class="col-6 marginCard" th:each="item,iStat: ${recetaList}">
-                        <!--
-                        <div class="card myborder1" >
-                            <div class="imagenCard1" id="box">
-                                <img src="../img/brochetas.jpg" class="imagenCard1"/>
-                            </div>
-                            <div class="card-body">
-                                <h5 th:text="${item.titulo}" class="card-title" style="font-weight: bolder;"></h5>
-                                <p th:text="${item.descripcion}" class="card-text"></p>
-                            </div>
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-9">
-                                        <label style="font-weight: bolder;">Autor:</label>
-                                        <span th:text="${autor}" class="card-text"></span>
-                                        <br>
-                                        <label style="font-weight: bolder;">Publicada</label>
-                                        <span th:text="${item.fechaPublicacion}" class="card-text"></span>
-                                        <br>
-                                    </div>
-                                    <div class="col-3">
-                                        <div class="d-grid gap-2">
-                                            <a th:href="@{'/editar-receta/'+${recetario.idRecetario}+'/'+${item.idReceta}}" class="btn btn-sm btn-editar" type="button">Editar</a>
-                                            <a th:href="@{'/eliminar-receta/'+${recetario.idRecetario}+'/'+${item.idReceta}}" class="btn btn-sm btn-eliminar" type="button">Eliminar</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        -->
 
                         <div th:class="'card index mb-3 myborder'+${iStat.count}" style="max-width: 540px; /*height: 265px;*/">
                             <div class="row g-0">
                                 <div th:class="'col-md-4 imgButton imagenCard'+${iStat.count}" id="box">
-                                    <img src="../img/brochetas.jpg" th:class="'imagenCard'+${iStat.count}" style="border-bottom-left-radius: 15px; border-top-left-radius: 15px;"/>
+                                    <img th:src="@{'/uploads/receta_'+${#strings.substringBefore(item.imagenes,';')}}" th:class="'imagenCard'+${iStat.count}" style="border-bottom-left-radius: 15px; border-top-left-radius: 15px;"/>
                                 </div>
                                 <div class="col-md-8">
                                     <div class="card-body" style="height: 173px;">

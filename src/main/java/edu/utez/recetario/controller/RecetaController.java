@@ -199,7 +199,7 @@ public class RecetaController {
             try {
                 Arrays.asList(files).stream().forEach(file -> {
                     int tempCont = cont.getAndIncrement();
-                    almacenamientoImagenesService.aSave(file,idRecetario, tempCont);
+                    almacenamientoImagenesService.save(file);
                     fileNames.add(file.getOriginalFilename());
                 });
 

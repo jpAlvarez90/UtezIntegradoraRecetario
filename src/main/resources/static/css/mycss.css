@@ -132,7 +132,7 @@ footer {
     text-decoration: none;
 }
 
-.Cancelar:hover{
+.btnCancelar:hover{
     background-color: #bcbcbc;
     color:#292929;
 }
@@ -155,6 +155,23 @@ footer {
 }
 
 .botonPer:hover{
+    background-color: #7a0c14;
+    color:#FFF;
+}
+
+.botonPer-sm {
+    display: inline;
+    background-color: #e0727b;
+    color:#FFF;
+    border: none;
+    border-radius: 15px;
+    padding: 7px;
+    font-size: 12pt;
+    font-weight: bolder;
+    text-decoration: none;
+}
+
+.botonPer-sm:hover{
     background-color: #7a0c14;
     color:#FFF;
 }
@@ -294,7 +311,7 @@ textarea {
     text-align: center;
     font-size: 20pt;
     border-top-left-radius: 15px;
-    border-top-right-radius: 15px
+    /*border-top-right-radius: 15px*/
 
 }
 
@@ -308,7 +325,7 @@ textarea {
     text-align: center;
     font-size: 20pt;
     border-top-left-radius: 15px;
-    border-top-right-radius: 15px
+    /*border-top-right-radius: 15px*/
 }
 
 .imagenCard3 {
@@ -321,7 +338,7 @@ textarea {
     text-align: center;
     font-size: 20pt;
     border-top-left-radius: 15px;
-    border-top-right-radius: 15px
+    /*border-top-right-radius: 15px*/
 
 }
 
@@ -335,7 +352,7 @@ textarea {
     text-align: center;
     font-size: 20pt;
     border-top-left-radius: 15px;
-    border-top-right-radius: 15px
+    /*border-top-right-radius: 15px;*/
 
 }
 
@@ -349,7 +366,7 @@ textarea {
     text-align: center;
     font-size: 20pt;
     border-top-left-radius: 15px;
-    border-top-right-radius: 15px
+    /*border-top-right-radius: 15px;*/
 
 }
 
@@ -363,7 +380,7 @@ textarea {
     text-align: center;
     font-size: 20pt;
     border-top-left-radius: 15px;
-    border-top-right-radius: 15px
+    /*border-top-right-radius: 15px;*/
 
 }
 
@@ -377,7 +394,7 @@ textarea {
     text-align: center;
     font-size: 20pt;
     border-top-left-radius: 15px;
-    border-top-right-radius: 15px
+    /*border-top-right-radius: 15px*/
 
 }
 
@@ -391,7 +408,7 @@ textarea {
     text-align: center;
     font-size: 20pt;
     border-top-left-radius: 15px;
-    border-top-right-radius: 15px
+    /*border-top-right-radius: 15px;*/
 
 }
 
@@ -405,7 +422,7 @@ textarea {
     text-align: center;
     font-size: 20pt;
     border-top-left-radius: 15px;
-    border-top-right-radius: 15px
+    /*border-top-right-radius: 15px;*/
 
 }
 
@@ -419,7 +436,7 @@ textarea {
     text-align: center;
     font-size: 20pt;
     border-top-left-radius: 15px;
-    border-top-right-radius: 15px
+    /*border-top-right-radius: 15px;*/
 
 }
 
@@ -433,7 +450,7 @@ textarea {
     text-align: center;
     font-size: 20pt;
     border-top-left-radius: 15px;
-    border-top-right-radius: 15px
+    /*border-top-right-radius: 15px;*/
 
 }
 
@@ -447,7 +464,7 @@ textarea {
     text-align: center;
     font-size: 20pt;
     border-top-left-radius: 15px;
-    border-top-right-radius: 15px
+    /*border-top-right-radius: 15px;*/
 
 }
 .tituloPadre{
@@ -512,7 +529,7 @@ textarea {
 .myfooter-recetario-1{
     padding: .5rem 1rem;
     background-color: #F8BBD0;
-    border-top: 2px solid #F8BBD0;
+    border-top: 3px solid #F8BBD0;
     border-bottom-right-radius: 15px;
     font-size: 10pt;
     font-weight: bolder;
@@ -721,6 +738,32 @@ textarea {
     padding: .5rem 1rem;
     background-color: #FFCDD2;
     border-top: 2px solid #FFCDD2;
+    border-bottom-right-radius: 15px;
+    font-size: 10pt;
+    font-weight: bolder;
+    color: #FFFFFF;
+}
+
+.card.myborder10 {
+    border-color: #BBDEFB;
+    border-radius: 20px;
+}
+
+.myfooter10{
+    padding: .5rem 1rem;
+    background-color: #BBDEFB;
+    border-top: 2px solid #BBDEFB;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    font-size: 10pt;
+    font-weight: bolder;
+    color: #FFFFFF;
+}
+
+.myfooter-recetario-10{
+    padding: .5rem 1rem;
+    background-color: #BBDEFB;
+    border-top: 2px solid #BBDEFB;
     border-bottom-right-radius: 15px;
     font-size: 10pt;
     font-weight: bolder;

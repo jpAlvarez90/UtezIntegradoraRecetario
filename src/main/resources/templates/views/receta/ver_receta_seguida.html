@@ -4,38 +4,42 @@
     </head>
     <body>
         <div layout:fragment="content">
+
             <div class="container">
-                <div class="button-container">
-                    <a th:href="@{'/ver-recetas-seguidas/'+${receta.recetario.idRecetario}}"><i class="fas fa-arrow-left"></i> Regresar</a>
-                    <img src="../img/pizza.jpg" style="width: 100%;height: 500px;">
+                <div class="button-container" style="width: 100%; height: 450px;" id="box" >
+                    <a class="btnRegresar"  th:href="@{'/ver-recetas-seguidas/'+${receta.recetario.idRecetario}}"><i class="fas fa-arrow-left"></i> Regresar</a>
+                    <img th:src="@{'/uploads/receta_'+${#strings.substringBefore(receta.imagenes,';')}}" style="width: 100%;height: 450px;">
                 </div>
                 <br><br>
-                <div class="row">
-                    <div class="col-lg-6">
-                        <h1 style="font-weight: bolder;" th:text="${receta.titulo}"></h1>
+
+                <div class="row recuadro_recetario">
+                    <h1 style="font-weight: bolder; text-align: center;" th:text="${receta.titulo}"></h1>
+                </div>
+
+                <div class="recuadro_recetario">
+                    <h2 style="font-weight: bolder;">Descripción</h2>
+                    <h4 th:text="${receta.descripcion}"></h4>
+                </div>
+
+                <div class="recuadro_recetario">
+                    <h2 style="font-weight: bolder;">Ingredientes</h2>
+                    <h4 th:utext="${receta.ingredientes}"></h4>
+                </div>
+
+                <div class="recuadro_recetario">
+                    <h2 style="font-weight: bolder;">Pasos</h2>
+                    <h4 th:utext="${receta.pasos}"></h4>
+                </div>
+
+                <div class="recuadro_recetario">
+                    <h2 style="font-weight: bolder;">Imagenes</h2>
+                    <div th:if="${#strings.contains(receta.imagenes,'default')}">
+                        <h4>No hay imagenes disponibles</h4>
                     </div>
                 </div>
-                <br>
 
-                <h2 style="font-weight: bolder;">Descripción</h2>
-                <h4 th:text="${receta.descripcion}"></h4>
-                <br>
-
-                <h2 style="font-weight: bolder;">Ingredientes</h2>
-                <h4 th:utext="${receta.ingredientes}"></h4>
-                <br>
-
-                <h2 style="font-weight: bolder;">Pasos</h2>
-                <h4 th:utext="${receta.pasos}"></h4>
-
-                <br>
-
-                <h2 style="font-weight: bolder;">Imagenes</h2>
-                <div th:if="${#strings.contains(receta.imagenes,'default')}">
-                    <h4>No hay imagenes disponibles</h4>
-                </div>
                 <!-- Carrusel -->
-                <div class="Carousel" th:unless="${#strings.contains(receta.imagenes,'default')}">
+                <div class="Carousel recuadro_recetario" th:unless="${#strings.contains(receta.imagenes,'default')}">
                     <div class="slick-list" id="slick-list">
                         <button class="slick-arrow slick-prev" id="button-prev" data-button="button-prev" onclick="app.processingButton(event)">
                             <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="chevron-left"
@@ -47,12 +51,12 @@
                             </svg>
                         </button>
                         <div class="slick-track" id="track">
-                            <div class="slick">
+                            <div class="slick" th:each="img : ${#strings.listSplit(receta.imagenes,';')}">
                                 <div>
                                     <a href="/">
-                                        <h4>Tacos de canasta</h4>
+                                        <!--<h4>Tacos de canasta</h4>-->
                                         <picture>
-                                            <img src="../img/1.jpg" alt="Image">
+                                            <img th:src="@{'/uploads/receta_'+${img}}" alt="Image">
                                         </picture>
                                     </a>
                                 </div>

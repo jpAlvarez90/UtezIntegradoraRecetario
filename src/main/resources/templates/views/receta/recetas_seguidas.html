@@ -14,6 +14,7 @@
                 </div>
 
                 <div class="row">
+                    <!--
                         <div class="col-6 marginCard" th:each="item: ${recetaList}">
                             <div class="card myborder1" >
                                 <div class="imagenCard1" id="box">
@@ -34,10 +35,6 @@
                                             <label style="font-weight: bolder;">Publicada</label>
                                             <span th:text="${item.fechaPublicacion}" class="card-text"></span>
                                             <br>
-                                            <!--
-                                            <label style="font-weight: bolder;">Calificación:</label>
-                                            <span class="card-text">4</span>
-                                            -->
                                         </div>
                                         <div class="col-3">
                                             <div class="d-grid gap-2">
@@ -48,6 +45,40 @@
                                 </div>
                             </div>
                         </div>
+                -->
+
+                    <div class="col-6 marginCard" th:each="item,iStat: ${recetaList}">
+
+                        <div th:class="'card index mb-3 myborder'+${iStat.count}" style="max-width: 540px; /*height: 265px;*/">
+                            <div class="row g-0">
+                                <div th:class="'col-md-4 imgButton imagenCard'+${iStat.count}" id="box">
+                                    <img th:src="@{'/uploads/receta_'+${#strings.substringBefore(item.imagenes,';')}}" th:class="'imagenCard'+${iStat.count}" style="border-bottom-left-radius: 15px; border-top-left-radius: 15px;"/>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="card-body" style="height: 173px;">
+                                        <div class="tituloPadre">
+                                            <div class="titulohijo">
+                                                <h5 th:text="${item.titulo}" class="card-title" style="font-weight: bolder;"></h5>
+                                            </div>
+                                        </div>
+                                        <p th:text="${#strings.abbreviate(item.descripcion, 165)}" class="card-text"></p>
+                                    </div>
+                                    <div th:class="'myfooter-recetario-'+${iStat.count}">
+                                        <div class="row">
+                                            <div class="col-lg-8" style="padding: 5px;">
+                                                <span style="display: inline; color:#FFF; font-weight: bolder; font-size: 12pt;" th:text="${#dates.format(item.fechaPublicacion, 'dd-MMM-yyy')}"></span>
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                                    <a th:href="@{'/ver-receta-seguida/'+${item.idReceta}}" class="botonPer-sm" type="button">Ver receta</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <!-- Cards-->

@@ -37,7 +37,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/ckeditor/**",
                         "/tinymce/**",
                         "/ckeditor/**",
-                        "/json/**");
+                        "/json/**",
+                        "/uploads/**");
 
     }
 
@@ -45,6 +46,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/",
+                        "/uploads/**",
                         "/subcategorias",
                         "/login",
                         "/registrar-usuario",
