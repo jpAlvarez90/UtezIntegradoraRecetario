@@ -10,6 +10,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ObjectError;
@@ -18,7 +19,12 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -155,7 +161,8 @@ public class RecetaController {
                               @RequestParam("imgs")MultipartFile[] files,
                               RedirectAttributes redirectAttributes,
                               Errors errors,
-                              Model model) {
+                              Model model,
+                              HttpSession session) {
 
         try {
             long idRecetario = Long.parseLong(webRequest.getParameter("recetario"));
@@ -194,12 +201,13 @@ public class RecetaController {
             }
 
             List<String> fileNames = new ArrayList<>();
-            AtomicInteger cont = new AtomicInteger();
 
             try {
                 Arrays.asList(files).stream().forEach(file -> {
-                    int tempCont = cont.getAndIncrement();
-                    almacenamientoImagenesService.save(file);
+                    String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+                    String uploadDir = "uploads/"+receta.getTitulo().replaceAll("\\s","");
+
+                    almacenamientoImagenesService.aSave(file, uploadDir, fileName);
                     fileNames.add(file.getOriginalFilename());
                 });
 
