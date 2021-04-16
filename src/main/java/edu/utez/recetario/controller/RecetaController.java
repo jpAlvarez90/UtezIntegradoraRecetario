@@ -158,7 +158,7 @@ public class RecetaController {
     public String crearReceta(@Valid Receta receta,
                               BindingResult bindingResult,
                               WebRequest webRequest,
-                              @RequestParam("imgs")MultipartFile[] files,
+                              @RequestParam("imgs") MultipartFile[] files,
                               RedirectAttributes redirectAttributes,
                               Errors errors,
                               Model model,
@@ -217,7 +217,7 @@ public class RecetaController {
                 }
                 receta.setImagenes(names.toString());
             } catch (Exception e) {
-                receta.setImagenes("default.png");
+                receta.setImagenes("default.jpg;");
                 System.out.println("No se pudieron subir las imagenes");
             }
 

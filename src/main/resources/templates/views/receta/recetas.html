@@ -19,7 +19,9 @@
                         <div th:class="'card index mb-3 myborder'+${iStat.count}" style="max-width: 540px; /*height: 265px;*/">
                             <div class="row g-0">
                                 <div th:class="'col-md-4 imgButton imagenCard'+${iStat.count}" id="box">
-                                    <img th:src="@{'/uploads/receta_'+${#strings.substringBefore(item.imagenes,';')}}" th:class="'imagenCard'+${iStat.count}" style="border-bottom-left-radius: 15px; border-top-left-radius: 15px;"/>
+                                    <!--<img th:src="@{'/uploads/receta_'+${#strings.substringBefore(item.imagenes,';')}}" th:class="'imagenCard'+${iStat.count}" style="border-bottom-left-radius: 15px; border-top-left-radius: 15px;"/>-->
+                                    <img th:if="${#strings.equals(item.imagenes, 'default.jpg')}" th:src="@{'/uploads/default.jpg'}" th:class="'imagenCard'+${iStat.count}" style="border-bottom-left-radius: 15px; border-top-left-radius: 15px;"/>
+                                    <img th:unless="${#strings.equals(item.imagenes, 'default.jpg')}" th:src="@{'/uploads/'+${#strings.replace(item.titulo, ' ', '')}+'/'+${#strings.substringBefore(item.imagenes,';')}}" th:class="'imagenCard'+${iStat.count}" style="border-bottom-left-radius: 15px; border-top-left-radius: 15px;"/>
                                 </div>
                                 <div class="col-md-8">
                                     <div class="card-body" style="height: 173px;">
