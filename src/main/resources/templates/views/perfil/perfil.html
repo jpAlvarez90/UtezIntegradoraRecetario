@@ -15,6 +15,9 @@
                 <li sec:authorize="hasRole('ROLE_ADMIN')" class="nav-item" role="presentation">
                     <button th:class="${tabSelectSubcategoria}" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Subcategoría</button>
                 </li>
+                <li sec:authorize="hasRole('ROLE_ADMIN')" class="nav-item" role="presentation">
+                    <button th:class="${tabSelectSubcategoria}" id="bitacora-tab" data-bs-toggle="tab" data-bs-target="#bitacora" type="button" role="tab" aria-controls="bitacora" aria-selected="false">Bitacora</button>
+                </li>
             </ul>
             <div class="tab-content" id="myTabContent">
                 <div th:class="${tabSubcategoria}" style="background: #FEEFFB; padding-top: 10px; padding-right: 30px; padding-left: 30px; padding-bottom: 20px;" id="profile" role="tabpanel" aria-labelledby="profile-tab">
@@ -96,6 +99,36 @@
                     </script>
                 </div>
 
+                <div th:class="${tabBitacora}" style="background: #FEEFFB; padding-top: 10px; padding-right: 30px; padding-left: 30px; padding-bottom: 20px;" id="bitacora" role="tabpanel" aria-labelledby="bitacora-tab">
+                    <br>
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <h1>Bitacora</h1>
+                        </div>
+                    </div>
+
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Usuario</th>
+                            <th scope="col">Operación</th>
+                            <th scope="col">Tabla</th>
+                            <th scope="col">Fecha</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>Alan Jesus</td>
+                                <td>Insert</td>
+                                <td>Receta</td>
+                                <td>16/04/2021</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
 
                 <div th:class="${tabCategoria}" id="home" style="background: #FEEFFB; padding-top: 10px; padding-right: 30px; padding-left: 30px; padding-bottom: 20px;" role="tabpanel" aria-labelledby="home-tab">
                     <br>
@@ -116,7 +149,6 @@
                         <thead>
                         <tr>
                             <th scope="col">#</th>
-                            <th scope="col">Nombre de la subcategoría</th>
                             <th scope="col">Nombre de la categoría</th>
                             <th scope="col">Acciones</th>
                         </tr>
