@@ -32,7 +32,9 @@
                         <li th:each="item:${menuCategory}">
                             <a class="dropdown-item" th:href="@{'/f/categoria/'+${item.idCategoria}}" th:text="${item.nombre}"></a>
                             <ul class="submenu dropdown-menu">
-                                <li th:each="itemSub:${item.subCategoria}"><a class="dropdown-item" th:href="@{'/f/categoria/'+${item.idCategoria}+'/subcategoria/'+${itemSub.idSubCategoria}}" th:text="${itemSub.nombre}"></a></li>
+                                <li th:each="itemSub:${item.subCategoria}">
+                                    <a class="dropdown-item" th:href="@{'/f/categoria/'+${item.idCategoria}+'/subcategoria/'+${itemSub.idSubCategoria}}" th:text="${itemSub.nombre}"></a>
+                                </li>
                             </ul>
                         </li>
                     </ul>

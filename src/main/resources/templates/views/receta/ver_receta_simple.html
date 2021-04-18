@@ -7,9 +7,9 @@
 
             <div class="container">
                 <div class="button-container" style="width: 100%; height: 450px;" id="box" >
-                    <a class="btnRegresar"  th:href="@{'/ver-recetas-seguidas/'+${receta.recetario.idRecetario}}"><i class="fas fa-arrow-left"></i> Regresar</a>
-                    <img th:if="${#strings.contains(receta.imagenes, 'default.jpg')}" th:src="@{'/uploads/default.jpg'}"/>
-                    <img th:unless="${#strings.contains(receta.imagenes, 'default.jpg')}" th:src="@{'/uploads/'+${#strings.replace(receta.titulo, ' ', '')}+'/'+${#strings.substringBefore(receta.imagenes,';')}}" />
+                    <a class="btnRegresar"  th:href="@{'/ver-recetarios'}"><i class="fas fa-arrow-left"></i> Regresar a recetarios</a>
+                    <img th:if="${#strings.equals(receta.imagenes, 'default.jpg')}" th:src="@{'/uploads/default.jpg'}"/>
+                    <img th:unless="${#strings.equals(receta.imagenes, 'default.jpg')}" th:src="@{'/uploads/'+${#strings.replace(receta.titulo, ' ', '')}+'/'+${#strings.substringBefore(receta.imagenes,';')}}" />
                 </div>
                 <br><br>
 

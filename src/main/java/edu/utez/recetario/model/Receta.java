@@ -39,7 +39,7 @@ public class Receta {
     private String titulo;
 
     @Column(name = "descripcion", nullable = false, columnDefinition = "TEXT")
-    @Pattern(regexp = "[a-zA-z]+([ '-,&ñ][a-zA-ZÀ-ÿ\\s\\.¿?!¡]+)*", message = "No se permiten caracteres especiales")
+    @Pattern(regexp = "[a-zA-z0-9À-ÿ]+([ '-,&ñ][a-zA-ZÀ-ÿ\\s\\.¿?!¡]+)*", message = "No se permiten caracteres especiales")
     private String descripcion;
 
     @Column(name = "ingredientes", nullable = false, columnDefinition = "TEXT")

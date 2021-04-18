@@ -88,4 +88,9 @@ public class RecetaService implements RecetaInterface {
         return recetaRepository.findAllByCategoriaAndSubCategoria(categoria,subCategoria);
     }
 
+    @Override
+    public List<Receta> getLastRecetasByUsuario(long idUsuario, int limit) {
+        return recetaRepository.findLastRecetasByUsuario(idUsuario, limit);
+    }
+
 }

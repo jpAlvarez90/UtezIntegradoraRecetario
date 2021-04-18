@@ -8,13 +8,10 @@
             <!-- MIS RECETARIOS -->
             <div class="container">
 
-                <!-- Carrusel -->
-                <
+                <!-- Carrusel
                 <div class="recuadro_recetario">
                     <h2>Últimas recetas</h2>
                 </div>
-
-
                 <div class="Carousel recuadro_recetario">
                     <div class="slick-list" id="slick-list">
                         <button class="slick-arrow slick-prev" id="button-prev" data-button="button-prev" onclick="app.processingButton(event)">
@@ -26,13 +23,14 @@
                                 </path>
                             </svg>
                         </button>
-                        <div class="slick-track" id="track">
+                        <div class="slick-track" id="track" th:each="item, iStat : ${recetaList}">
 
                             <div class="slick">
-                                <div>
-                                    <a href="/">
+                                <div >
+                                    <a th:href="@{'/ver-mi-receta/'+${item.idReceta}}">
                                         <picture>
-                                            <img th:src="@{'/uploads/default.jpg'}" alt="Image">
+                                            <img th:if="${#strings.contains(item.imagenes, 'default.jpg')}" th:src="@{'/uploads/default.jpg'}" th:class="'imagenCard'+${iStat.count}" style="border:none; width: 100%; height: 200px;"/>
+                                            <img th:unless="${#strings.contains(item.imagenes, 'default.jpg')}" th:src="@{'/uploads/'+${#strings.replace(item.titulo, ' ', '')}+'/'+${#strings.substringBefore(item.imagenes,';')}}" th:class="'imagenCard'+${iStat.count}" style="border:none; width: 100%; height: 200px;"/>
                                         </picture>
                                     </a>
                                 </div>
@@ -49,7 +47,7 @@
                         </button>
                     </div>
                 </div>
-
+                -->
                 <!-- RECETARIOS -->
                 <div class="recuadro_recetario">
                     <h2>Mis recetarios

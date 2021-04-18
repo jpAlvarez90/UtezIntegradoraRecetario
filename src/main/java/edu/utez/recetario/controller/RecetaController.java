@@ -21,12 +21,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.*;
-import java.util.concurrent.atomic.AtomicInteger;
 
 @Controller
 public class RecetaController {
@@ -89,7 +84,6 @@ public class RecetaController {
     // Recetas del recetario seguido
     @GetMapping("/ver-recetas-seguidas/{idRecetario}")
     public String verRecetasSeguidas(@PathVariable("idRecetario") long idRecetario, Model model) {
-
        try {
            Recetario recetario = recetarioService.getRecetarioById(idRecetario);
            List<Receta> recetaList = recetaService.getAllRecetasByRecetario(recetario);
@@ -116,7 +110,7 @@ public class RecetaController {
         try {
             Receta receta = recetaService.getRecetaById(idReceta);
             model.addAttribute("receta",receta);
-            return "/views/receta/ver_receta_seguida";
+            return "views/receta/ver_receta_seguida";
         }catch (Exception e){
             mensaje = usuarioService.codigosError(e.toString());
             System.out.println("Error en el controller de Receta -> verRecetaSeguida"+mensaje);
@@ -215,7 +209,11 @@ public class RecetaController {
                 for (String file: fileNames) {
                     names.append(file+";");
                 }
-                receta.setImagenes(names.toString());
+                if (names.toString().equals(";")){
+                    receta.setImagenes("default.jpg;");
+                } else {
+                    receta.setImagenes(names.toString());
+                }
             } catch (Exception e) {
                 receta.setImagenes("default.jpg;");
                 System.out.println("No se pudieron subir las imagenes");
@@ -308,6 +306,28 @@ public class RecetaController {
        }
     }
 
+    @GetMapping("/ver-mi-receta/{idReceta}")
+    public String verMiReceta(@PathVariable("idReceta") long idReceta, Model model) {
+        try {
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+            String username = userDetails.getUsername();
+
+            Optional<Usuario> tempUsuario = usuarioService.getUsuarioByUsername(username);
+            Usuario usuario = tempUsuario.get();
+
+            List<Receta> recetaList = recetaService.getLastRecetasByUsuario(usuario.getIdUsuario(),5);
+
+            model.addAttribute("recetaList",recetaList);
+
+            return "views/receta/ver_receta_simple";
+        } catch (Exception e){
+            mensaje = usuarioService.codigosError(e.toString());
+            System.out.println("Error en el controller de Receta -> verRecetasSeguidas"+mensaje);
+            model.addAttribute("mensaje",mensaje);
+            return "error/404";
+        }
+    }
 
 
 

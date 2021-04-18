@@ -62,15 +62,19 @@ public class RecetarioController {
                 usuario = tempUsuario.get();
                 List<Recetario> recetarioList = recetarioService.getRecetariosByUserId(usuario);
                 List<UsuarioFollowRecetario> ufrList = usuarioFollowRecetarioService.getAllFollowingRecetarios(usuario);
+                List<Receta> recetaList = recetaService.getLastRecetasByUsuario(usuario.getIdUsuario(), 5);
 
                 model.addAttribute("recetarioList",recetarioList);
                 model.addAttribute("ufrList", ufrList);
+                model.addAttribute("recetaList",recetaList);
             } else {
                 List<Recetario> recetarioList = new ArrayList<>();
                 List<UsuarioFollowRecetario> ufrList = new ArrayList<>();
+                List<Receta> recetaList = new ArrayList<>();
 
                 model.addAttribute("recetarioList",recetarioList);
                 model.addAttribute("ufrList", ufrList);
+                model.addAttribute("recetaList",recetaList);
             }
 
             return "views/recetario/recetarios";

@@ -28,7 +28,7 @@ public class SubCategoria {
     private Set<Receta> receta = new HashSet<>();
 
     @Column(name = "nombre", nullable = false)
-    @Pattern(regexp = "^[a-zA-Z][a-z\\s]*$",message = "Solo se permiten letras mayusculas y minusculas")
+    @Pattern(regexp = "[a-zA-Z][a-zA-ZÀ-ÿ\\s]*$",message = "Solo se permiten letras mayusculas y minusculas")
     private String nombre;
 
     public SubCategoria() {

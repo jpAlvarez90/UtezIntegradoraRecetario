@@ -19,11 +19,13 @@ public class AlmacenamientoImagenesService {
             if (!Files.exists(uploadPath)){
                 Files.createDirectories(uploadPath);
             }
-            try(InputStream inputStream = multipartFile.getInputStream()) {
-                Path filePath = uploadPath.resolve(fileName);
-                Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
-            } catch (IOException e) {
-                throw new IOException("No se pudo guardar la imagen "+fileName, e);
+            if (!multipartFile.isEmpty()) {
+                try(InputStream inputStream = multipartFile.getInputStream()) {
+                    Path filePath = uploadPath.resolve(fileName);
+                    Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
+                } catch (IOException e) {
+                    throw new IOException("No se pudo guardar la imagen "+fileName, e);
+                }
             }
         } catch (IOException e) {
             throw new RuntimeException("No se pudo guardar el archivo. Error :: "+e.getMessage());

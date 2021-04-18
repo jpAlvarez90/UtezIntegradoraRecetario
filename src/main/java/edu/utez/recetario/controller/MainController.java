@@ -41,7 +41,7 @@ public class MainController {
 
     @GetMapping("/")
     public String main(Model model){
-        List<Receta> listaRecetas= recetaService.getAllRecetasByOrderADesc(10);
+        List<Receta> listaRecetas= recetaService.getAllRecetasByOrderADesc(9);
         model.addAttribute("listaRecetas",listaRecetas);
         return "index";
     }
@@ -62,7 +62,7 @@ public class MainController {
 
     @GetMapping("/mas-buscados")
     public String masBuscados(Model model) {
-        List<Receta> listaRecetas = recetaService.getAllRecetasByVistasDesc(10);
+        List<Receta> listaRecetas = recetaService.getAllRecetasByVistasDesc(9);
         model.addAttribute("listaRecetas",listaRecetas);
         return "index";
     }
