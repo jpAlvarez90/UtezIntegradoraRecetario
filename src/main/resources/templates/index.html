@@ -8,9 +8,11 @@
             <br>
             <!-- Cards -->
             <div class="container" style="padding-left: 60px; padding-right: 60px; padding-bottom: 50px;/* border-left: 8px solid #DD969C; border-right: 8px solid #DD969C */">
-                <div class="row row-cols-1 row-cols-md-3 g-4" >
-
-                    <div class="col" th:each="item, iStat: ${listaRecetas}">
+                <div th:if="${#lists.isEmpty(listaRecetas)}" class="recuadro_recetario">
+                    <h2 style="text-align: center;">No hay recetas publicadas</h2>
+                </div>
+                <div class="row row-cols-1 row-cols-md-3 g-4">
+                    <div th:if="${!listaRecetas.isEmpty()}" class="col" th:each="item, iStat: ${listaRecetas}">
                         <div th:class="'card index myborder'+${iStat.count}">
 
                             <div th:class="'imgButton imagenCard'+${iStat.count}" style="width: 100%;height: 200px;">

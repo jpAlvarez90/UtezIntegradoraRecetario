@@ -265,9 +265,10 @@ public class RecetaController {
     }
 
     @GetMapping("/eliminar-receta/{idRecetario}/{idReceta}")
-    public String eliminarReceta(@PathVariable("idRecetario") long idRecetario, @PathVariable("idReceta") long idReceta,Model model) {
+    public String eliminarReceta(@PathVariable("idRecetario") long idRecetario, @PathVariable("idReceta") long idReceta,Model model, RedirectAttributes redirectAttributes) {
         try {
             recetaService.deleteRecetaById(idReceta);
+            redirectAttributes.addFlashAttribute("eliminado",true);
             return "redirect:/ver-recetas/"+idRecetario;
         }catch (Exception e){
             mensaje = usuarioService.codigosError(e.toString());
@@ -296,7 +297,6 @@ public class RecetaController {
                usuario = tempUsuario.get();
                usuarioFollowRecetarioService.saveUsuarioFollowRecetario(recetario,usuario);
            }
-
            return "redirect:/ver-recetarios";
        }catch (Exception e){
            mensaje = usuarioService.codigosError(e.toString());

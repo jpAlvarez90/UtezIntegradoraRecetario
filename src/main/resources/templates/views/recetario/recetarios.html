@@ -8,46 +8,6 @@
             <!-- MIS RECETARIOS -->
             <div class="container">
 
-                <!-- Carrusel
-                <div class="recuadro_recetario">
-                    <h2>Últimas recetas</h2>
-                </div>
-                <div class="Carousel recuadro_recetario">
-                    <div class="slick-list" id="slick-list">
-                        <button class="slick-arrow slick-prev" id="button-prev" data-button="button-prev" onclick="app.processingButton(event)">
-                            <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="chevron-left"
-                                 class="svg-inline--fa fa-chevron-left fa-w-10" role="img" xmlns="http://www.w3.org/2000/svg"
-                                 viewBox="0 0 320 512">
-                                <path fill="currentColor"
-                                      d="M34.52 239.03L228.87 44.69c9.37-9.37 24.57-9.37 33.94 0l22.67 22.67c9.36 9.36 9.37 24.52.04 33.9L131.49 256l154.02 154.75c9.34 9.38 9.32 24.54-.04 33.9l-22.67 22.67c-9.37 9.37-24.57 9.37-33.94 0L34.52 272.97c-9.37-9.37-9.37-24.57 0-33.94z">
-                                </path>
-                            </svg>
-                        </button>
-                        <div class="slick-track" id="track" th:each="item, iStat : ${recetaList}">
-
-                            <div class="slick">
-                                <div >
-                                    <a th:href="@{'/ver-mi-receta/'+${item.idReceta}}">
-                                        <picture>
-                                            <img th:if="${#strings.contains(item.imagenes, 'default.jpg')}" th:src="@{'/uploads/default.jpg'}" th:class="'imagenCard'+${iStat.count}" style="border:none; width: 100%; height: 200px;"/>
-                                            <img th:unless="${#strings.contains(item.imagenes, 'default.jpg')}" th:src="@{'/uploads/'+${#strings.replace(item.titulo, ' ', '')}+'/'+${#strings.substringBefore(item.imagenes,';')}}" th:class="'imagenCard'+${iStat.count}" style="border:none; width: 100%; height: 200px;"/>
-                                        </picture>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <button class="slick-arrow slick-next" id="button-next" data-button="button-next" onclick="app.processingButton(event)">
-                            <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="chevron-right"
-                                 class="svg-inline--fa fa-chevron-right fa-w-10" role="img" xmlns="http://www.w3.org/2000/svg"
-                                 viewBox="0 0 320 512">
-                                <path fill="currentColor"
-                                      d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z">
-                                </path>
-                            </svg>
-                        </button>
-                    </div>
-                </div>
-                -->
                 <!-- RECETARIOS -->
                 <div class="recuadro_recetario">
                     <h2>Mis recetarios
@@ -58,18 +18,24 @@
                 </div>
 
                 <div style="padding: 20px;">
-                    <div style="background-color: #f3ecf3; margin-top: 15px; margin-bottom: 15px; padding: 25px;" th:each="item : ${recetarioList}" >
-                        <a th:href="@{'/ver-recetas/'+${item.idRecetario}}" style="text-decoration: none; color:#8a8f97;">
-                            <br>
-                            <div class="d-flex w-100 justify-content-between">
-                                <h5 style="font-size: 18pt;" class="mb-1" th:text="${item.nombre}"></h5>
-                                <small><a href="#" style="display: inline; text-decoration: none; color:#8a8f97; font-size: 15pt;"><i class="fas fa-times"></i></a></small>
-                            </div>
-                            <br>
-                        </a>
+                    <div th:if="${#lists.isEmpty(recetarioList)}" class="recuadro_recetario">
+                        <h2 style="text-align: center;">No hay recetarios</h2>
+                    </div>
+
+                    <div th:if="${!recetarioList.isEmpty()}" style="background-color: #f3ecf3; margin-top: 15px; margin-bottom: 15px; padding: 25px;" th:each="item : ${recetarioList}" >
+                        <br>
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 style="font-size: 18pt;" ><a style="text-decoration: none; color:#8a8f97;" th:href="@{'/ver-recetas/'+${item.idRecetario}}" th:text="${item.nombre}"></a></h5>
+
+                            <small>
+                                <button type="button" style="display: inline; text-decoration: none; outline: none; color:#8a8f97; font-size: 15pt; border: none;" th:onclick="|recetarioFunction(${item.idRecetario})|" >
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </small>
+                        </div>
+                        <br>
                     </div>
                 </div>
-                <!-- RECETARIOS -->
 
 
                 <!-- RECETARIOS GUARDADOS -->
@@ -78,18 +44,27 @@
                 </div>
 
                 <div style="padding: 20px;">
-                    <div style="background-color: #f3ecf3; margin-top: 15px; margin-bottom: 15px; padding: 25px;" th:each="item : ${ufrList}">
-                        <a th:href="@{'/ver-recetas-seguidas/'+${item.recetario.idRecetario}}" style="text-decoration: none; color:#8a8f97;">
+                    <div th:if="${#lists.isEmpty(ufrList)}" class="recuadro_recetario">
+                        <h2 style="text-align: center;">No hay recetarios seguidos</h2>
+                    </div>
+                    <div th:if="${!ufrList.isEmpty()}" style="background-color: #f3ecf3; margin-top: 15px; margin-bottom: 15px; padding: 25px;" th:each="item : ${ufrList}">
                             <br>
                             <div class="d-flex w-100 justify-content-between">
-                                <h5 style="font-size: 18pt;" th:text="${item.recetario.nombre}"></h5>
-                                <small><a th:href="@{'/dejar-seguir-recetario/'+${item.recetario.idRecetario}}" style="display: inline; text-decoration: none; color:#8a8f97; font-size: 15pt;"><i class="fas fa-heart-broken"></i></a></small>
+                                <h5 style="font-size: 18pt;" ><a style="text-decoration: none; color:#8a8f97;" th:href="@{'/ver-recetas-seguidas/'+${item.recetario.idRecetario}}" th:text="${item.recetario.nombre}"></a></h5>
+                                <small>
+                                    <!--
+                                    <a th:href="@{'/dejar-seguir-recetario/'+${item.recetario.idRecetario}}" style="display: inline; text-decoration: none; color:#8a8f97; font-size: 15pt;">
+                                        <i class="fas fa-heart-broken"></i>
+                                    </a>
+                                    -->
+                                    <button type="button" style="display: inline; text-decoration: none; outline: none; color:#8a8f97; font-size: 15pt; border: none;" th:onclick="|dejarRecetarioFunction(${item.recetario.idRecetario})|" >
+                                        <i class="fas fa-heart-broken"></i>
+                                    </button>
+                                </small>
                             </div>
                             <br>
-                        </a>
                     </div>
                 </div>
-                <!-- RECETARIOS GUARDADOS -->
             </div>
 
             <!-- Model -->
@@ -115,7 +90,49 @@
                     </div>
                 </div>
             </div>
-            <!-- Model-->
+
+            <!-- MyModal -->
+            <div class="modal fade" id="eliminarCampo" tabindex="-5" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content" style="background-color: rgb(255, 193, 36); border: none;">
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end" style="padding: 15px;">
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div style="text-align: center;">
+                                <div>
+                                    <div style="padding: 15px;">
+                                        <img src="/img/warning.svg" width="50%">
+                                    </div>
+                                </div>
+                                <br><br>
+                                <div style="background-color: #FFF; padding: 25px; border-radius: 25px;">
+                                    <div id="myModalTexto" style="margin-bottom: 15px;"></div>
+                                    <div id="myModalButtons"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <script>
+                function recetarioFunction(idRecetario){
+                    let botones = '<button class="btnCancelar" style="margin-right: 15px; outline: none;" data-bs-dismiss="modal">Cancelar</button> <a href="/eliminar-recetario/'+idRecetario+'" class="botonPer">Eliminar</a>';
+                    let texto = '<h2>Eliminar</h2><span>¿Estás seguro de eliminar este recetario?</span>';
+                    $('#myModalTexto').html(texto);
+                    $('#myModalButtons').html(botones);
+                    $("#eliminarCampo").modal('show');
+                }
+
+                function dejarRecetarioFunction(idRecetario){
+                    let botones = '<button class="btnCancelar" style="margin-right: 15px; outline: none;" data-bs-dismiss="modal">Cancelar</button> <a href="/dejar-seguir-recetario/'+idRecetario+'" class="botonPer">Dejar de seguir</a>';
+                    let texto = '<h2>Dejar de seguir</h2><span>¿Estás seguro de no seguir el recetario?</span>';
+                    $('#myModalTexto').html(texto);
+                    $('#myModalButtons').html(botones)
+                    $("#eliminarCampo").modal('show');
+                }
+            </script>
+
             <script th:if="${exito}" type="text/javascript">
                 toastr.success('Se registró con exito!', 'Exito');
             </script>

@@ -13,9 +13,12 @@
                     <h2><span th:text="${recetario.nombre}"></span> <a th:href="@{'/crear-receta/'+${recetario.idRecetario}}" style="text-decoration: none; color:#e0727b;"><i class="fas fa-plus-circle"></i></a></h2>
                 </div>
 
-                <div class="row">
-                    <div class="col-6 marginCard" th:each="item,iStat: ${recetaList}">
+                <div th:if="${#lists.isEmpty(recetaList)}" class="recuadro_recetario">
+                    <h2 style="text-align: center;">No hay recetas</h2>
+                </div>
 
+                <div th:if="${!recetaList.isEmpty()}" class="row">
+                    <div class="col-6 marginCard" th:each="item,iStat: ${recetaList}">
                         <div th:class="'card index mb-3 myborder'+${iStat.count}" style="max-width: 540px; /*height: 265px;*/">
                             <div class="row g-0">
                                 <div th:class="'col-md-4 imgButton imagenCard'+${iStat.count}" id="box">
@@ -39,7 +42,12 @@
                                             </div>
                                             <div class="col-lg-4">
                                                 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                                    <button type="button" class="btn-eliminar" th:onclick="|eliminarFunction('${item.idReceta}' , '${recetario.idRecetario}')|" >
+                                                        Eliminar
+                                                    </button>
+                                                    <!--
                                                     <a th:href="@{'/eliminar-receta/'+${recetario.idRecetario}+'/'+${item.idReceta}}" class="btn-eliminar" type="button">Eliminar</a>
+                                                    -->
                                                     <a th:href="@{'/editar-receta/'+${recetario.idRecetario}+'/'+${item.idReceta}}" class="btn-editar" type="button">Editar</a>
                                                 </div>
                                             </div>
@@ -51,7 +59,39 @@
                     </div>
                 </div>
             </div>
-            <!-- Cards-->
+            <!-- MyModal -->
+            <div class="modal fade" id="eliminarCampo" tabindex="-5" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content" style="background-color: rgb(255, 193, 36); border: none;">
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end" style="padding: 15px;">
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div style="text-align: center;">
+                                <div>
+                                    <div style="padding: 15px;">
+                                        <img src="/img/warning.svg" width="50%">
+                                    </div>
+                                </div>
+                                <br><br>
+                                <div style="background-color: #FFF; padding: 25px; border-radius: 25px;">
+                                    <div id="myModalTexto" style="margin-bottom: 15px;"></div>
+                                    <div id="myModalButtons"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <script>
+                function eliminarFunction(idReceta, idRecetario){
+                    let botones = '<button class="btnCancelar" style="margin-right: 15px; outline: none;" data-bs-dismiss="modal">Cancelar</button> <a href="/eliminar-receta/'+idRecetario+'/'+idReceta+'" class="botonPer">Eliminar</a>';
+                    let texto = '<h2>Eliminar</h2><span>¿Estás seguro de eliminar esta receta?</span>';
+                    $('#myModalTexto').html(texto);
+                    $('#myModalButtons').html(botones);
+                    $("#eliminarCampo").modal('show');
+                }
+            </script>
             <script th:if="${exito}" type="text/javascript">
                 toastr.success('Receta registrada con exito', 'Exito');
             </script>
@@ -60,6 +100,12 @@
             </script>
             <script th:if="${errorRecetaSoloTexto}" type="text/javascript">
                 toastr.error('Error: Solo se puede usar letras en el titulo y subtitulo de la receta', 'Error');
+            </script>
+            <script th:if="${eliminado}" type="text/javascript">
+                toastr.success('Receta eliminada con exito!', 'Exito');
+            </script>
+            <script th:if="${dejarSeguirExito}" type="text/javascript">
+                toastr.success('Receta no seguida!', 'Exito');
             </script>
         </div>
     </body>
