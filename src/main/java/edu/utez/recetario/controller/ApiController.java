@@ -27,16 +27,19 @@ public class ApiController {
 
     private CalificacionService calificacionService;
 
+    private BitacoraService bitacoraService;
+
     private ComentarioService comentarioService;
 
     @Autowired
-    public ApiController(CategoriaService categoriaService, SubCategoriaService subCategoriaService, RecetaService recetaService, UsuarioService usuarioService, CalificacionService calificacionService, ComentarioService comentarioService) {
+    public ApiController(CategoriaService categoriaService, SubCategoriaService subCategoriaService, RecetaService recetaService, UsuarioService usuarioService, CalificacionService calificacionService, ComentarioService comentarioService,BitacoraService bitacoraService) {
         this.categoriaService = categoriaService;
         this.subCategoriaService = subCategoriaService;
         this.recetaService = recetaService;
         this.usuarioService = usuarioService;
         this.calificacionService = calificacionService;
         this.comentarioService = comentarioService;
+        this.bitacoraService = bitacoraService;
     }
 
     @RequestMapping(value = "/subcategorias", method = RequestMethod.GET)
@@ -55,11 +58,8 @@ public class ApiController {
 
     @RequestMapping(value = "/calificar-receta", method = RequestMethod.POST)
     public String calificarReceta(@RequestParam(value = "idReceta") long idReceta,
-                                  @RequestParam(value = "calificacion") int calificacion) {
-
-        System.out.println("Id receta a calificar: "+idReceta);
-        System.out.println("Calificacion de la receta: "+calificacion);
-
+                                  @RequestParam(value = "calificacion") int calificacion,
+                                  Bitacora bitacora) {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
@@ -72,18 +72,20 @@ public class ApiController {
 
         boolean existeCalificacion = calificacionService.existCalificacionByRecetaAndUsuario(receta, usuario);
 
-        System.out.println("Existe la calificacion: "+existeCalificacion);
-
         if (!existeCalificacion) {
             Calificacion cal = new Calificacion(receta,usuario,calificacion);
             calificacionService.saveCalificacion(cal);
+            bitacora.setOperacion("Calificacion de receta - "+receta.getTitulo()+" por usuario -"+usuario.getUsername());
+            bitacora.setTabla("Calificacion");
+            bitacoraService.saveBitacora(bitacora);
+
         }
 
         return "redirect:/ver-receta/"+idReceta;
     }
 
     @PostMapping("/realizar-comentario")
-    public String realizarComentario(WebRequest webRequest) {
+    public String realizarComentario(WebRequest webRequest,Bitacora bitacora) {
 
         long idReceta = Long.parseLong(webRequest.getParameter("idReceta"));
         Receta receta = recetaService.getRecetaById(idReceta);
@@ -100,16 +102,17 @@ public class ApiController {
         Comentario comentarioSave = new Comentario(receta,usuario,comentario);
 
         comentarioService.saveComentario(comentarioSave);
+        bitacora.setOperacion("Comentario de receta - "+receta.getTitulo()+" por usuario -"+usuario.getUsername());
+        bitacora.setTabla("Comentario");
+        bitacoraService.saveBitacora(bitacora);
 
         return "redirect:/ver-receta/"+idReceta;
     }
 
     @GetMapping("/realizar-comentario-test")
     public @ResponseBody ComentarioDTO realizarComentarioTest(@RequestParam("idReceta") long idReceta,
-                                                              @RequestParam("comentario") String comentario) {
-
-        System.out.println(idReceta);
-        System.out.println(comentario);
+                                                              @RequestParam("comentario") String comentario,
+                                                              Bitacora bitacora) {
 
         Receta receta = recetaService.getRecetaById(idReceta);
 
@@ -124,6 +127,10 @@ public class ApiController {
 
         Comentario DTO = comentarioService.saveComentario(comentarioSave);
 
+        bitacora.setOperacion("Comentario de receta - "+receta.getTitulo()+" por usuario -"+usuario.getUsername());
+        bitacora.setTabla("Comentario");
+        bitacoraService.saveBitacora(bitacora);
+
         ComentarioDTO response = new ComentarioDTO(DTO.getReceta().getIdReceta(),
                 DTO.getComentario(),
                 DTO.getUsuario().getIdUsuario(),
@@ -136,7 +143,7 @@ public class ApiController {
 
     @RequestMapping(value = "/calificar-receta-test", method = RequestMethod.GET)
     public @ResponseBody boolean calificarRecetaTest(@RequestParam(value = "idReceta") long idReceta,
-                                  @RequestParam(value = "calificacion") int calificacion) {
+                                  @RequestParam(value = "calificacion") int calificacion, Bitacora bitacora) {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
@@ -152,6 +159,10 @@ public class ApiController {
         if (!existeCalificacion) {
             Calificacion cal = new Calificacion(receta,usuario,calificacion);
             calificacionService.saveCalificacion(cal);
+            bitacora.setOperacion("Calificacion de receta - "+receta.getTitulo()+" por usuario -"+usuario.getUsername());
+            bitacora.setTabla("Calificacion");
+            bitacoraService.saveBitacora(bitacora);
+
         }
 
         return true;
@@ -159,11 +170,8 @@ public class ApiController {
 
     @RequestMapping(value = "/subcategoriasMenu", method = RequestMethod.GET)
     public @ResponseBody List<SubCategoria> subCategoriasList(@RequestParam(value = "nombreCategoria") String nombreCategoria) {
-        System.out.println("1. Categoría: "+nombreCategoria);
         Categoria categoria = categoriaService.findByNombre(nombreCategoria);
         List<SubCategoria> subCategoriaList = subCategoriaService.getAllSubcategoriasByCategoria(categoria);
-        System.out.println("2. Subcategoría: "+subCategoriaList.size());
-
         return subCategoriaList;
     }
 

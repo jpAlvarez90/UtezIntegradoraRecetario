@@ -1,8 +1,10 @@
 package edu.utez.recetario.controller;
 
+import edu.utez.recetario.model.Bitacora;
 import edu.utez.recetario.model.Categoria;
 import edu.utez.recetario.model.SubCategoria;
 import edu.utez.recetario.model.Usuario;
+import edu.utez.recetario.service.BitacoraService;
 import edu.utez.recetario.service.CategoriaService;
 import edu.utez.recetario.service.SubCategoriaService;
 import edu.utez.recetario.service.UsuarioService;
@@ -46,6 +48,9 @@ public class PerfilController {
     @Autowired
     PasswordEncoder passwordEncoder;
 
+    @Autowired
+    BitacoraService bitacoraService;
+
     private String mensaje;
 
     @GetMapping("/perfil")
@@ -86,14 +91,13 @@ public class PerfilController {
             return "views/perfil/perfil";
         }catch (Exception e){
             mensaje = usuarioService.codigosError(e.toString());
-            System.out.println("Error en el controller de Perfil -> categoria"+mensaje);
             model.addAttribute("mensaje",mensaje);
             return "error/error";
         }
     }
 
     @PostMapping("/crearCategoria")
-    public String crearCategoria (Model model, @Valid Categoria categoria, RedirectAttributes ra, Errors errors){
+    public String crearCategoria (Model model, @Valid Categoria categoria, Bitacora bitacora, RedirectAttributes ra, Errors errors){
 
         try {
             if(errors.hasErrors()){
@@ -101,11 +105,17 @@ public class PerfilController {
                 return "redirect:/crearCategoria";
             }
             ra.addFlashAttribute("exito","registró");
+            if (categoria.getIdCategoria() != null){
+                bitacora.setOperacion("Editar Categoria - "+categoria.getNombre());
+            }else{
+                bitacora.setOperacion("Insertar Categoria - "+categoria.getNombre());
+            }
             categoriaService.saveCategoria(categoria);
+            bitacora.setTabla("Categoria");
+            bitacoraService.saveBitacora(bitacora);
             return "redirect:/perfil";
         }catch (Error e){
             mensaje = usuarioService.codigosError(e.toString());
-            System.out.println("Error en el controller de Perfil -> crearCategoria"+mensaje);
             model.addAttribute("mensaje",mensaje);
             return "error/error";
         }
@@ -139,22 +149,23 @@ public class PerfilController {
             return "views/perfil/perfil";
         }catch (Exception e){
             mensaje = usuarioService.codigosError(e.toString());
-            System.out.println("Error en el controller de Perfil -> editarCategoria"+mensaje);
             model.addAttribute("mensaje",mensaje);
             return "error/error";
         }
     }
 
     @GetMapping("/eliminarCategoria/{idCategoria}")
-    public String eliminarCategoria (@PathVariable("idCategoria") long idCategoria, RedirectAttributes ra,Model model){
+    public String eliminarCategoria (@PathVariable("idCategoria") long idCategoria,Bitacora bitacora, RedirectAttributes ra,Model model){
 
         try{
             ra.addFlashAttribute("exitoEliminar","Se elimino");
             categoriaService.deleteCategoriaById(idCategoria);
+            bitacora.setTabla("Categoria");
+            bitacora.setOperacion("Eliminar Categoria");
+            bitacoraService.saveBitacora(bitacora);
             return "redirect:/perfil";
         }catch (java.lang.Error e){
             mensaje = usuarioService.codigosError(e.toString());
-            System.out.println("Error en el controller de Perfil -> eliminarCategoria"+mensaje);
             model.addAttribute("mensaje",mensaje);
             return "error/error";
         }
@@ -164,12 +175,12 @@ public class PerfilController {
 
     @PostMapping("/crearSubcategoria")
     public String crearSubcategoria ( @Valid SubCategoria subCategoria,
+                                      Bitacora bitacora,
                                       RedirectAttributes ra,
                                       Model model,
                                       WebRequest request,
                                       Errors errors){
         if(errors.hasErrors()){
-            System.out.println("Error de subcattegoria");
             ra.addFlashAttribute("error","hay un error");
             return "redirect:/perfil";
         }
@@ -182,11 +193,17 @@ public class PerfilController {
             }
             subCategoria.setCategoria(categoriaService.getCategoriaById(category_id));
             ra.addFlashAttribute("exito","todo bien");
+            if (subCategoria.getIdSubCategoria() != null){
+                bitacora.setOperacion("Editar Subcategoria - "+subCategoria.getNombre());
+            }else{
+                bitacora.setOperacion("Insertar Subcategoria - "+subCategoria.getNombre());
+            }
             subCategoriaService.saveSubCategoria(subCategoria);
+            bitacora.setTabla("Subcategoria");
+            bitacoraService.saveBitacora(bitacora);
             return "redirect:/perfil";
        }catch (Exception e){
             mensaje = usuarioService.codigosError(e.toString());
-            System.out.println("Error en el controller de Perfil -> crearSubcategoria"+mensaje);
             model.addAttribute("mensaje",mensaje);
             return "error/error";
        }
@@ -199,9 +216,6 @@ public class PerfilController {
             subcategoria = subCategoriaService.getSubCategoriaById(idSubCategoria);
             List<SubCategoria> listaSubcategorias = subCategoriaService.getAllSubCategorias();
             List<Categoria> listaCategoria = categoriaService.getAllCategorias();
-
-            System.out.println("Sub "+idSubCategoria);
-            System.out.println("nombre SUb "+subcategoria.getCategoria().getIdCategoria());
 
             model.addAttribute("listaCategoria",listaCategoria);
             model.addAttribute("listaSubcategoria",listaSubcategorias);
@@ -222,22 +236,23 @@ public class PerfilController {
             return "views/perfil/perfil";
         }catch (Exception e){
             mensaje = usuarioService.codigosError(e.toString());
-            System.out.println("Error en el controller de Perfil -> editarSubcategoria"+mensaje);
             model.addAttribute("mensaje",mensaje);
             return "error/error";
         }
     }
 
     @GetMapping("/eliminarSubcategoria/{idSubCategoria}")
-    public String eliminarSubCategoria (@PathVariable("idSubCategoria") long idSubCategoria,RedirectAttributes ra,Model model){
+    public String eliminarSubCategoria (@PathVariable("idSubCategoria") long idSubCategoria,Bitacora bitacora,RedirectAttributes ra,Model model){
 
         try{
             ra.addFlashAttribute("exitoEliminar","Se elimino");
             subCategoriaService.deleteSubCategoriaById(idSubCategoria);
+            bitacora.setTabla("Subcategoria");
+            bitacora.setOperacion("Eliminar Subcategoria");
+            bitacoraService.saveBitacora(bitacora);
             return "redirect:/perfil";
         }catch (Error e){
             mensaje = usuarioService.codigosError(e.toString());
-            System.out.println("Error en el controller de Perfil -> eliminarSubcategoria"+mensaje);
             model.addAttribute("mensaje",mensaje);
             return "error/error";
         }
@@ -246,20 +261,21 @@ public class PerfilController {
     }
 
     @PostMapping("editarPerfil")
-    public String editarPerfil (Model model,Usuario usuario , WebRequest request){
+    public String editarPerfil (Model model,Usuario usuario , Bitacora bitacora , WebRequest request){
 
         try {
             String password = request.getParameter("passwordInput") ;
             if (!password.isEmpty()){
                 usuario.setPassword(password);
                 usuarioService.saveUsuarioPerfil(usuario);
+
             }else {
                 usuarioService.savePerfil(usuario);
+
             }
             return "redirect:/perfil";
         }catch (Exception e) {
             mensaje = usuarioService.codigosError(e.toString());
-            System.out.println("Error en el controller de Perfil -> editarPerfil" + mensaje);
             model.addAttribute("mensaje", mensaje);
             return "error/error";
         }

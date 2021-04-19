@@ -1,7 +1,9 @@
 package edu.utez.recetario.controller;
 
+import edu.utez.recetario.model.Bitacora;
 import edu.utez.recetario.model.Receta;
 import edu.utez.recetario.model.Usuario;
+import edu.utez.recetario.service.BitacoraService;
 import edu.utez.recetario.service.EnvioEmail;
 import edu.utez.recetario.service.RecetaService;
 import edu.utez.recetario.service.UsuarioService;
@@ -34,13 +36,16 @@ public class RecuperarContraseña {
     private JavaMailSender mailSender;
 
     @Autowired
-    UsuarioService usuarioService;
+    private UsuarioService usuarioService;
 
     @Autowired
     private SpringTemplateEngine templateEngine;
 
     @Autowired
     private RecetaService recetaService;
+
+    @Autowired
+    private BitacoraService bitacoraService;
 
     private String mensaje;
 
@@ -102,7 +107,7 @@ public class RecuperarContraseña {
     }
 
     @PostMapping("/cambiarContrasena")
-    public String cambiarContrasena (Model model,Usuario usuario, WebRequest request){
+    public String cambiarContrasena (Model model,Usuario usuario,Bitacora bitacora, WebRequest request){
        try {
            List<Receta> listaRecetas = recetaService.getAllRecetasByOrderADesc(9);
            model.addAttribute("listaRecetas", listaRecetas);
@@ -114,9 +119,12 @@ public class RecuperarContraseña {
            if (contraNueva.equals(contraConfirmacion)){
                usuario.setPassword(contraNueva);
                usuarioService.saveUsuarioPerfil(usuario);
+               bitacora.setOperacion("Recuperar contraseña por correo electronico por el usuario - "+usuario.getUsername());
+               bitacora.setTabla("Usuario");
+               bitacoraService.saveBitacora(bitacora);
            }
 
-           return "index";
+           return "redirect:/login";
        }catch (Exception e){
            mensaje = usuarioService.codigosError(e.toString());
            model.addAttribute("mensaje",mensaje);

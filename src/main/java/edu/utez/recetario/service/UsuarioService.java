@@ -67,14 +67,6 @@ public class UsuarioService implements UsuarioInterface {
 
     @Override
     public Usuario saveUsuarioPerfil(Usuario usuario) {
-        System.out.println(usuario.getIdUsuario());
-        System.out.println(usuario.getUsername());
-        System.out.println(usuario.getPassword());
-        System.out.println(usuario.getCorreo());
-        System.out.println(usuario.getRol().getRol());
-        System.out.println(usuario.getNombre());
-        System.out.println(usuario.getPrimerApellido());
-        System.out.println(usuario.getSegundoApellido());
 
         try {
             if (usuario.getRol().getRol() == "ROLE_ADMIN" ){

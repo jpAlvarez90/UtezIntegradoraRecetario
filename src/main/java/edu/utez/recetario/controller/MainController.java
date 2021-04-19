@@ -50,7 +50,6 @@ public class MainController {
             return "index";
         }catch (Exception e){
             mensaje = usuarioService.codigosError(e.toString());
-            System.out.println("Error en el Main Controller -> main"+mensaje);
             model.addAttribute("mensaje",mensaje);
             return "error/error";
         }
@@ -71,7 +70,6 @@ public class MainController {
             return "index";
         }catch (Exception e){
             mensaje = usuarioService.codigosError(e.toString());
-            System.out.println("Error en el Main Controller -> mejorCalificadas"+mensaje);
             model.addAttribute("mensaje",mensaje);
             return "error/error";
         }
@@ -85,7 +83,6 @@ public class MainController {
             return "index";
         }catch (Exception e){
             mensaje = usuarioService.codigosError(e.toString());
-            System.out.println("Error en el Main Controller -> masBuscados"+mensaje);
             model.addAttribute("mensaje",mensaje);
             return "error/error";
         }
@@ -112,7 +109,6 @@ public class MainController {
             return "index";
         }catch (Exception e){
             mensaje = usuarioService.codigosError(e.toString());
-            System.out.println("Error en el Main Controller -> porCategoria"+mensaje);
             model.addAttribute("mensaje",mensaje);
             return "error/error";
         }
@@ -135,7 +131,6 @@ public class MainController {
            return "/views/receta/ver_receta";
        }catch (Exception e){
            mensaje = usuarioService.codigosError(e.toString());
-           System.out.println("Error en el Main Controller -> verReceta"+mensaje);
            model.addAttribute("mensaje",mensaje);
            return "error/error";
        }

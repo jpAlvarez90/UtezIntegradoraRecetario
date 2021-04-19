@@ -50,12 +50,14 @@ public class RecetaController {
 
     private AlmacenamientoImagenesService almacenamientoImagenesService;
 
+    private BitacoraService bitacoraService;
+
     private String mensaje;
 
     Logger logger = LoggerFactory.getLogger(RecetaController.class);
 
     @Autowired
-    public RecetaController(RecetarioService recetarioService, RecetaService recetaService, ComentarioService comentarioService, UsuarioService usuarioService, CategoriaService categoriaService, SubCategoriaService subCategoriaService, UsuarioFollowRecetarioService usuarioFollowRecetarioService, CalificacionService calificacionService, AlmacenamientoImagenesService almacenamientoImagenesService) {
+    public RecetaController(RecetarioService recetarioService, RecetaService recetaService, ComentarioService comentarioService, UsuarioService usuarioService, CategoriaService categoriaService, SubCategoriaService subCategoriaService, UsuarioFollowRecetarioService usuarioFollowRecetarioService, CalificacionService calificacionService, AlmacenamientoImagenesService almacenamientoImagenesService,BitacoraService bitacoraService) {
         this.recetarioService = recetarioService;
         this.recetaService = recetaService;
         this.comentarioService = comentarioService;
@@ -65,6 +67,7 @@ public class RecetaController {
         this.usuarioFollowRecetarioService = usuarioFollowRecetarioService;
         this.calificacionService = calificacionService;
         this.almacenamientoImagenesService = almacenamientoImagenesService;
+        this.bitacoraService = bitacoraService;
     }
 
     @GetMapping("/ver-recetas/{idRecetario}")
@@ -81,7 +84,6 @@ public class RecetaController {
            return "views/receta/recetas";
        }catch (Exception e){
            mensaje = usuarioService.codigosError(e.toString());
-           System.out.println("Error en el controller de Receta -> verReceta"+mensaje);
            model.addAttribute("mensaje",mensaje);
            return "error/error";
        }
@@ -102,7 +104,6 @@ public class RecetaController {
            return "views/receta/recetas_seguidas";
        }catch (Exception e){
            mensaje = usuarioService.codigosError(e.toString());
-           System.out.println("Error en el controller de Receta -> verRecetasSeguidas"+mensaje);
            model.addAttribute("mensaje",mensaje);
            return "error/error";
        }
@@ -119,7 +120,6 @@ public class RecetaController {
             return "views/receta/ver_receta_seguida";
         }catch (Exception e){
             mensaje = usuarioService.codigosError(e.toString());
-            System.out.println("Error en el controller de Receta -> verRecetaSeguida"+mensaje);
             model.addAttribute("mensaje",mensaje);
             return "error/error";
         }
@@ -139,19 +139,10 @@ public class RecetaController {
            return "views/receta/formulario";
        }catch (Exception e){
            mensaje = usuarioService.codigosError(e.toString());
-           System.out.println("Error en el controller de Receta -> crearReceta"+mensaje);
            model.addAttribute("mensaje",mensaje);
            return "error/error";
        }
     }
-
-    /*@RequestMapping(value = "/subcategorias", method = RequestMethod.GET)
-    public @ResponseBody List<SubCategoria> subCategoriasList(@RequestParam(value = "idCategoria") long idCategoria,Model model) {
-
-        Categoria categoria = categoriaService.getCategoriaById(idCategoria);
-        List<SubCategoria> subCategoriaList = subCategoriaService.getAllSubcategoriasByCategoria(categoria);
-        return subCategoriaList;
-    }*/
 
 
     @PostMapping("/crear-receta")
@@ -162,6 +153,7 @@ public class RecetaController {
                               RedirectAttributes redirectAttributes,
                               Errors errors,
                               Model model,
+                              Bitacora bitacora,
                               HttpSession session) {
 
         try {
@@ -233,7 +225,6 @@ public class RecetaController {
                 }
             } catch (Exception e) {
                 receta.setImagenes("default.jpg;");
-                System.out.println("No se pudieron subir las imagenes");
             }
 
             receta.setCategoria(categoria);
@@ -242,13 +233,19 @@ public class RecetaController {
             receta.setFechaPublicacion(new Date());
 
             redirectAttributes.addFlashAttribute("exito",true);
+            if (receta.getIdReceta() != null){
+                bitacora.setOperacion("Editar Receta - "+receta.getTitulo());
+            }else {
+                bitacora.setOperacion("Insertar Receta - " + receta.getTitulo());
+            }
             recetaService.saveReceta(receta);
+            bitacora.setTabla("Receta");
+            bitacoraService.saveBitacora(bitacora);
 
             return "redirect:/ver-recetas/"+idRecetario;
 
         }catch (Exception e){
             mensaje = usuarioService.codigosError(e.toString());
-            System.out.println("Error en el controller de Receta -> crearReceta"+mensaje);
             model.addAttribute("mensaje",mensaje);
             return "error/error";
         }
@@ -275,21 +272,21 @@ public class RecetaController {
             return "views/receta/formulario";
         }catch (Exception e){
             mensaje = usuarioService.codigosError(e.toString());
-            System.out.println("Error en el controller de Receta -> editarReceta"+mensaje);
             model.addAttribute("mensaje",mensaje);
             return "error/error";
         }
     }
 
     @GetMapping("/eliminar-receta/{idRecetario}/{idReceta}")
-    public String eliminarReceta(@PathVariable("idRecetario") long idRecetario, @PathVariable("idReceta") long idReceta,Model model, RedirectAttributes redirectAttributes) {
+    public String eliminarReceta(@PathVariable("idRecetario") long idRecetario, @PathVariable("idReceta") long idReceta, Bitacora bitacora,Model model, RedirectAttributes redirectAttributes) {
         try {
             recetaService.deleteRecetaById(idReceta);
             redirectAttributes.addFlashAttribute("eliminado",true);
+            bitacora.setTabla("Receta");
+            bitacora.setOperacion("Eliminar Receta");
             return "redirect:/ver-recetas/"+idRecetario;
         }catch (Exception e){
             mensaje = usuarioService.codigosError(e.toString());
-            System.out.println("Error en el controller de Receta -> eliminarReceta"+mensaje);
             model.addAttribute("mensaje",mensaje);
             return "error/error";
         }
@@ -298,7 +295,7 @@ public class RecetaController {
 
     // El recetario del path param es el que esta en la receta
     @GetMapping("/seguir-recetario/{idRecetario}")
-    public String seguirRecetario(@PathVariable("idRecetario") long idRecetario,Model model) {
+    public String seguirRecetario(@PathVariable("idRecetario") long idRecetario,Bitacora bitacora,Model model) {
 
        try {
            Recetario recetario = recetarioService.getRecetarioById(idRecetario);
@@ -313,12 +310,14 @@ public class RecetaController {
            if (tempUsuario.isPresent()) {
                usuario = tempUsuario.get();
                usuarioFollowRecetarioService.saveUsuarioFollowRecetario(recetario,usuario);
+               bitacora.setOperacion("Seguir recetario - "+recetario.getNombre()+" por usuario "+username);
+               bitacora.setTabla("usuario_follow_recetario");
+               bitacoraService.saveBitacora(bitacora);
            }
            return "redirect:/ver-recetarios";
-       }catch (Exception e){
+       }catch (Exception e) {
            mensaje = usuarioService.codigosError(e.toString());
-           System.out.println("Error en el controller de Receta -> seguirRecetario"+mensaje);
-           model.addAttribute("mensaje",mensaje);
+                  model.addAttribute("mensaje",mensaje);
            return "error/error";
        }
     }
@@ -340,7 +339,6 @@ public class RecetaController {
             return "views/receta/ver_receta_simple";
         } catch (Exception e){
             mensaje = usuarioService.codigosError(e.toString());
-            System.out.println("Error en el controller de Receta -> verRecetasSeguidas"+mensaje);
             model.addAttribute("mensaje",mensaje);
             return "error/404";
         }

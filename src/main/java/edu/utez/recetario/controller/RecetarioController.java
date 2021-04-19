@@ -1,13 +1,7 @@
 package edu.utez.recetario.controller;
 
-import edu.utez.recetario.model.Receta;
-import edu.utez.recetario.model.Recetario;
-import edu.utez.recetario.model.Usuario;
-import edu.utez.recetario.model.UsuarioFollowRecetario;
-import edu.utez.recetario.service.RecetaService;
-import edu.utez.recetario.service.RecetarioService;
-import edu.utez.recetario.service.UsuarioFollowRecetarioService;
-import edu.utez.recetario.service.UsuarioService;
+import edu.utez.recetario.model.*;
+import edu.utez.recetario.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -37,14 +31,17 @@ public class RecetarioController {
 
     private UsuarioFollowRecetarioService usuarioFollowRecetarioService;
 
+    private BitacoraService bitacoraService;
+
     private String mensaje;
 
     @Autowired
-    public RecetarioController(RecetarioService recetarioService, RecetaService recetaService, UsuarioService usuarioService, UsuarioFollowRecetarioService usuarioFollowRecetarioService) {
+    public RecetarioController(RecetarioService recetarioService, RecetaService recetaService, UsuarioService usuarioService, UsuarioFollowRecetarioService usuarioFollowRecetarioService,BitacoraService bitacoraService) {
         this.recetarioService = recetarioService;
         this.recetaService = recetaService;
         this.usuarioService = usuarioService;
         this.usuarioFollowRecetarioService = usuarioFollowRecetarioService;
+        this.bitacoraService = bitacoraService;
     }
 
     @GetMapping("/ver-recetarios")
@@ -80,7 +77,6 @@ public class RecetarioController {
             return "views/recetario/recetarios";
         }catch (Exception e){
             mensaje = usuarioService.codigosError(e.toString());
-            System.out.println("Error en el controller de Recetario -> misRecetarios "+mensaje);
             model.addAttribute("mensaje",mensaje);
             return "error/error";
         }
@@ -88,7 +84,7 @@ public class RecetarioController {
     }
 
     @PostMapping("/registrar-recetario")
-    public String registrarRecetario(@Valid Recetario recetario, Errors errors, RedirectAttributes ra,Model model) {
+    public String registrarRecetario(@Valid Recetario recetario, Bitacora bitacora, Errors errors, RedirectAttributes ra,Model model) {
         try {
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             UserDetails userDetails = (UserDetails) authentication.getPrincipal();
@@ -102,17 +98,19 @@ public class RecetarioController {
             }
             ra.addFlashAttribute("exito","Todo salio bien");
             recetarioService.saveRecetario(recetario);
+            bitacora.setTabla("Recetario");
+            bitacora.setOperacion("Insertar Recetario - "+recetario.getNombre());
+            bitacoraService.saveBitacora(bitacora);
             return "redirect:/ver-recetarios";
         }catch (Exception e){
             mensaje = usuarioService.codigosError(e.toString());
-            System.out.println("Error en el controller de Recetario -> registrarRecetario "+mensaje);
             model.addAttribute("mensaje",mensaje);
             return "error/error";
         }
     }
 
     @GetMapping("/eliminar-recetario/{idRecetario}")
-    public String eliminarRecetario(@PathVariable("idRecetario") long idRecetario, RedirectAttributes redirectAttributes, Model model) {
+    public String eliminarRecetario(@PathVariable("idRecetario") long idRecetario,Bitacora bitacora, RedirectAttributes redirectAttributes, Model model) {
 
         try{
             Recetario recetario = recetarioService.getRecetarioById(idRecetario);
@@ -123,19 +121,21 @@ public class RecetarioController {
             }
 
             recetarioService.deleteRecetarioById(idRecetario);
+            bitacora.setTabla("Recetario");
+            bitacora.setOperacion("Eliminar Recetario ");
+            bitacoraService.saveBitacora(bitacora);
             redirectAttributes.addFlashAttribute("eliminado",true);
 
             return "redirect:/ver-recetarios";
         }catch (Exception e){
             mensaje = usuarioService.codigosError(e.toString());
-            System.out.println("Error en el controller de Recetario -> Eliminar Recetario "+mensaje);
             model.addAttribute("mensaje",mensaje);
             return "error/error";
         }
     }
 
     @GetMapping("/dejar-seguir-recetario/{idRecetario}")
-    public String dejarSeguirRecetario(@PathVariable("idRecetario") long idRecetario, RedirectAttributes redirectAttributes, Model model) {
+    public String dejarSeguirRecetario(@PathVariable("idRecetario") long idRecetario,Bitacora bitacora, RedirectAttributes redirectAttributes, Model model) {
 
        try {
            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -150,13 +150,14 @@ public class RecetarioController {
            UsuarioFollowRecetario ufr = usuarioFollowRecetarioService.getUsuarioFollowingRecetario(usuario, recetario);
 
            usuarioFollowRecetarioService.deleteUsuarioFollowRecetario(ufr);
-
+           bitacora.setTabla("usuario_follow_recetario");
+           bitacora.setOperacion("Dejar de seguir Recetario - "+recetario.getNombre());
+           bitacoraService.saveBitacora(bitacora);
            redirectAttributes.addFlashAttribute("dejarSeguirRecetario", true);
 
            return "redirect:/ver-recetarios";
        }catch (Exception e){
            mensaje = usuarioService.codigosError(e.toString());
-           System.out.println("Error en el controller de Recetario -> dejarSeguirRecetario "+mensaje);
            model.addAttribute("mensaje",mensaje);
            return "error/error";
        }
