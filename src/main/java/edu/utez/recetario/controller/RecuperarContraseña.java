@@ -78,14 +78,11 @@ public class RecuperarContraseña {
                 helper.setSubject("Recuperar Contraseña");
                 helper.setText(html,true);
                 mailSender.send(mimeMessage);
-            }else {
-                System.out.println("No hay coincidencias");
             }
 
             return "redirect:index";
         }catch (Exception e){
             mensaje = usuarioService.codigosError(e.toString());
-            System.out.println("Error en el controller de RecuperarContraseña -> sendEmail"+mensaje);
             model.addAttribute("mensaje",mensaje);
             return "error/error";
         }
@@ -99,7 +96,6 @@ public class RecuperarContraseña {
             return "recuperar_contrasena_2";
         }catch (Exception e){
             mensaje = usuarioService.codigosError(e.toString());
-            System.out.println("Error en el controller de RecuperarContraseña -> cambioContrasena "+mensaje);
             model.addAttribute("mensaje",mensaje);
             return "error/error";
         }
@@ -114,17 +110,15 @@ public class RecuperarContraseña {
            String contraNueva = request.getParameter("contraNueva");
            String contraConfirmacion = request.getParameter("contraConfirmacion");
 
+
            if (contraNueva.equals(contraConfirmacion)){
                usuario.setPassword(contraNueva);
                usuarioService.saveUsuarioPerfil(usuario);
-           }else{
-               System.out.println("Son diferentes");
            }
 
            return "index";
        }catch (Exception e){
            mensaje = usuarioService.codigosError(e.toString());
-           System.out.println("Error en el controller de RecuperarContraseña -> cambiarContrasena "+mensaje);
            model.addAttribute("mensaje",mensaje);
            return "error/error";
        }
