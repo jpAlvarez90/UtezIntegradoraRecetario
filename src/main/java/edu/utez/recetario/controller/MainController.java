@@ -1,13 +1,7 @@
 package edu.utez.recetario.controller;
 
-import edu.utez.recetario.model.Calificacion;
-import edu.utez.recetario.model.Comentario;
-import edu.utez.recetario.model.Receta;
-import edu.utez.recetario.model.Usuario;
-import edu.utez.recetario.service.CalificacionService;
-import edu.utez.recetario.service.ComentarioService;
-import edu.utez.recetario.service.RecetaService;
-import edu.utez.recetario.service.UsuarioService;
+import edu.utez.recetario.model.*;
+import edu.utez.recetario.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -30,22 +24,28 @@ public class MainController {
 
     private CalificacionService calificacionService;
 
+    private CategoriaService categoriaService;
+
+    private SubCategoriaService subCategoriaService;
+
     private UsuarioService usuarioService;
 
     private String mensaje;
 
     @Autowired
-    public MainController(RecetaService recetaService, ComentarioService comentarioService, CalificacionService calificacionService, UsuarioService usuarioService) {
+    public MainController(RecetaService recetaService, ComentarioService comentarioService, CalificacionService calificacionService, CategoriaService categoriaService, SubCategoriaService subCategoriaService) {
         this.recetaService = recetaService;
         this.comentarioService = comentarioService;
         this.calificacionService = calificacionService;
-        this.usuarioService = usuarioService;
+        this.categoriaService = categoriaService;
+        this.subCategoriaService = subCategoriaService;
     }
 
     @GetMapping("/")
     public String main(Model model){
+
         try{
-            List<Receta> listaRecetas= recetaService.getAllRecetasByOrderADesc(10);
+            List<Receta> listaRecetas= recetaService.getAllRecetasByOrderADesc(9);
             model.addAttribute("listaRecetas",listaRecetas);
             return "index";
         }catch (Exception e){
@@ -80,7 +80,7 @@ public class MainController {
     @GetMapping("/mas-buscados")
     public String masBuscados(Model model) {
         try{
-            List<Receta> listaRecetas = recetaService.getAllRecetasByVistasDesc(10);
+            List<Receta> listaRecetas = recetaService.getAllRecetasByVistasDesc(9);
             model.addAttribute("listaRecetas",listaRecetas);
             return "index";
         }catch (Exception e){
@@ -89,11 +89,26 @@ public class MainController {
             model.addAttribute("mensaje",mensaje);
             return "error/error";
         }
+
     }
 
-    @GetMapping("/{idCategoria}")
+    @GetMapping("/f/categoria/{idCategoria}")
     public String porCategoria(@PathVariable("idCategoria") long idCategoria, Model model) {
+        Categoria categoria = categoriaService.getCategoriaById(idCategoria);
+        List<Receta> listaRecetas = recetaService.getAllRecetasByCategoria(categoria);
+        model.addAttribute("listaRecetas",listaRecetas);
+        return "index";
+    }
+
+    @GetMapping("/f/categoria/{idCategoria}/subcategoria/{idSubCategoria}")
+    public String porCategoriaYSubCategoria(@PathVariable("idCategoria") long idCategoria,
+                                            @PathVariable("idSubCategoria") long idSubCategoria,
+                                            Model model) {
         try{
+            Categoria categoria = categoriaService.getCategoriaById(idCategoria);
+            SubCategoria subCategoria = subCategoriaService.getSubCategoriaById(idSubCategoria);
+            List<Receta> listaRecetas = recetaService.getAllRecetasBySubCategoria(categoria, subCategoria);
+            model.addAttribute("listaRecetas",listaRecetas);
             return "index";
         }catch (Exception e){
             mensaje = usuarioService.codigosError(e.toString());
@@ -101,6 +116,8 @@ public class MainController {
             model.addAttribute("mensaje",mensaje);
             return "error/error";
         }
+
+
     }
 
     @GetMapping("/ver-receta/{idReceta}")

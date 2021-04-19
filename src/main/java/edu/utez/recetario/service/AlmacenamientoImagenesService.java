@@ -1,20 +1,19 @@
 package edu.utez.recetario.service;
 
-import edu.utez.recetario.model.Receta;
-import edu.utez.recetario.serviceInterface.AlmacenamientoImagenesInterface;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 
 @Service
-public class AlmacenamientoImagenesService implements AlmacenamientoImagenesInterface {
+public class AlmacenamientoImagenesService {
 
     private final Path root = Paths.get("uploads");
-    private  UsuarioService usuarioService;
 
     @Override
     public void init() {
@@ -22,7 +21,6 @@ public class AlmacenamientoImagenesService implements AlmacenamientoImagenesInte
             if (!Files.exists(root))
                 Files.createDirectory(root);
         } catch (IOException e) {
-            usuarioService.codigosError(e.toString());
             throw new RuntimeException("No se pudo inizializar la carpeta de las imagenes");
         }
     }
@@ -37,13 +35,15 @@ public class AlmacenamientoImagenesService implements AlmacenamientoImagenesInte
         }
     }
 
-    public void aSave(MultipartFile multipartFile, long idRecetario, int cont) {
+    public void deleteImage(String imageName) {
         try {
-            Files.copy(multipartFile.getInputStream(), this.root.resolve("receta_"+idRecetario+"_"+cont+"_"+multipartFile.getOriginalFilename()));
+            if (Files.exists(Paths.get("src/main/resources/static/uploads", imageName))) {
+                Files.delete(Paths.get("src/main/resources/static/uploads", imageName));
+            }
         } catch (IOException e) {
-            usuarioService.codigosError(e.toString());
             throw new RuntimeException("No se pudo guardar el archivo. Error :: "+e.getMessage());
         }
+
     }
 
 

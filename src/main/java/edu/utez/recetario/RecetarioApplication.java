@@ -30,6 +30,6 @@ public class RecetarioApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        almacenamientoImagenesService.init();
+        //almacenamientoImagenesService.init();
     }
 }

@@ -10,6 +10,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ObjectError;
@@ -18,9 +19,9 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.*;
-import java.util.concurrent.atomic.AtomicInteger;
 
 @Controller
 public class RecetaController {
@@ -83,7 +84,6 @@ public class RecetaController {
     // Recetas del recetario seguido
     @GetMapping("/ver-recetas-seguidas/{idRecetario}")
     public String verRecetasSeguidas(@PathVariable("idRecetario") long idRecetario, Model model) {
-
        try {
            Recetario recetario = recetarioService.getRecetarioById(idRecetario);
            List<Receta> recetaList = recetaService.getAllRecetasByRecetario(recetario);
@@ -110,7 +110,7 @@ public class RecetaController {
         try {
             Receta receta = recetaService.getRecetaById(idReceta);
             model.addAttribute("receta",receta);
-            return "/views/receta/ver_receta_seguida";
+            return "views/receta/ver_receta_seguida";
         }catch (Exception e){
             mensaje = usuarioService.codigosError(e.toString());
             System.out.println("Error en el controller de Receta -> verRecetaSeguida"+mensaje);
@@ -152,10 +152,11 @@ public class RecetaController {
     public String crearReceta(@Valid Receta receta,
                               BindingResult bindingResult,
                               WebRequest webRequest,
-                              @RequestParam("imgs")MultipartFile[] files,
+                              @RequestParam("imgs") MultipartFile[] files,
                               RedirectAttributes redirectAttributes,
                               Errors errors,
-                              Model model) {
+                              Model model,
+                              HttpSession session) {
 
         try {
             long idRecetario = Long.parseLong(webRequest.getParameter("recetario"));
@@ -194,12 +195,13 @@ public class RecetaController {
             }
 
             List<String> fileNames = new ArrayList<>();
-            AtomicInteger cont = new AtomicInteger();
 
             try {
                 Arrays.asList(files).stream().forEach(file -> {
-                    int tempCont = cont.getAndIncrement();
-                    almacenamientoImagenesService.aSave(file,idRecetario, tempCont);
+                    String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+                    String uploadDir = "uploads/"+receta.getTitulo().replaceAll("\\s","");
+
+                    almacenamientoImagenesService.aSave(file, uploadDir, fileName);
                     fileNames.add(file.getOriginalFilename());
                 });
 
@@ -207,9 +209,13 @@ public class RecetaController {
                 for (String file: fileNames) {
                     names.append(file+";");
                 }
-                receta.setImagenes(names.toString());
+                if (names.toString().equals(";")){
+                    receta.setImagenes("default.jpg;");
+                } else {
+                    receta.setImagenes(names.toString());
+                }
             } catch (Exception e) {
-                receta.setImagenes("default.png");
+                receta.setImagenes("default.jpg;");
                 System.out.println("No se pudieron subir las imagenes");
             }
 
@@ -259,9 +265,10 @@ public class RecetaController {
     }
 
     @GetMapping("/eliminar-receta/{idRecetario}/{idReceta}")
-    public String eliminarReceta(@PathVariable("idRecetario") long idRecetario, @PathVariable("idReceta") long idReceta,Model model) {
+    public String eliminarReceta(@PathVariable("idRecetario") long idRecetario, @PathVariable("idReceta") long idReceta,Model model, RedirectAttributes redirectAttributes) {
         try {
             recetaService.deleteRecetaById(idReceta);
+            redirectAttributes.addFlashAttribute("eliminado",true);
             return "redirect:/ver-recetas/"+idRecetario;
         }catch (Exception e){
             mensaje = usuarioService.codigosError(e.toString());
@@ -290,7 +297,6 @@ public class RecetaController {
                usuario = tempUsuario.get();
                usuarioFollowRecetarioService.saveUsuarioFollowRecetario(recetario,usuario);
            }
-
            return "redirect:/ver-recetarios";
        }catch (Exception e){
            mensaje = usuarioService.codigosError(e.toString());
@@ -300,6 +306,28 @@ public class RecetaController {
        }
     }
 
+    @GetMapping("/ver-mi-receta/{idReceta}")
+    public String verMiReceta(@PathVariable("idReceta") long idReceta, Model model) {
+        try {
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+            String username = userDetails.getUsername();
+
+            Optional<Usuario> tempUsuario = usuarioService.getUsuarioByUsername(username);
+            Usuario usuario = tempUsuario.get();
+
+            List<Receta> recetaList = recetaService.getLastRecetasByUsuario(usuario.getIdUsuario(),5);
+
+            model.addAttribute("recetaList",recetaList);
+
+            return "views/receta/ver_receta_simple";
+        } catch (Exception e){
+            mensaje = usuarioService.codigosError(e.toString());
+            System.out.println("Error en el controller de Receta -> verRecetasSeguidas"+mensaje);
+            model.addAttribute("mensaje",mensaje);
+            return "error/404";
+        }
+    }
 
 
 

@@ -15,6 +15,9 @@
                 <li sec:authorize="hasRole('ROLE_ADMIN')" class="nav-item" role="presentation">
                     <button th:class="${tabSelectSubcategoria}" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Subcategoría</button>
                 </li>
+                <li sec:authorize="hasRole('ROLE_ADMIN')" class="nav-item" role="presentation">
+                    <button th:class="${tabSelectSubcategoria}" id="bitacora-tab" data-bs-toggle="tab" data-bs-target="#bitacora" type="button" role="tab" aria-controls="bitacora" aria-selected="false">Bitacora</button>
+                </li>
             </ul>
             <div class="tab-content" id="myTabContent">
                 <div th:class="${tabSubcategoria}" style="background: #FEEFFB; padding-top: 10px; padding-right: 30px; padding-left: 30px; padding-bottom: 20px;" id="profile" role="tabpanel" aria-labelledby="profile-tab">
@@ -33,7 +36,11 @@
                         </div>
                     </div>
 
-                    <table class="table">
+                    <div th:if="${#lists.isEmpty(listaSubcategoria)}" class="recuadro_recetario">
+                        <h2 style="text-align: center;">No hay subcategorías</h2>
+                    </div>
+
+                    <table class="table" th:if="${!listaSubcategoria.isEmpty()}">
                         <thead>
                         <tr>
                             <th scope="col">#</th>
@@ -43,16 +50,23 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="item, iStat:${listaSubcategoria}">
-                            <th th:text="${iStat.count}" scope="row"></th>
-                            <td th:text="${item.nombre}"> </td>
-                            <td th:text="${item.categoria.nombre}"></td>
-                            <td>
-                                <a th:href="@{'/eliminarSubcategoria/'+${item.idSubCategoria}}" class="btn-eliminar"><i class="far fa-trash-alt"></i></a>
-                                <a th:href="@{'/editarSubCategoria/'+${item.idSubCategoria}}"class="btn-editar"><i class="far fa-edit"></i></a>
-                            </td>
-                        </tr>
-
+                            <tr th:each="item, iStat:${listaSubcategoria}">
+                                <th th:text="${iStat.count}" scope="row"></th>
+                                <td th:text="${item.nombre}"> </td>
+                                <td th:text="${item.categoria.nombre}"></td>
+                                <td>
+                                    <!--
+                                    <button type="button" class="btn-eliminar" data-bs-toggle="modal" data-bs-target="#eliminarCampo">
+                                        <i class="far fa-trash-alt"></i>
+                                    </button>
+                                    -->
+                                    <button type="button" class="btn-eliminar" th:onclick="|subcategoryFunction(${item.idSubCategoria})|" >
+                                        <i class="far fa-trash-alt"></i>
+                                    </button>
+                                    <!--<a th:href="@{'/eliminarSubcategoria/'+${item.idSubCategoria}}" class="btn-eliminar"><i class="far fa-trash-alt"></i></a>-->
+                                    <a th:href="@{'/editarSubCategoria/'+${item.idSubCategoria}}"class="btn-editar"><i class="far fa-edit"></i></a>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                     <!-- Modal -->
@@ -60,13 +74,13 @@
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Subcategory</h5>
+                                    <h5 class="modal-title" id="exampleModalLabel">Subcategoría</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
                                     <form th:action="@{/crearSubcategoria}" method="post" th:object="${subcategoria}">
                                         <div class="mb-3">
-                                            <label class="form-label">Nombre Subcategoria</label>
+                                            <label class="form-label">Nombre subcategoría</label>
                                             <input type="text" class="form-control" placeholder="Ingresa un nombre de subcategoria" th:field="*{nombre}" id="nombreSubcategoria">
                                             <input type="text" th:field="*{idSubCategoria}" class="form-control" style="display: none"></input>
 
@@ -79,8 +93,8 @@
                                             </select>
                                         </div>
                                         <div class="modal-footer">
-                                            <a th:href="@{/perfil}" class="btn btn-eliminar">Cancelar</a>
-                                            <button type="submit" class="btn btn-agregar" id="subcategoriaBtn">Guardar</button>
+                                            <a th:href="@{/perfil}" class="btnCancelar">Cancelar</a>
+                                            <button type="submit" class="botonPer" id="subcategoriaBtn">Guardar</button>
                                         </div>
                                     </form>
                                 </div>
@@ -96,8 +110,39 @@
                     </script>
                 </div>
 
+                <div th:class="${tabBitacora}" style="background: #FEEFFB; padding-top: 10px; padding-right: 30px; padding-left: 30px; padding-bottom: 20px;" id="bitacora" role="tabpanel" aria-labelledby="bitacora-tab">
+                    <br>
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <h1>Bitacora</h1>
+                        </div>
+                    </div>
 
-                <div th:class="${tabCategoria}" id="home" style="padding-top: 10px; padding-right: 30px; padding-left: 30px; padding-bottom: 20px;" role="tabpanel" aria-labelledby="home-tab">
+
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Usuario</th>
+                            <th scope="col">Operación</th>
+                            <th scope="col">Tabla</th>
+                            <th scope="col">Fecha</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>Alan Jesus</td>
+                                <td>Insert</td>
+                                <td>Receta</td>
+                                <td>16/04/2021</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+
+                <div th:class="${tabCategoria}" id="home" style="background: #FEEFFB; padding-top: 10px; padding-right: 30px; padding-left: 30px; padding-bottom: 20px;" role="tabpanel" aria-labelledby="home-tab">
                     <br>
                     <div class="row">
                         <div class="col-lg-10">
@@ -112,11 +157,14 @@
 
                         </div>
                     </div>
-                    <table class="table"  style="background-color:#F5EEF8">
+                    <div th:if="${#lists.isEmpty(listaCategoria)}" class="recuadro_recetario">
+                        <h2 style="text-align: center;">No hay categorías</h2>
+                    </div>
+
+                    <table th:if="${!listaCategoria.isEmpty()}" class="table">
                         <thead>
                         <tr>
                             <th scope="col">#</th>
-                            <th scope="col">Nombre de la subcategoría</th>
                             <th scope="col">Nombre de la categoría</th>
                             <th scope="col">Acciones</th>
                         </tr>
@@ -126,7 +174,10 @@
                             <th scope="row" th:text="${iStat.count}"></th>
                             <td th:text="${item.nombre}"></td>
                             <td>
-                                <a th:href="@{'/eliminarCategoria/'+${item.idCategoria}}" class="btn-eliminar"><i class="far fa-trash-alt"></i></a>
+                                <!--<a th:href="@{'/eliminarCategoria/'+${item.idCategoria}}" class="btn-eliminar"><i class="far fa-trash-alt"></i></a>-->
+                                <button type="button" class="btn-eliminar" th:onclick="|categoryFunction(${item.idCategoria})|" >
+                                    <i class="far fa-trash-alt"></i>
+                                </button>
                                 <a th:href="@{'/editarCategoria/'+${item.idCategoria}}" id="idCategoria" class="btn-editar"><i class="far fa-edit"></i></a>
                             </td>
                         </tr>
@@ -138,14 +189,14 @@
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="categoryLabel">Categoria</h5>
+                                    <h5 class="modal-title" id="categoryLabel">Categoría</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
                                     <form th:action="@{/crearCategoria}" method="post" th:object="${categoria}">
                                         <div class="mb-3">
-                                            <label class="form-label">Nombre Categoria</label>
-                                            <input type="text" class="form-control" placeholder="Ingresa un nombre de subcategoria" th:field="*{nombre}" id="nameCategoria">
+                                            <label class="form-label">Nombre categoría</label>
+                                            <input type="text" class="form-control" placeholder="Ingresa un nombre de categoría" th:field="*{nombre}" id="nameCategoria">
                                             <input type="text" th:field="*{idCategoria}" class="form-control" style="display: none"></input>
 
                                         </div>
@@ -157,9 +208,9 @@
                                             </select>
                                         </div>-->
                                         <div class="modal-footer">
-                                            <a th:href="@{/perfil}" class="btn btn-eliminar">Cancelar</a>
+                                            <a th:href="@{/perfil}" class="btnCancelar">Cancelar</a>
                                             <!--<button type="button" class="btn btn-eliminar" data-bs-dismiss="modal">Cancelar</button>-->
-                                            <button type="submit" class="btn btn-agregar" id="btnCategoria">Guardar</button>
+                                            <button type="submit" class="botonPer" id="btnCategoria">Guardar</button>
                                         </div>
                                     </form>
                                 </div>
@@ -175,7 +226,7 @@
                     </script>
                 </div>
 
-                <div th:class="${tabPerfil}" id="contact"  style="background: #FEEFFB; padding-top: 10px; padding-right: 30px; padding-left: 30px; padding-bottom: 20px;" role="tabpanel" aria-labelledby="profile-tab">
+                <div th:class="${tabPerfil}" id="contact" style="background: #FEEFFB; padding-top: 10px; padding-right: 30px; padding-left: 30px; padding-bottom: 20px;" role="tabpanel" aria-labelledby="profile-tab">
                     <br>
                     <div>
                         <h1>Perfil</h1>
@@ -203,7 +254,7 @@
                         </div>
                         <div class="input-group mb-3">
                             <span class="input-group-text" id="basic-addon4"><i class="fas fa-at"></i></span>
-                            <input type="text" class="form-control" placeholder="Correo" aria-label="Correo" aria-describedby="basic-addon1" th:field="*{correo}">
+                            <input type="text" class="form-control" placeholder="Correo" aria-label="Correo electrónico" aria-describedby="basic-addon1" th:field="*{correo}">
                         </div>
                         <div>
                             <h1>Cambio de contraseña</h1>
@@ -221,11 +272,49 @@
                         </div>
                     </form>
 
-                    <hr/>
 
                     <br/>
                 </div>
             </div>
+            <!-- MyModal -->
+            <div class="modal fade" id="eliminarCampo" tabindex="-5" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content" style="background-color: rgb(255, 193, 36); border: none;">
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end" style="padding: 15px;">
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div style="text-align: center;">
+                                <div>
+                                    <div style="padding: 15px;">
+                                        <img src="/img/warning.svg" width="50%">
+                                    </div>
+                                </div>
+                                <br><br>
+                                <div style="background-color: #FFF; padding: 25px; border-radius: 25px;">
+                                    <h2>Eliminar</h2>
+                                    <span>¿Estás seguro de eliminar este campo?</span>
+                                    <br><br>
+                                    <div id="myModalButtons"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <script>
+                function subcategoryFunction(idSubcategoria){
+                    let html = '<a href="/perfil" class="btnCancelar" style="margin-right: 15px">Cancelar</a><a href="/eliminarSubcategoria/'+idSubcategoria+'" class="botonPer">Eliminar</a>';
+                    $('#myModalButtons').html(html)
+                    $("#eliminarCampo").modal('show');
+                }
+
+                function categoryFunction(idCategoria){
+                    let html = '<a href="/perfil" class="btnCancelar" style="margin-right: 15px">Cancelar</a><a href="/eliminarCategoria/'+idCategoria+'" class="botonPer">Eliminar</a>';
+                    $('#myModalButtons').html(html)
+                    $("#eliminarCampo").modal('show');
+                }
+            </script>
             <script th:if="${exito}">
                 toastr.success('Se guardó con exito!', 'Exito');
             </script>

@@ -4,10 +4,16 @@
     </head>
     <body>
         <div layout:fragment="content">
+
             <div class="container">
-                <div class="button-container">
+                <div class="button-container" style="width: 100%; height: 450px;" id="box" >
                     <a class="btnRegresar" th:href="@{/}" ><i class="fas fa-arrow-left"></i> Regresar</a>
-                    <img src="../img/pizza.jpg" style="width: 100%; height: 450px;">
+                    <!--<img th:src="@{'/uploads/receta_'+${#strings.substringBefore(receta.imagenes,';')}}" style="width: 100%; height: 450px;">-->
+
+                    <img th:if="${#strings.contains(receta.imagenes, 'default.jpg')}" th:src="@{'/uploads/default.jpg'}"/>
+
+                    <img th:unless="${#strings.contains(receta.imagenes, 'default.jpg')}" th:src="@{'/uploads/'+${#strings.replace(receta.titulo, ' ', '')}+'/'+${#strings.substringBefore(receta.imagenes,';')}}" />
+
 
                     <div sec:authorize="isAuthenticated()">
                         <a class="btnSeguirRecetario" th:href="@{'/seguir-recetario/'+${receta.recetario.idRecetario}}" >
@@ -40,7 +46,7 @@
                     </div>
                 </div>
                 <br><br>
-
+                <input type="text" style="display: none" th:value="${receta.idReceta}" id="idReceta" name="idReceta" />
                 <div class="row recuadro_recetario">
                     <h1 style="font-weight: bolder; text-align: center;" th:text="${receta.titulo}"></h1>
                 </div>
@@ -80,16 +86,18 @@
                             </svg>
                         </button>
                         <div class="slick-track" id="track">
-                            <div class="slick">
+
+                            <div class="slick" th:each="img : ${#strings.listSplit(receta.imagenes,';')}">
                                 <div>
-                                    <a href="/">
-                                        <h4>Tacos de canasta</h4>
+                                    <a>
+                                        <!--<h4>Tacos de canasta</h4>-->
                                         <picture>
-                                            <img src="../img/1.jpg" alt="Image">
+                                            <img th:src="@{'/uploads/'+${#strings.replace(receta.titulo, ' ', '')}+'/'+${img}}" alt="Image">
                                         </picture>
                                     </a>
                                 </div>
                             </div>
+
                         </div>
                         <button class="slick-arrow slick-next" id="button-next" data-button="button-next" onclick="app.processingButton(event)">
                             <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="chevron-right"
@@ -107,112 +115,108 @@
                 <div class="recuadro_recetario" >
                     <h2 style="font-weight: bolder;">Comentarios</h2>
                     <div class="row">
-                        <div class="col-1">
-                            <button type="button" class="btn btn-light btn-circle btn-lg">JJ</button>
-                        </div>
-                        <div class="col-11"  sec:authorize="isAuthenticated()">
+                        <div class="col" sec:authorize="isAuthenticated()">
+                            <div class="col">
+                                <!--
+                                <form id="comentarioBox" th:action="@{/realizar-comentario}" method="post">
+                                    <input type="text" style="display: none" th:value="${receta.idReceta}" id="idReceta" name="idReceta" />
+                                    <div class="form-floating">
+                                        <textarea class="form-control" placeholder="Deje un comentario aqui" id="floatingTextarea2" name="floatingTextarea2" style="height: 150px; resize: none"></textarea>
+                                        <label for="floatingTextarea2">Comentario</label>
+                                    </div>
 
+                                    <div class="d-grid gap-2 d-md-flex justify-content-md-end" style="margin-bottom: 15px; margin-top: 15px;">
+                                        <button type="submit" class="botonPer">Comentar</button>
+                                    </div>
+                                </form>
+                                -->
+                                <!-- Formulario nuevo de comentario -->
+                                <form id="comentarioBox" >
+                                    <div class="form-floating">
+                                        <textarea class="form-control" placeholder="Deje un comentario aqui" id="floatingTextarea2" name="floatingTextarea2" style="height: 150px; resize: none"></textarea>
+                                        <label for="floatingTextarea2">Comentario</label>
+                                    </div>
 
-                        <div class="col">
-                            <!--
-                            <form id="comentarioBox" th:action="@{/realizar-comentario}" method="post">
-                                <input type="text" style="display: none" th:value="${receta.idReceta}" id="idReceta" name="idReceta" />
-                                <div class="form-floating">
-                                    <textarea class="form-control" placeholder="Deje un comentario aqui" id="floatingTextarea2" name="floatingTextarea2" style="height: 150px; resize: none"></textarea>
-                                    <label for="floatingTextarea2">Comentario</label>
-                                </div>
+                                    <div class="d-grid gap-2 d-md-flex justify-content-md-end" style="margin-bottom: 15px; margin-top: 15px;">
+                                        <button type="submit" class="botonPer">Comentar</button>
+                                    </div>
+                                </form>
 
-                                <div class="d-grid gap-2 d-md-flex justify-content-md-end" style="margin-bottom: 15px; margin-top: 15px;">
-                                    <button type="submit" class="botonPer">Comentar</button>
-                                </div>
-                            </form>
-                            -->
-
-                            <!-- Formulario nuevo de comentario -->
-
-                            <form id="comentarioBox" >
-                                <input type="text" style="display: none" th:value="${receta.idReceta}" id="idReceta" name="idReceta" />
-                                <div class="form-floating">
-                                    <textarea class="form-control" placeholder="Deje un comentario aqui" id="floatingTextarea2" name="floatingTextarea2" style="height: 150px; resize: none"></textarea>
-                                    <label for="floatingTextarea2">Comentario</label>
-                                </div>
-
-                                <div class="d-grid gap-2 d-md-flex justify-content-md-end" style="margin-bottom: 15px; margin-top: 15px;">
-                                    <button type="submit" class="botonPer">Comentar</button>
-                                </div>
-                            </form>
-
-                        </div>
-                    </div>
-
-                    <div id="cajaComentarios" class="">
-                        <div class="row comentario" th:each="item : ${comentarios}">
-                            <div class="col-1">
-                                <button type="button" class="btn btn-light btn-circle btn-lg">
-                                    <span th:text="${#strings.substring(item.usuario.nombre,0,1)}"></span>
-                                    <span th:text="${#strings.substring(item.usuario.primerApellido,0,1)}"></span>
-                                </button>
                             </div>
-                            <div class="col-11">
-                                <h3 style="font-weight: bolder;" th:text="${item.usuario.nombre} + ' ' + ${item.usuario.primerApellido} + ' '+ ${item.usuario.segundoApellido}"></h3>
-                                <h4 th:text="${item.comentario}"></h4>
+                        </div>
+                        <div class="col" sec:authorize="!isAuthenticated()">
+                            <h4>Inicie sesión para comentar en esta receta</h4>
+                        </div>
+
+                        <div id="cajaComentarios" class="">
+                            <div class="row comentario" th:each="item : ${comentarios}">
+                                <div class="col-1">
+                                    <button type="button" class="btn btn-light btn-circle btn-lg">
+                                        <span th:text="${#strings.substring(item.usuario.nombre,0,1)}"></span>
+                                        <span th:text="${#strings.substring(item.usuario.primerApellido,0,1)}"></span>
+                                    </button>
+                                </div>
+                                <div class="col-11">
+                                    <h3 style="font-weight: bolder;" th:text="${item.usuario.nombre} + ' ' + ${item.usuario.primerApellido} + ' '+ ${item.usuario.segundoApellido}"></h3>
+                                    <h4 th:text="${item.comentario}"></h4>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <script type="text/javascript">
-                $(document).ready(function () {
-                    setTimeout(function (){
-                        console.log("Id receta: "+$('#idReceta').val())
-                        $.getJSON("http://localhost:8080/aumentar-vista",{
-                            idReceta: $('#idReceta').val()
+                <script type="text/javascript">
+                    $(document).ready(function () {
+                        setTimeout(function (){
+                            console.log("Id receta: "+$('#idReceta').val())
+                            $.getJSON("http://localhost:8080/aumentar-vista",{
+                                idReceta: $('#idReceta').val()
+                            })
+                        }, 5000)
+                    })
+                </script>
+                <script type="text/javascript">
+                    $('#comentarioBox').submit(function (e){
+                        let idReceta  = $('#idReceta').val()
+                        let comentario = $('#floatingTextarea2').val()
+                        $.getJSON("http://localhost:8080/realizar-comentario-test",{
+                            idReceta: idReceta,
+                            comentario: comentario
+                        },function (data){
+                            let nombreChar = data.nombre.substr(0,1)
+                            let apellidoChar = data.primerApellido.substr(0,1)
+                            let comentario = '<div class="row comentario">\n' +
+                                '                    <div class="col-1">\n' +
+                                '                        <button type="button" class="btn btn-light btn-circle btn-lg">' +
+                                '                               <span>'+nombreChar+'</span>\n' +
+                                '                               <span>'+apellidoChar+'</span>' +
+                                '                        </button>\n' +
+                                '                    </div>\n' +
+                                '                    <div class="col-11">\n' +
+                                '                        <h3 style="font-weight: bolder;">'+data.nombre+' '+data.primerApellido+' '+data.segundoApellido+'</h3>\n' +
+                                '                        <h4>'+data.comentario+'</h4>\n' +
+                                '                    </div>\n' +
+                                '                </div>'
+                            $('#cajaComentarios').append(comentario)
+                            $('#floatingTextarea2').val('')
                         })
-                    }, 5000)
-                })
-            </script>
-            <script type="text/javascript">
-                $('#comentarioBox').submit(function (e){
-                    let idReceta  = $('#idReceta').val()
-                    let comentario = $('#floatingTextarea2').val()
-                    $.getJSON("http://localhost:8080/realizar-comentario-test",{
-                        idReceta: idReceta,
-                        comentario: comentario
-                    },function (data){
-                        let nombreChar = data.nombre.substr(0,1)
-                        let apellidoChar = data.primerApellido.substr(0,1)
-                        let comentario = '<div class="row comentario">\n' +
-                            '                    <div class="col-1">\n' +
-                            '                        <button type="button" class="btn btn-light btn-circle btn-lg">' +
-                            '                               <span>'+nombreChar+'</span>\n' +
-                            '                               <span>'+apellidoChar+'</span>' +
-                            '                        </button>\n' +
-                            '                    </div>\n' +
-                            '                    <div class="col-11">\n' +
-                            '                        <h3 style="font-weight: bolder;">'+data.nombre+' '+data.primerApellido+' '+data.segundoApellido+'</h3>\n' +
-                            '                        <h4>'+data.comentario+'</h4>\n' +
-                            '                    </div>\n' +
-                            '                </div>'
-                        $('#cajaComentarios').append(comentario)
-                        $('#floatingTextarea2').val('')
+                        e.preventDefault()
                     })
-                    e.preventDefault()
-                })
-            </script>
-            <script type="text/javascript">
-                $('#calificar-receta').submit(function (e){
-                    let estrellas  = $('input[name=estrellas]:checked').val()
-                    if (estrellas == undefined) estrellas = 0
-                    $.getJSON("http://localhost:8080/calificar-receta-test",{
-                        idReceta: $('#idReceta').val(),
-                        calificacion: estrellas
-                    },function (data){
-                        $('#calificar-receta').hide()
-                        toastr.success('Calificación enviada', 'Exito');
+                </script>
+                <script type="text/javascript">
+                    $('#calificar-receta').submit(function (e){
+                        let estrellas  = $('input[name=estrellas]:checked').val()
+                        if (estrellas == undefined) estrellas = 0
+                        $.getJSON("http://localhost:8080/calificar-receta-test",{
+                            idReceta: $('#idReceta').val(),
+                            calificacion: estrellas
+                        },function (data){
+                            $('#calificar-receta').hide()
+                            toastr.success('Calificación enviada', 'Exito');
+                        })
+                        e.preventDefault()
                     })
-                    e.preventDefault()
-                })
-            </script>
+                </script>
+            </div>
         </div>
     </body>
 </html>
