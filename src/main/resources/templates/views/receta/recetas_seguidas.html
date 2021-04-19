@@ -9,10 +9,6 @@
             <div class="container">
                 <h5><a th:href="@{/ver-recetarios}" style="color:#000; text-decoration: none;"><i class="fas fa-arrow-left"></i> Regresar</a></h5>
 
-                <div class="recuadro_recetario">
-                    <h2><span th:text="${recetario.nombre}"></span> <a th:href="@{'/crear-receta/'+${recetario.idRecetario}}" style="text-decoration: none; color:#DD969C;"><i class="fas fa-plus-circle"></i></a></h2>
-                </div>
-
                 <div th:if="${#lists.isEmpty(recetaList)}" class="recuadro_recetario">
                     <h2 style="text-align: center;">No hay recetas</h2>
                 </div>

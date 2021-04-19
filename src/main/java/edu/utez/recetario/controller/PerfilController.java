@@ -158,13 +158,18 @@ public class PerfilController {
     public String eliminarCategoria (@PathVariable("idCategoria") long idCategoria,Bitacora bitacora, RedirectAttributes ra,Model model){
 
         try{
-            ra.addFlashAttribute("exitoEliminar","Se elimino");
-            categoriaService.deleteCategoriaById(idCategoria);
+            try {
+                categoriaService.deleteCategoriaById(idCategoria);
+                ra.addFlashAttribute("exitoEliminar","Se elimino");
+            } catch (Exception e) {
+                ra.addFlashAttribute("impossible","impossible");
+                return "redirect:/perfil";
+            }
             bitacora.setTabla("Categoria");
             bitacora.setOperacion("Eliminar Categoria");
             bitacoraService.saveBitacora(bitacora);
             return "redirect:/perfil";
-        }catch (java.lang.Error e){
+        }catch (Exception e){
             mensaje = usuarioService.codigosError(e.toString());
             model.addAttribute("mensaje",mensaje);
             return "error/error";
@@ -245,8 +250,13 @@ public class PerfilController {
     public String eliminarSubCategoria (@PathVariable("idSubCategoria") long idSubCategoria,Bitacora bitacora,RedirectAttributes ra,Model model){
 
         try{
-            ra.addFlashAttribute("exitoEliminar","Se elimino");
-            subCategoriaService.deleteSubCategoriaById(idSubCategoria);
+            try {
+                subCategoriaService.deleteSubCategoriaById(idSubCategoria);
+                ra.addFlashAttribute("exitoEliminar","Se elimino");
+            } catch (Exception e) {
+                ra.addFlashAttribute("impossible","impossible");
+                return "redirect:/perfil";
+            }
             bitacora.setTabla("Subcategoria");
             bitacora.setOperacion("Eliminar Subcategoria");
             bitacoraService.saveBitacora(bitacora);

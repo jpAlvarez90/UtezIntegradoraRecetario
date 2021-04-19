@@ -333,6 +333,9 @@
             <script th:if="${eliminar}">
                 toastr.error("No se elimino","Error");
             </script>
+            <script th:if="${impossible}">
+                toastr.error("No se puede eliminar una categoria/subcategoria que este ocupada por una receta","Error");
+            </script>
             <script type="text/javascript">
                 $('#checarPass').on('click',function (e) {
                     if(document.getElementById("passwordInput").value != document.getElementById("passwordInputConfirm").value){

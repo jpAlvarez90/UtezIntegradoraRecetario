@@ -191,25 +191,22 @@ public class RecetaController {
                 redirectAttributes.addFlashAttribute("errorCMReceta",true);
                 return "redirect:/ver-recetas/"+idRecetario;
             }
-
             List<String> fileNames = new ArrayList<>();
-
             try {
+                String uploadDir = "uploads/"+receta.getTitulo().replaceAll("\\s","");
+                try {
+                    Path uploadPath = Paths.get(uploadDir);
+                    File dirFiles = uploadPath.toFile();
+                    FileUtils.deleteDirectory(dirFiles);
+                    logger.info("Folder de la receta eliminado");
+                } catch (IOException e) {
+                    logger.info("No se pudo eliminar la carpeta "+ e.getMessage());
+                } catch (IllegalArgumentException e) {
+                    logger.info("El folder de la receta no existe "+e.getMessage());
+                }
+
                 Arrays.asList(files).stream().forEach(file -> {
                     String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-                    String uploadDir = "uploads/"+receta.getTitulo().replaceAll("\\s","");
-
-                    try {
-                        Path uploadPath = Paths.get(uploadDir);
-                        File dirFiles = uploadPath.toFile();
-                        FileUtils.deleteDirectory(dirFiles);
-                        logger.info("Folder de la receta eliminado");
-                    } catch (IOException e) {
-                        logger.info("No se pudo eliminar el proyecto "+ e.getMessage());
-                    } catch (IllegalArgumentException e) {
-                        logger.info("El folder de la receta no existe "+e.getMessage());
-                    }
-
                     almacenamientoImagenesService.aSave(file, uploadDir, fileName);
                     fileNames.add(file.getOriginalFilename());
                 });
@@ -280,6 +277,19 @@ public class RecetaController {
     @GetMapping("/eliminar-receta/{idRecetario}/{idReceta}")
     public String eliminarReceta(@PathVariable("idRecetario") long idRecetario, @PathVariable("idReceta") long idReceta, Bitacora bitacora,Model model, RedirectAttributes redirectAttributes) {
         try {
+            Receta receta = recetaService.getRecetaById(idReceta);
+            String uploadDir = "uploads/"+receta.getTitulo().replaceAll("\\s","");
+            try {
+                Path uploadPath = Paths.get(uploadDir);
+                File dirFiles = uploadPath.toFile();
+                FileUtils.deleteDirectory(dirFiles);
+                logger.info("Folder de la receta eliminado");
+            } catch (IOException e) {
+                logger.info("No se pudo eliminar la carpeta "+ e.getMessage());
+            } catch (IllegalArgumentException e) {
+                logger.info("El folder de la receta no existe "+e.getMessage());
+            }
+
             recetaService.deleteRecetaById(idReceta);
             redirectAttributes.addFlashAttribute("eliminado",true);
             bitacora.setTabla("Receta");
