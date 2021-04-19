@@ -57,12 +57,14 @@ public class PerfilController {
     public String configuracion(@ModelAttribute("categoria") Categoria categoria,
                                 @ModelAttribute("subcategoria") SubCategoria subcategoria,
                                 @ModelAttribute("usuario")Usuario usuario,
+                                @ModelAttribute("bitacora") Bitacora bitacora,
                                 Model model,
                                 BindingResult bindingResult) {
 
         try {
             List<Categoria> listaCategoria = categoriaService.getAllCategorias();
             List<SubCategoria> listaSubcategorias = subCategoriaService.getAllSubCategorias();
+            List<Bitacora> bitacoraList = bitacoraService.getAllBitacoraByOrderADesc(20);
 
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             UserDetails userDetails = (UserDetails) authentication.getPrincipal();
@@ -76,6 +78,7 @@ public class PerfilController {
             model.addAttribute("listaCategoria",listaCategoria);
             model.addAttribute("categoria",categoria);
             model.addAttribute("subcategoria", subcategoria);
+            model.addAttribute("bitacora",bitacoraList);
 
 
             model.addAttribute("tabPerfil","tab-pane fade show active");
@@ -123,15 +126,17 @@ public class PerfilController {
     }
 
     @GetMapping("/editarCategoria/{idCategoria}")
-    public String editarCategoria (@PathVariable("idCategoria") long idCategoria, @ModelAttribute("categoria") Categoria categoria, @ModelAttribute("subcategoria") SubCategoria subcategoria, @ModelAttribute("usuario")Usuario usuario, Model model) {
+    public String editarCategoria (@PathVariable("idCategoria") long idCategoria, @ModelAttribute("categoria") Categoria categoria, @ModelAttribute("subcategoria") SubCategoria subcategoria, @ModelAttribute("usuario")Usuario usuario,@ModelAttribute("bitacora") Bitacora bitacora, Model model) {
 
         try {
             categoria = categoriaService.getCategoriaById(idCategoria);
+            List<Bitacora> bitacoraList = bitacoraService.getAllBitacoraByOrderADesc(20);
             List<Categoria> listaCategoria = categoriaService.getAllCategorias();
             List<SubCategoria> listaSubcategorias = subCategoriaService.getAllSubCategorias();
 
             model.addAttribute("listaSubcategoria", listaSubcategorias);
             model.addAttribute("listaCategoria",listaCategoria);
+            model.addAttribute("bitacora",bitacoraList);
             model.addAttribute("categoria",categoria);
 
             model.addAttribute("tabPerfil","tab-pane fade");
@@ -215,15 +220,17 @@ public class PerfilController {
     }
 
     @GetMapping("/editarSubCategoria/{idSubCategoria}")
-    public String editarSubCategoria (@PathVariable("idSubCategoria") long idSubCategoria, @ModelAttribute("subcategoria") SubCategoria subcategoria, @ModelAttribute("categoria") Categoria categoria, @ModelAttribute("usuario") Usuario usuario, Model model, BindingResult bindingResult){
+    public String editarSubCategoria (@PathVariable("idSubCategoria") long idSubCategoria, @ModelAttribute("subcategoria") SubCategoria subcategoria, @ModelAttribute("categoria") Categoria categoria, @ModelAttribute("usuario") Usuario usuario,@ModelAttribute("bitacora") Bitacora bitacora, Model model, BindingResult bindingResult){
 
         try {
             subcategoria = subCategoriaService.getSubCategoriaById(idSubCategoria);
+            List<Bitacora> bitacoraList = bitacoraService.getAllBitacoraByOrderADesc(20);
             List<SubCategoria> listaSubcategorias = subCategoriaService.getAllSubCategorias();
             List<Categoria> listaCategoria = categoriaService.getAllCategorias();
 
             model.addAttribute("listaCategoria",listaCategoria);
             model.addAttribute("listaSubcategoria",listaSubcategorias);
+            model.addAttribute("bitacora",bitacoraList);
             model.addAttribute("subcategoria",subcategoria);
 
             model.addAttribute("tabPerfil","tab-pane fade");

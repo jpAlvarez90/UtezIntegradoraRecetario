@@ -126,16 +126,16 @@
                             <th scope="col">Usuario</th>
                             <th scope="col">Operación</th>
                             <th scope="col">Tabla</th>
-                            <th scope="col">Fecha</th>
+                            <th scope="col">Fecha del movimiento</th>
                         </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>Alan Jesus</td>
-                                <td>Insert</td>
-                                <td>Receta</td>
-                                <td>16/04/2021</td>
+                            <tr th:each="item, iStat: ${bitacora}">
+                                <th scope="row" th:text="${iStat.count}"></th>
+                                <td th:text="${item.usuario}"></td>
+                                <td th:text="${item.operacion}"></td>
+                                <td th:text="${item.tabla}"></td>
+                                <td th:text="${item.fecha}"></td>
                             </tr>
                         </tbody>
                     </table>

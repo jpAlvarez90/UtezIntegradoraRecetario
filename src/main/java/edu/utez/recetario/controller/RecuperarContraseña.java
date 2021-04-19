@@ -119,12 +119,9 @@ public class RecuperarContraseña {
            if (contraNueva.equals(contraConfirmacion)){
                usuario.setPassword(contraNueva);
                usuarioService.saveUsuarioPerfil(usuario);
-               bitacora.setOperacion("Recuperar contraseña por correo electronico por el usuario - "+usuario.getUsername());
-               bitacora.setTabla("Usuario");
-               bitacoraService.saveBitacora(bitacora);
            }
 
-           return "redirect:/login";
+           return "redirect:/";
        }catch (Exception e){
            mensaje = usuarioService.codigosError(e.toString());
            model.addAttribute("mensaje",mensaje);

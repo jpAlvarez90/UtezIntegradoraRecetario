@@ -8,5 +8,5 @@ public interface BitacoraInterface {
 
     Bitacora saveBitacora(Bitacora bitacora);
 
-    List<Bitacora> getAllBitacora();
+    List<Bitacora> getAllBitacoraByOrderADesc(int limit);
 }

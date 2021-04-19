@@ -25,23 +25,33 @@ public class BitacoraService implements BitacoraInterface {
 
     @Override
     public Bitacora saveBitacora(Bitacora bitacora) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        String username = userDetails.getUsername();
-        Optional<Usuario> tempUsuario = usuarioService.getUsuarioByUsername(username);
-        Usuario usuario = tempUsuario.get();
+        try {
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+            String username = userDetails.getUsername();
+            Optional<Usuario> tempUsuario = usuarioService.getUsuarioByUsername(username);
+            Usuario usuario = tempUsuario.get();
 
-        if (tempUsuario.isEmpty()){
-            bitacora.setUsuario("Usuario no loggeado");
-        }else {
-            bitacora.setUsuario(usuario.getUsername());
+            if (tempUsuario.isEmpty()) {
+                bitacora.setUsuario("Usuario no loggeado");
+            } else {
+                bitacora.setUsuario(usuario.getUsername());
+            }
+            bitacora.setFecha(new Date());
+            return bitacoraRepository.save(bitacora);
+        }catch (Exception e){
+            usuarioService.codigosError(e.toString());
+            return null;
         }
-        bitacora.setFecha(new Date());
-        return bitacoraRepository.save(bitacora);
     }
 
     @Override
-    public List<Bitacora> getAllBitacora() {
-        return null;
+    public List<Bitacora> getAllBitacoraByOrderADesc(int limit) {
+        try {
+           return bitacoraRepository.findByOrderByIdBitacoraDesc(limit);
+        }catch (Exception e){
+            usuarioService.codigosError(e.toString());
+            return null;
+        }
     }
 }
