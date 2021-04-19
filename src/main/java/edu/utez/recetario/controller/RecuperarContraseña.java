@@ -104,7 +104,7 @@ public class RecuperarContraseña {
     @PostMapping("/cambiarContrasena")
     public String cambiarContrasena (Model model,Usuario usuario, WebRequest request){
        try {
-           List<Receta> listaRecetas = recetaService.getAllRecetasByOrderADesc(10);
+           List<Receta> listaRecetas = recetaService.getAllRecetasByOrderADesc(9);
            model.addAttribute("listaRecetas", listaRecetas);
 
            String contraNueva = request.getParameter("contraNueva");

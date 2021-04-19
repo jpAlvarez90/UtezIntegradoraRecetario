@@ -2,6 +2,7 @@ package edu.utez.recetario.controller;
 
 import edu.utez.recetario.model.*;
 import edu.utez.recetario.service.*;
+import org.apache.tomcat.util.http.fileupload.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
 
 @Controller
@@ -200,6 +206,17 @@ public class RecetaController {
                 Arrays.asList(files).stream().forEach(file -> {
                     String fileName = StringUtils.cleanPath(file.getOriginalFilename());
                     String uploadDir = "uploads/"+receta.getTitulo().replaceAll("\\s","");
+
+                    try {
+                        Path uploadPath = Paths.get(uploadDir);
+                        File dirFiles = uploadPath.toFile();
+                        FileUtils.deleteDirectory(dirFiles);
+                        logger.info("Folder de la receta eliminado");
+                    } catch (IOException e) {
+                        logger.info("No se pudo eliminar el proyecto "+ e.getMessage());
+                    } catch (IllegalArgumentException e) {
+                        logger.info("El folder de la receta no existe "+e.getMessage());
+                    }
 
                     almacenamientoImagenesService.aSave(file, uploadDir, fileName);
                     fileNames.add(file.getOriginalFilename());

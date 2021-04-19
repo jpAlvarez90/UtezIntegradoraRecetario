@@ -17,23 +17,21 @@ public class AlmacenamientoImagenesService {
 
     private UsuarioService usuarioService;
 
-    //@Override
-    public void init() {
+    public void aSave(MultipartFile multipartFile, String uploadDir, String fileName) {
         try {
-            if (!Files.exists(root))
-                Files.createDirectory(root);
+            Path uploadPath = Paths.get(uploadDir);
+            if (!Files.exists(uploadPath)){
+                Files.createDirectories(uploadPath);
+            }
+            if (!multipartFile.isEmpty()) {
+                try(InputStream inputStream = multipartFile.getInputStream()) {
+                    Path filePath = uploadPath.resolve(fileName);
+                    Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
+                } catch (IOException e) {
+                    throw new IOException("No se pudo guardar la imagen "+fileName, e);
+                }
+            }
         } catch (IOException e) {
-            usuarioService.codigosError(e.toString());
-            throw new RuntimeException("No se pudo inizializar la carpeta de las imagenes");
-        }
-    }
-
-    //@Override
-    public void save(MultipartFile multipartFile) {
-        try {
-            Files.copy(multipartFile.getInputStream(), this.root.resolve("receta_"+multipartFile.getOriginalFilename()));
-        } catch (IOException e) {
-            usuarioService.codigosError(e.toString());
             throw new RuntimeException("No se pudo guardar el archivo. Error :: "+e.getMessage());
         }
     }
@@ -44,8 +42,7 @@ public class AlmacenamientoImagenesService {
                 Files.delete(Paths.get("src/main/resources/static/uploads", imageName));
             }
         } catch (IOException e) {
-            usuarioService.codigosError(e.toString());
-            throw new RuntimeException("No se pudo guardar el archivo. Error :: "+e.getMessage());
+            throw new RuntimeException("No se pudo eliminar el archivo. Error :: "+e.getMessage());
         }
 
     }
