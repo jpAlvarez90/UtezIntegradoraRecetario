@@ -87,7 +87,7 @@ public class RecuperarContraseña {
             mensaje = usuarioService.codigosError(e.toString());
             System.out.println("Error en el controller de RecuperarContraseña -> sendEmail"+mensaje);
             model.addAttribute("mensaje",mensaje);
-            return "error/404";
+            return "error/error";
         }
     }
 
@@ -101,7 +101,7 @@ public class RecuperarContraseña {
             mensaje = usuarioService.codigosError(e.toString());
             System.out.println("Error en el controller de RecuperarContraseña -> cambioContrasena "+mensaje);
             model.addAttribute("mensaje",mensaje);
-            return "error/404";
+            return "error/error";
         }
     }
 
@@ -126,7 +126,7 @@ public class RecuperarContraseña {
            mensaje = usuarioService.codigosError(e.toString());
            System.out.println("Error en el controller de RecuperarContraseña -> cambiarContrasena "+mensaje);
            model.addAttribute("mensaje",mensaje);
-           return "error/404";
+           return "error/error";
        }
     }
 

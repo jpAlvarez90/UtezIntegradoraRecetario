@@ -16,35 +16,62 @@ public class RecetarioService implements RecetarioInterface {
     @Autowired
     private RecetarioRepository recetarioRepository;
 
+    private UsuarioService usuarioService;
+
     @Override
     public List<Recetario> getAllRecetarios() {
-        return recetarioRepository.findAll();
+        try{
+            return recetarioRepository.findAll();
+        }catch (Exception e){
+            usuarioService.codigosError(e.toString());
+            return null;
+        }
     }
 
     @Override
     public Recetario saveRecetario(Recetario recetario) {
-        return recetarioRepository.save(recetario);
+        try{
+            return recetarioRepository.save(recetario);
+        }catch (Exception e){
+            usuarioService.codigosError(e.toString());
+            return null;
+        }
     }
 
     @Override
     public Recetario getRecetarioById(long id) {
-        Optional<Recetario> optional = recetarioRepository.findById(id);
-        Recetario recetario = null;
-        if (optional.isPresent()) {
-            recetario = optional.get();
-        } else {
-            throw new RuntimeException("Recetario not found for id :: "+id);
+        try{
+            Optional<Recetario> optional = recetarioRepository.findById(id);
+            Recetario recetario = null;
+            if (optional.isPresent()) {
+                recetario = optional.get();
+            } else {
+                throw new RuntimeException("Recetario not found for id :: "+id);
+            }
+            return recetario;
+        }catch (Exception e){
+            usuarioService.codigosError(e.toString());
+            return null;
         }
-        return recetario;
+
     }
 
     @Override
     public void deleteRecetarioById(long id) {
-        recetarioRepository.deleteById(id);
+        try{
+            recetarioRepository.deleteById(id);
+        }catch (Exception e){
+            usuarioService.codigosError(e.toString());
+        }
     }
 
     @Override
     public List<Recetario> getRecetariosByUserId(Usuario usuario) {
-        return recetarioRepository.findAllByUsuario(usuario);
+        try{
+            return recetarioRepository.findAllByUsuario(usuario);
+        }catch (Exception e){
+            usuarioService.codigosError(e.toString());
+            return null;
+        }
     }
 }

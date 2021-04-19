@@ -16,9 +16,17 @@ public class SubCategoriaService implements SubCategoriaInterface {
     @Autowired
     private SubCategoriaRepository subCategoriaRepository;
 
+    private  UsuarioService userService;
+
     @Override
     public List<SubCategoria> getAllSubCategorias() {
-        return subCategoriaRepository.findAll();
+
+        try {
+            return subCategoriaRepository.findAll();
+        }catch (Exception e){
+            userService.codigosError(e.toString());
+            return null;
+        }
     }
 
     @Override

@@ -78,7 +78,7 @@ public class RecetarioController {
             mensaje = usuarioService.codigosError(e.toString());
             System.out.println("Error en el controller de Recetario -> misRecetarios "+mensaje);
             model.addAttribute("mensaje",mensaje);
-            return "error/404";
+            return "error/error";
         }
 
     }
@@ -103,46 +103,58 @@ public class RecetarioController {
             mensaje = usuarioService.codigosError(e.toString());
             System.out.println("Error en el controller de Recetario -> registrarRecetario "+mensaje);
             model.addAttribute("mensaje",mensaje);
-            return "error/404";
+            return "error/error";
         }
     }
 
     @GetMapping("/eliminar-recetario/{idRecetario}")
-    public String eliminarRecetario(@PathVariable("idRecetario") long idRecetario, RedirectAttributes redirectAttributes) {
+    public String eliminarRecetario(@PathVariable("idRecetario") long idRecetario, RedirectAttributes redirectAttributes, Model model) {
 
-        Recetario recetario = recetarioService.getRecetarioById(idRecetario);
+        try{
+            Recetario recetario = recetarioService.getRecetarioById(idRecetario);
+            List<Receta> recetaList = recetaService.getAllRecetasByRecetario(recetario);
+            if (!recetaList.isEmpty()){
+                redirectAttributes.addFlashAttribute("eliminarRecetario",true);
+                return "redirect:/ver-recetarios";
+            }
 
-        List<Receta> recetaList = recetaService.getAllRecetasByRecetario(recetario);
+            recetarioService.deleteRecetarioById(idRecetario);
+            redirectAttributes.addFlashAttribute("eliminado",true);
 
-        if (!recetaList.isEmpty()){
-            redirectAttributes.addFlashAttribute("eliminarRecetario",true);
             return "redirect:/ver-recetarios";
+        }catch (Exception e){
+            mensaje = usuarioService.codigosError(e.toString());
+            System.out.println("Error en el controller de Recetario -> Eliminar Recetario "+mensaje);
+            model.addAttribute("mensaje",mensaje);
+            return "error/error";
         }
-
-        recetarioService.deleteRecetarioById(idRecetario);
-        redirectAttributes.addFlashAttribute("eliminado",true);
-
-        return "redirect:/ver-recetarios";
     }
 
     @GetMapping("/dejar-seguir-recetario/{idRecetario}")
-    public String dejarSeguirRecetario(@PathVariable("idRecetario") long idRecetario, RedirectAttributes redirectAttributes) {
+    public String dejarSeguirRecetario(@PathVariable("idRecetario") long idRecetario, RedirectAttributes redirectAttributes, Model model) {
 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        String username = userDetails.getUsername();
+       try {
+           Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+           UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+           String username = userDetails.getUsername();
 
-        Optional<Usuario> tempUsuario = usuarioService.getUsuarioByUsername(username);
-        Usuario usuario = tempUsuario.get();
+           Optional<Usuario> tempUsuario = usuarioService.getUsuarioByUsername(username);
+           Usuario usuario = tempUsuario.get();
 
-        Recetario recetario = recetarioService.getRecetarioById(idRecetario);
+           Recetario recetario = recetarioService.getRecetarioById(idRecetario);
 
-        UsuarioFollowRecetario ufr = usuarioFollowRecetarioService.getUsuarioFollowingRecetario(usuario, recetario);
+           UsuarioFollowRecetario ufr = usuarioFollowRecetarioService.getUsuarioFollowingRecetario(usuario, recetario);
 
-        usuarioFollowRecetarioService.deleteUsuarioFollowRecetario(ufr);
+           usuarioFollowRecetarioService.deleteUsuarioFollowRecetario(ufr);
 
-        redirectAttributes.addFlashAttribute("dejarSeguirRecetario", true);
+           redirectAttributes.addFlashAttribute("dejarSeguirRecetario", true);
 
-        return "redirect:/ver-recetarios";
+           return "redirect:/ver-recetarios";
+       }catch (Exception e){
+           mensaje = usuarioService.codigosError(e.toString());
+           System.out.println("Error en el controller de Recetario -> dejarSeguirRecetario "+mensaje);
+           model.addAttribute("mensaje",mensaje);
+           return "error/error";
+       }
     }
 }

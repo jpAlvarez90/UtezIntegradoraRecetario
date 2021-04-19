@@ -16,64 +16,104 @@ public class RecetaService implements RecetaInterface {
     @Autowired
     private RecetaRepository recetaRepository;
 
+    private UsuarioService usuarioService;
     @Override
     public List<Receta> getAllRecetas() {
-        return recetaRepository.findAll();
+        try {
+            return recetaRepository.findAll();
+        }catch (Exception e){
+            usuarioService.codigosError(e.toString());
+            return null;
+        }
+
     }
 
     @Override
     public Receta saveReceta(Receta receta) {
-        return recetaRepository.save(receta);
+        try {
+            return recetaRepository.save(receta);
+        }catch (Exception e){
+            usuarioService.codigosError(e.toString());
+            return null;
+        }
     }
 
     @Override
     public Receta getRecetaById(Long id) {
-        Optional<Receta> optional = recetaRepository.findById(id);
-        Receta receta = null;
-        if (optional.isPresent()) {
-            receta = optional.get();
-        } else {
-            throw new RuntimeException("Receta not found for id :: "+id);
+        try {
+            Optional<Receta> optional = recetaRepository.findById(id);
+            Receta receta = null;
+            if (optional.isPresent()) {
+                receta = optional.get();
+            } else {
+                throw new RuntimeException("Receta not found for id :: "+id);
+            }
+            return receta;
+        }catch (Exception e){
+            usuarioService.codigosError(e.toString());
+            return null;
         }
-        return receta;
     }
 
     @Override
     public void deleteRecetaById(Long id) {
-        recetaRepository.deleteById(id);
+        try {
+            recetaRepository.deleteById(id);
+        }catch (Exception e){
+            usuarioService.codigosError(e.toString());
+        }
     }
 
     @Override
     public List<Receta> getAllRecetasByRecetario(Recetario recetario) {
-        return recetaRepository.findAllByRecetario(recetario);
+        try {
+            return recetaRepository.findAllByRecetario(recetario);
+        }catch (Exception e){
+            usuarioService.codigosError(e.toString());
+            return null;
+        }
     }
 
     @Override
     public List<Receta> getAllRecetasByOrderADesc(int limit) {
-        return recetaRepository.findByOrderByIdRecetaDesc(limit);
+        try {
+            return recetaRepository.findByOrderByIdRecetaDesc(limit);
+        }catch (Exception e){
+            usuarioService.codigosError(e.toString());
+            return null;
+        }
     }
 
     @Override
     public List<Receta> getAllRecetasByVistasDesc(int limit) {
-        return recetaRepository.findByOrderByVistasDesc(limit);
+        try {
+            return recetaRepository.findByOrderByVistasDesc(limit);
+        }catch (Exception e){
+            usuarioService.codigosError(e.toString());
+            return null;
+        }
     }
 
     @Override
     public int saveVistasReceta(long idReceta) {
-        Optional<Receta> receta = recetaRepository.findById(idReceta);
-        int views = 0;
+        try {
+            Optional<Receta> receta = recetaRepository.findById(idReceta);
+            int views = 0;
 
-        if (receta.isPresent()) {
+            if (receta.isPresent()) {
 
-            Receta temp = receta.get();
-            views = temp.getVistas();
-            views = views+1;
+                Receta temp = receta.get();
+                views = temp.getVistas();
+                views = views+1;
 
-            recetaRepository.saveVistasRecetas(idReceta, views);
+                recetaRepository.saveVistasRecetas(idReceta, views);
 
+            }
+            return views;
+        }catch (Exception e){
+            usuarioService.codigosError(e.toString());
+            return 0;
         }
-
-        return views;
     }
 
 

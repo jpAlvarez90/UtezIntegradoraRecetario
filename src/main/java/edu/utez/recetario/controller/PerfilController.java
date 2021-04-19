@@ -86,7 +86,7 @@ public class PerfilController {
             mensaje = usuarioService.codigosError(e.toString());
             System.out.println("Error en el controller de Perfil -> categoria"+mensaje);
             model.addAttribute("mensaje",mensaje);
-            return "error/404";
+            return "error/error";
         }
     }
 
@@ -105,7 +105,7 @@ public class PerfilController {
             mensaje = usuarioService.codigosError(e.toString());
             System.out.println("Error en el controller de Perfil -> crearCategoria"+mensaje);
             model.addAttribute("mensaje",mensaje);
-            return "error/404";
+            return "error/error";
         }
 
     }
@@ -135,7 +135,7 @@ public class PerfilController {
             mensaje = usuarioService.codigosError(e.toString());
             System.out.println("Error en el controller de Perfil -> editarCategoria"+mensaje);
             model.addAttribute("mensaje",mensaje);
-            return "error/404";
+            return "error/error";
         }
     }
 
@@ -150,7 +150,7 @@ public class PerfilController {
             mensaje = usuarioService.codigosError(e.toString());
             System.out.println("Error en el controller de Perfil -> eliminarCategoria"+mensaje);
             model.addAttribute("mensaje",mensaje);
-            return "error/404";
+            return "error/error";
         }
 
 
@@ -182,7 +182,7 @@ public class PerfilController {
             mensaje = usuarioService.codigosError(e.toString());
             System.out.println("Error en el controller de Perfil -> crearSubcategoria"+mensaje);
             model.addAttribute("mensaje",mensaje);
-            return "error/404";
+            return "error/error";
        }
     }
 
@@ -214,7 +214,7 @@ public class PerfilController {
             mensaje = usuarioService.codigosError(e.toString());
             System.out.println("Error en el controller de Perfil -> editarSubcategoria"+mensaje);
             model.addAttribute("mensaje",mensaje);
-            return "error/404";
+            return "error/error";
         }
     }
 
@@ -229,7 +229,7 @@ public class PerfilController {
             mensaje = usuarioService.codigosError(e.toString());
             System.out.println("Error en el controller de Perfil -> eliminarSubcategoria"+mensaje);
             model.addAttribute("mensaje",mensaje);
-            return "error/404";
+            return "error/error";
         }
 
 
@@ -251,7 +251,7 @@ public class PerfilController {
             mensaje = usuarioService.codigosError(e.toString());
             System.out.println("Error en el controller de Perfil -> editarPerfil" + mensaje);
             model.addAttribute("mensaje", mensaje);
-            return "error/404";
+            return "error/error";
         }
     }
 }

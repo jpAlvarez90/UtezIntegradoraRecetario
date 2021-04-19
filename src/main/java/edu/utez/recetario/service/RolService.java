@@ -15,32 +15,55 @@ public class RolService implements RolInterface {
     @Autowired
     private RolRepository rolRepository;
 
+    private UsuarioService userService;
+
     @Override
     public List<Rol> getAllRoles() {
-        return rolRepository.findAll();
+        try{
+            return rolRepository.findAll();
+        }catch (Exception e){
+            userService.codigosError(e.toString());
+            return null;
+        }
     }
 
     @Override
     public Rol saveRole(Rol rol) {
-        return rolRepository.save(rol);
+        try{
+            return rolRepository.save(rol);
+        }catch (Exception e){
+            userService.codigosError(e.toString());
+            return null;
+        }
     }
 
     @Override
     public Rol getRole(Long id) {
-        Optional<Rol> optional = rolRepository.findById(id);
-        Rol rol = null;
-        if (optional.isPresent()){
-            rol = optional.get();
-        } else {
-            throw new RuntimeException("Rol not found for id: "+id);
+        try{
+            Optional<Rol> optional = rolRepository.findById(id);
+            Rol rol = null;
+            if (optional.isPresent()){
+                rol = optional.get();
+            } else {
+                throw new RuntimeException("Rol not found for id: "+id);
+            }
+
+            return rol;
+        }catch (Exception e){
+            userService.codigosError(e.toString());
+            return null;
         }
 
-        return rol;
     }
 
     @Override
     public void deleteRole(Long id) {
-        rolRepository.deleteById(id);
+        try{
+            rolRepository.deleteById(id);
+        }catch (Exception e){
+            userService.codigosError(e.toString());
+        }
+
     }
 
 }

@@ -14,6 +14,7 @@ import java.nio.file.Paths;
 public class AlmacenamientoImagenesService implements AlmacenamientoImagenesInterface {
 
     private final Path root = Paths.get("uploads");
+    private  UsuarioService usuarioService;
 
     @Override
     public void init() {
@@ -21,6 +22,7 @@ public class AlmacenamientoImagenesService implements AlmacenamientoImagenesInte
             if (!Files.exists(root))
                 Files.createDirectory(root);
         } catch (IOException e) {
+            usuarioService.codigosError(e.toString());
             throw new RuntimeException("No se pudo inizializar la carpeta de las imagenes");
         }
     }
@@ -30,6 +32,7 @@ public class AlmacenamientoImagenesService implements AlmacenamientoImagenesInte
         try {
             Files.copy(multipartFile.getInputStream(), this.root.resolve("receta_"+multipartFile.getOriginalFilename()));
         } catch (IOException e) {
+            usuarioService.codigosError(e.toString());
             throw new RuntimeException("No se pudo guardar el archivo. Error :: "+e.getMessage());
         }
     }
@@ -38,6 +41,7 @@ public class AlmacenamientoImagenesService implements AlmacenamientoImagenesInte
         try {
             Files.copy(multipartFile.getInputStream(), this.root.resolve("receta_"+idRecetario+"_"+cont+"_"+multipartFile.getOriginalFilename()));
         } catch (IOException e) {
+            usuarioService.codigosError(e.toString());
             throw new RuntimeException("No se pudo guardar el archivo. Error :: "+e.getMessage());
         }
     }

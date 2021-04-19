@@ -76,7 +76,7 @@ public class RecetaController {
            mensaje = usuarioService.codigosError(e.toString());
            System.out.println("Error en el controller de Receta -> verReceta"+mensaje);
            model.addAttribute("mensaje",mensaje);
-           return "error/404";
+           return "error/error";
        }
     }
 
@@ -98,7 +98,7 @@ public class RecetaController {
            mensaje = usuarioService.codigosError(e.toString());
            System.out.println("Error en el controller de Receta -> verRecetasSeguidas"+mensaje);
            model.addAttribute("mensaje",mensaje);
-           return "error/404";
+           return "error/error";
        }
 
     }
@@ -115,7 +115,7 @@ public class RecetaController {
             mensaje = usuarioService.codigosError(e.toString());
             System.out.println("Error en el controller de Receta -> verRecetaSeguida"+mensaje);
             model.addAttribute("mensaje",mensaje);
-            return "error/404";
+            return "error/error";
         }
     }
 
@@ -135,7 +135,7 @@ public class RecetaController {
            mensaje = usuarioService.codigosError(e.toString());
            System.out.println("Error en el controller de Receta -> crearReceta"+mensaje);
            model.addAttribute("mensaje",mensaje);
-           return "error/404";
+           return "error/error";
        }
     }
 
@@ -227,7 +227,7 @@ public class RecetaController {
             mensaje = usuarioService.codigosError(e.toString());
             System.out.println("Error en el controller de Receta -> crearReceta"+mensaje);
             model.addAttribute("mensaje",mensaje);
-            return "error/404";
+            return "error/error";
         }
     }
 
@@ -254,7 +254,7 @@ public class RecetaController {
             mensaje = usuarioService.codigosError(e.toString());
             System.out.println("Error en el controller de Receta -> editarReceta"+mensaje);
             model.addAttribute("mensaje",mensaje);
-            return "error/404";
+            return "error/error";
         }
     }
 
@@ -267,7 +267,7 @@ public class RecetaController {
             mensaje = usuarioService.codigosError(e.toString());
             System.out.println("Error en el controller de Receta -> eliminarReceta"+mensaje);
             model.addAttribute("mensaje",mensaje);
-            return "error/404";
+            return "error/error";
         }
     }
 
@@ -296,7 +296,7 @@ public class RecetaController {
            mensaje = usuarioService.codigosError(e.toString());
            System.out.println("Error en el controller de Receta -> seguirRecetario"+mensaje);
            model.addAttribute("mensaje",mensaje);
-           return "error/404";
+           return "error/error";
        }
     }
 

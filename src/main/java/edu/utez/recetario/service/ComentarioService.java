@@ -16,35 +16,62 @@ public class ComentarioService implements ComentarioInterface {
     @Autowired
     private ComentarioRepository comentarioRepository;
 
+    private UsuarioService usuarioService;
+
     @Override
     public List<Comentario> getAllComentarios() {
-        return comentarioRepository.findAll();
+        try{
+            return comentarioRepository.findAll();
+        }catch (Exception e){
+            usuarioService.codigosError(e.toString());
+            return null;
+        }
     }
 
     @Override
     public Comentario saveComentario(Comentario comentario) {
-        return comentarioRepository.save(comentario);
+        try{
+            return comentarioRepository.save(comentario);
+        }catch (Exception e){
+            usuarioService.codigosError(e.toString());
+            return null;
+        }
     }
 
     @Override
     public Comentario getComentarioById(long id) {
-        Optional<Comentario> optional = comentarioRepository.findById(id);
-        Comentario comentario = null;
-        if (optional.isPresent()) {
-            comentario = optional.get();
-        } else {
-            throw new RuntimeException("Comentario not found for id :: "+id);
+        try{
+            Optional<Comentario> optional = comentarioRepository.findById(id);
+            Comentario comentario = null;
+            if (optional.isPresent()) {
+                comentario = optional.get();
+            } else {
+                throw new RuntimeException("Comentario not found for id :: "+id);
+            }
+            return comentario;
+        }catch (Exception e){
+            usuarioService.codigosError(e.toString());
+            return null;
         }
-        return comentario;
+
     }
 
     @Override
     public void deleteComentarioById(long id) {
-        comentarioRepository.deleteById(id);
+        try{
+            comentarioRepository.deleteById(id);
+        }catch (Exception e){
+            usuarioService.codigosError(e.toString());
+        }
     }
 
     @Override
     public List<Comentario> getComentarioByReceta(Receta receta) {
-        return comentarioRepository.getAllByReceta(receta);
+        try{
+            return comentarioRepository.getAllByReceta(receta);
+        }catch (Exception e){
+            usuarioService.codigosError(e.toString());
+            return null;
+        }
     }
 }

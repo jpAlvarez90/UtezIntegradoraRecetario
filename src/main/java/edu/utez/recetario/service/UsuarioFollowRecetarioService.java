@@ -14,54 +14,78 @@ import java.util.List;
 public class UsuarioFollowRecetarioService implements UsuarioFollowRecetarioInterface {
 
     private UsuarioFollowRecetarioRepository usuarioFollowRecetarioRepository;
+    private UsuarioService userService;
 
     @Autowired
     public UsuarioFollowRecetarioService(UsuarioFollowRecetarioRepository usuarioFollowRecetarioRepository) {
-        this.usuarioFollowRecetarioRepository = usuarioFollowRecetarioRepository;
+        try {
+            this.usuarioFollowRecetarioRepository = usuarioFollowRecetarioRepository;
+        }catch (Exception e){
+            userService.codigosError(e.toString());
+        }
     }
 
     @Override
     public List<UsuarioFollowRecetario> getAllFollowingRecetarios(Usuario usuario) {
-        return usuarioFollowRecetarioRepository.findAllByUsuario(usuario);
+        try {
+            return usuarioFollowRecetarioRepository.findAllByUsuario(usuario);
+        }catch (Exception e){
+            userService.codigosError(e.toString());
+            return null;
+        }
     }
 
     @Override
     public boolean saveUsuarioFollowRecetario(Recetario recetario, Usuario usuario) {
 
-        boolean isRegistered = false;
+        try {
+            boolean isRegistered = false;
 
-        List<UsuarioFollowRecetario> usuarioFollowRecetarioList = usuarioFollowRecetarioRepository.findAll();
+            List<UsuarioFollowRecetario> usuarioFollowRecetarioList = usuarioFollowRecetarioRepository.findAll();
 
-        // Primer paso: Verificar que el usuario no siga su propio recetario
-        if (!recetario.getUsuario().getIdUsuario().equals(usuario.getIdUsuario())) {
-            for (UsuarioFollowRecetario ufr: usuarioFollowRecetarioList) {
-                // Segundo paso: Verificar que el usuario no siga un recetario que ya esta siguiendo
-                if ((ufr.getRecetario().getIdRecetario().equals(recetario.getIdRecetario()))
-                        &&
-                        (ufr.getUsuario().getIdUsuario().equals(usuario.getIdUsuario()))){
-                    isRegistered = true;
-                    break;
+            // Primer paso: Verificar que el usuario no siga su propio recetario
+            if (!recetario.getUsuario().getIdUsuario().equals(usuario.getIdUsuario())) {
+                for (UsuarioFollowRecetario ufr: usuarioFollowRecetarioList) {
+                    // Segundo paso: Verificar que el usuario no siga un recetario que ya esta siguiendo
+                    if ((ufr.getRecetario().getIdRecetario().equals(recetario.getIdRecetario()))
+                            &&
+                            (ufr.getUsuario().getIdUsuario().equals(usuario.getIdUsuario()))){
+                        isRegistered = true;
+                        break;
+                    }
                 }
+            } else {
+                isRegistered = true;
             }
-        } else {
-            isRegistered = true;
-        }
 
-        if (!isRegistered) {
-            UsuarioFollowRecetario ufr = new UsuarioFollowRecetario(recetario,usuario);
-            usuarioFollowRecetarioRepository.save(ufr);
+            if (!isRegistered) {
+                UsuarioFollowRecetario ufr = new UsuarioFollowRecetario(recetario,usuario);
+                usuarioFollowRecetarioRepository.save(ufr);
+            }
+            return isRegistered;
+        }catch (Exception e){
+            userService.codigosError(e.toString());
+            return false;
         }
-        return isRegistered;
     }
 
     @Override
     public UsuarioFollowRecetario getUsuarioFollowingRecetario(Usuario usuario, Recetario recetario) {
-        return usuarioFollowRecetarioRepository.findByUsuarioAndRecetario(usuario, recetario);
+        try {
+            return usuarioFollowRecetarioRepository.findByUsuarioAndRecetario(usuario, recetario);
+        }catch (Exception e){
+            userService.codigosError(e.toString());
+            return null;
+        }
     }
 
     @Override
     public void deleteUsuarioFollowRecetario(UsuarioFollowRecetario ufr) {
-        usuarioFollowRecetarioRepository.delete(ufr);
+        try{
+            usuarioFollowRecetarioRepository.delete(ufr);
+        }catch (Exception e){
+            userService.codigosError(e.toString());
+        }
     }
 
 }

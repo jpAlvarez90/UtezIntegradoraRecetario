@@ -15,35 +15,61 @@ public class CategoriaService implements CategoriaInterface {
     @Autowired
     private CategoriaRepository categoriaRepository;
 
+    private  UsuarioService usuarioService;
+
     @Override
     public List<Categoria> getAllCategorias() {
-        return categoriaRepository.findAll();
+        try {
+            return categoriaRepository.findAll();
+        }catch (Exception e){
+            usuarioService.codigosError(e.toString());
+            return null;
+        }
     }
 
     @Override
     public Categoria saveCategoria(Categoria categoria) {
-        return categoriaRepository.save(categoria);
+        try {
+            return categoriaRepository.save(categoria);
+        }catch (Exception e){
+            usuarioService.codigosError(e.toString());
+            return null;
+        }
     }
 
     @Override
     public Categoria getCategoriaById(long id) {
-        Optional<Categoria> optional = categoriaRepository.findById(id);
-        Categoria categoria = null;
-        if (optional.isPresent()) {
-            categoria = optional.get();
-        } else {
-            throw new RuntimeException("Categoria not found for id :: "+id);
+        try {
+            Optional<Categoria> optional = categoriaRepository.findById(id);
+            Categoria categoria = null;
+            if (optional.isPresent()) {
+                categoria = optional.get();
+            } else {
+                throw new RuntimeException("Categoria not found for id :: "+id);
+            }
+            return categoria;
+        }catch (Exception e){
+            usuarioService.codigosError(e.toString());
+            return null;
         }
-        return categoria;
     }
 
     @Override
     public void deleteCategoriaById(long id) {
-        categoriaRepository.deleteById(id);
+        try {
+            categoriaRepository.deleteById(id);
+        }catch (Exception e){
+            usuarioService.codigosError(e.toString());
+        }
     }
 
     @Override
     public Categoria findByNombre(String nombreCategoria) {
-        return categoriaRepository.findByNombre(nombreCategoria);
+        try {
+            return categoriaRepository.findByNombre(nombreCategoria);
+        }catch (Exception e){
+            usuarioService.codigosError(e.toString());
+            return null;
+        }
     }
 }

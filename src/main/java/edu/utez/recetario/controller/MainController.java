@@ -32,6 +32,8 @@ public class MainController {
 
     private UsuarioService usuarioService;
 
+    private String mensaje;
+
     @Autowired
     public MainController(RecetaService recetaService, ComentarioService comentarioService, CalificacionService calificacionService, UsuarioService usuarioService) {
         this.recetaService = recetaService;
@@ -42,35 +44,63 @@ public class MainController {
 
     @GetMapping("/")
     public String main(Model model){
-        List<Receta> listaRecetas= recetaService.getAllRecetasByOrderADesc(10);
-        model.addAttribute("listaRecetas",listaRecetas);
-        return "index";
+        try{
+            List<Receta> listaRecetas= recetaService.getAllRecetasByOrderADesc(10);
+            model.addAttribute("listaRecetas",listaRecetas);
+            return "index";
+        }catch (Exception e){
+            mensaje = usuarioService.codigosError(e.toString());
+            System.out.println("Error en el Main Controller -> main"+mensaje);
+            model.addAttribute("mensaje",mensaje);
+            return "error/error";
+        }
     }
 
     @GetMapping("/mejor-calificado")
     public String mejorCalificados(Model model) {
 
-        List<Calificacion> calificacionList = calificacionService.getRecetasByCalificaciones();
-        List<Receta> listaRecetas = new ArrayList<>();
+        try {
+            List<Calificacion> calificacionList = calificacionService.getRecetasByCalificaciones();
+            List<Receta> listaRecetas = new ArrayList<>();
 
-        for (Calificacion calificacion: calificacionList) {
-            listaRecetas.add(calificacion.getReceta());
+            for (Calificacion calificacion: calificacionList) {
+                listaRecetas.add(calificacion.getReceta());
+            }
+
+            model.addAttribute("listaRecetas",listaRecetas);
+            return "index";
+        }catch (Exception e){
+            mensaje = usuarioService.codigosError(e.toString());
+            System.out.println("Error en el Main Controller -> mejorCalificadas"+mensaje);
+            model.addAttribute("mensaje",mensaje);
+            return "error/error";
         }
-
-        model.addAttribute("listaRecetas",listaRecetas);
-        return "index";
     }
 
     @GetMapping("/mas-buscados")
     public String masBuscados(Model model) {
-        List<Receta> listaRecetas = recetaService.getAllRecetasByVistasDesc(10);
-        model.addAttribute("listaRecetas",listaRecetas);
-        return "index";
+        try{
+            List<Receta> listaRecetas = recetaService.getAllRecetasByVistasDesc(10);
+            model.addAttribute("listaRecetas",listaRecetas);
+            return "index";
+        }catch (Exception e){
+            mensaje = usuarioService.codigosError(e.toString());
+            System.out.println("Error en el Main Controller -> masBuscados"+mensaje);
+            model.addAttribute("mensaje",mensaje);
+            return "error/error";
+        }
     }
 
     @GetMapping("/{idCategoria}")
-    public String porCategoria(@PathVariable("idCategoria") long idCategoria) {
-        return "index";
+    public String porCategoria(@PathVariable("idCategoria") long idCategoria, Model model) {
+        try{
+            return "index";
+        }catch (Exception e){
+            mensaje = usuarioService.codigosError(e.toString());
+            System.out.println("Error en el Main Controller -> porCategoria"+mensaje);
+            model.addAttribute("mensaje",mensaje);
+            return "error/error";
+        }
     }
 
     @GetMapping("/ver-receta/{idReceta}")
@@ -78,13 +108,20 @@ public class MainController {
                             @ModelAttribute("comentario") Comentario comentario,
                             Model model) {
 
-        Receta receta = recetaService.getRecetaById(idReceta);
-        List<Comentario> comentarios = comentarioService.getComentarioByReceta(receta);
+       try{
+           Receta receta = recetaService.getRecetaById(idReceta);
+           List<Comentario> comentarios = comentarioService.getComentarioByReceta(receta);
 
-        model.addAttribute("receta",receta);
-        model.addAttribute("comentarios",comentarios);
+           model.addAttribute("receta",receta);
+           model.addAttribute("comentarios",comentarios);
 
-        return "/views/receta/ver_receta";
+           return "/views/receta/ver_receta";
+       }catch (Exception e){
+           mensaje = usuarioService.codigosError(e.toString());
+           System.out.println("Error en el Main Controller -> verReceta"+mensaje);
+           model.addAttribute("mensaje",mensaje);
+           return "error/error";
+       }
     }
 
 
