@@ -8,7 +8,6 @@
             <div class="container">
                 <div class="button-container" style="width: 100%; height: 450px;" id="box" >
                     <a class="btnRegresar" th:href="@{/}" ><i class="fas fa-arrow-left"></i> Regresar</a>
-                    <!--<img th:src="@{'/uploads/receta_'+${#strings.substringBefore(receta.imagenes,';')}}" style="width: 100%; height: 450px;">-->
 
                     <img th:if="${#strings.contains(receta.imagenes, 'default.jpg')}" th:src="@{'/uploads/default.jpg'}"/>
 

@@ -29,28 +29,4 @@ document.addEventListener("DOMContentLoaded", function(){
             });
         })
     }
-    // end if innerWidth
 });
-// DOMContentLoaded  end
-/*
-    $(document).ready(function() {
-        $('.dropdown-item').hover(function() {
-            console.log("Entro al script...");
-            $.getJSON("http://localhost:8080/subcategoriasMenu", {
-                nombreCategoria: $(this).text()
-            }, function (data){
-                console.log(data);
-                if (data != null) {
-                    var html = '<div></div>';
-                    $.each(data, function(i,v){
-                        html += '<li><a class="dropdown-item" href="#">'+ data[i].nombre+'</a></li>';
-                    });
-                    $('.subcategoriaMenu').html(html);
-                    data = null;
-                } else {
-                    $('.subcategoriaMenu').html('<li><a class="dropdown-item" href="#">...</a></li>')
-                }
-            })
-        });
-    });
-*/

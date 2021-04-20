@@ -69,7 +69,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements WebM
                         "/subcategorias",
                         "/login",
                         "/registrar-usuario",
-                        "/test/**",
                         "/ver-receta/**",
                         "/obtener-comentarios",
                         "/aumentar-vista",

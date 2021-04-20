@@ -20,8 +20,6 @@ public class DetallesUsuarioService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        //TODO Agregar opcion de iniciar sesion con el correo usando un REGEX para validar la cadena
-
         Optional<Usuario> usuario = usuarioRepository.findByUsername(username);
 
         usuario.orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado: "+ username));

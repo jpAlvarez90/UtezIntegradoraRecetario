@@ -55,6 +55,11 @@ public class MainController {
         }
     }
 
+    @GetMapping("/index")
+    public String index () {
+        return "redirect:/";
+    }
+
     @GetMapping("/mejor-calificado")
     public String mejorCalificados(Model model) {
 

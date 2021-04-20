@@ -11,7 +11,7 @@ import org.thymeleaf.extras.springsecurity5.dialect.SpringSecurityDialect;
 import javax.annotation.Resource;
 
 @SpringBootApplication
-public class RecetarioApplication implements CommandLineRunner {
+public class RecetarioApplication {
 
     @Resource
     AlmacenamientoImagenesService almacenamientoImagenesService;
@@ -28,8 +28,4 @@ public class RecetarioApplication implements CommandLineRunner {
     @Bean
     public SpringSecurityDialect springSecurityDialect(){ return new SpringSecurityDialect();}
 
-    @Override
-    public void run(String... args) throws Exception {
-        //almacenamientoImagenesService.init();
-    }
 }
